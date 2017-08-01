@@ -34,14 +34,17 @@ class MoreTableViewController: UITableViewController {
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     switch (indexPath.section, indexPath.row) {
     case (0, 0):
-      url = URL(string: "http://the-tale.org")
-      performSegue(withIdentifier: webSegue, sender: nil)
+      UIApplication.shared.open(URL(string: "http://the-tale.org")!)
+      // url = URL(string: "http://the-tale.org")
+      // performSegue(withIdentifier: webSegue, sender: nil)
     case (0, 1):
-      url = URL(string: "http://the-tale.org/guide/game")
-      performSegue(withIdentifier: webSegue, sender: nil)
+      UIApplication.shared.open(URL(string: "http://the-tale.org/guide/game")!)
+      // url = URL(string: "http://the-tale.org/guide/game")
+      // performSegue(withIdentifier: webSegue, sender: nil)
     case (0, 2):
-      url = URL(string: "http://the-tale.org/forum")
-      performSegue(withIdentifier: webSegue, sender: nil)
+      UIApplication.shared.open(URL(string: "http://the-tale.org/forum")!)
+      // url = URL(string: "http://the-tale.org/forum")
+      // performSegue(withIdentifier: webSegue, sender: nil)
     case (1, 0):
       performSegue(withIdentifier: aboutSegue, sender: nil)
     case (2, 0):
