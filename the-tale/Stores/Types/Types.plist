@@ -1,0 +1,1231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>hero</key>
+	<dict>
+		<key>action</key>
+		<dict>
+			<key>0</key>
+			<string>герой бездельничает</string>
+			<key>1</key>
+			<string>герой выполненяет задание</string>
+			<key>2</key>
+			<string>герой путешествует между городами</string>
+			<key>3</key>
+			<string>герой сражается 1x1 с монстром</string>
+			<key>4</key>
+			<string>герой воскресает</string>
+			<key>5</key>
+			<string>герой в городе</string>
+			<key>6</key>
+			<string>герой лечится</string>
+			<key>7</key>
+			<string>герой экипируется</string>
+			<key>8</key>
+			<string>герой торгует</string>
+			<key>9</key>
+			<string>герой путешествует около города</string>
+			<key>10</key>
+			<string>герой восстановливает энергию Хранителю</string>
+			<key>11</key>
+			<string>техническое действие для особых действий героя в заданиях</string>
+			<key>12</key>
+			<string>техническое прокси-действие для взаимодействия героев</string>
+			<key>13</key>
+			<string>герой сражается 1x1 с другим героем</string>
+			<key>14</key>
+			<string>техническое действие для тестов</string>
+			<key>15</key>
+			<string>герой ухаживает за спутником</string>
+			<key>16</key>
+			<string>действия героя сразу после иницииации (новый герой создан для нового игрока)</string>
+		</dict>
+		<key>honor</key>
+		<dict>
+			<key>0</key>
+			<string>бесчестный</string>
+			<key>1</key>
+			<string>подлый</string>
+			<key>2</key>
+			<string>порочный</string>
+			<key>3</key>
+			<string>себе на уме</string>
+			<key>4</key>
+			<string>порядочный</string>
+			<key>5</key>
+			<string>благородный</string>
+			<key>6</key>
+			<string>хозяин своего слова</string>
+		</dict>
+		<key>peacefulness</key>
+		<dict>
+			<key>0</key>
+			<string>скорый на расправу</string>
+			<key>1</key>
+			<string>вспыльчивый</string>
+			<key>2</key>
+			<string>задира</string>
+			<key>3</key>
+			<string>сдержанный</string>
+			<key>4</key>
+			<string>доброхот</string>
+			<key>5</key>
+			<string>миролюбивый</string>
+			<key>6</key>
+			<string>гуманист</string>
+		</dict>
+	</dict>
+	<key>city</key>
+	<dict>
+		<key>peacefulness</key>
+		<dict>
+			<key>0</key>
+			<string>территория вендетт</string>
+			<key>1</key>
+			<string>пристанище горячих голов</string>
+			<key>2</key>
+			<string>беспокойное место</string>
+			<key>3</key>
+			<string>неприметное поселение</string>
+			<key>4</key>
+			<string>спокойное место</string>
+			<key>5</key>
+			<string>мирное поселение</string>
+			<key>6</key>
+			<string>центр цивилизации</string>
+		</dict>
+		<key>honor</key>
+		<dict>
+			<key>0</key>
+			<string>криминальная столица</string>
+			<key>1</key>
+			<string>бандитская вотчина</string>
+			<key>2</key>
+			<string>неблагополучный город</string>
+			<key>3</key>
+			<string>обычный город</string>
+			<key>4</key>
+			<string>благополучное поселение</string>
+			<key>5</key>
+			<string>честный город</string>
+			<key>6</key>
+			<string>оплот благородства</string>
+		</dict>
+		<key>specialization</key>
+		<dict>
+			<key>0</key>
+			<string>Торговый центр</string>
+			<key>1</key>
+			<string>Город ремёсел</string>
+			<key>2</key>
+			<string>Форт</string>
+			<key>3</key>
+			<string>Политический центр</string>
+			<key>4</key>
+			<string>Полис</string>
+			<key>5</key>
+			<string>Курорт</string>
+			<key>6</key>
+			<string>Транспортный узел</string>
+			<key>7</key>
+			<string>Вольница</string>
+			<key>8</key>
+			<string>Святой город</string>
+			<key>9</key>
+			<string>Обычный город</string>
+		</dict>
+		<key>attribute</key>
+		<dict>
+			<key>0</key>
+			<string>размер города</string>
+			<key>2</key>
+			<string>радиус изменений</string>
+			<key>3</key>
+			<string>радиус владений</string>
+			<key>4</key>
+			<string>производство</string>
+			<key>5</key>
+			<string>товары</string>
+			<key>6</key>
+			<string>дары Хранителей</string>
+			<key>7</key>
+			<string>безопасность</string>
+			<key>8</key>
+			<string>транспорт</string>
+			<key>9</key>
+			<string>свобода</string>
+			<key>10</key>
+			<string>пошлина</string>
+			<key>11</key>
+			<string>стабильность</string>
+			<key>12</key>
+			<string>восстановление стабильности</string>
+			<key>13</key>
+			<string>бонус к опыту</string>
+			<key>14</key>
+			<string>цена покупки предметов</string>
+			<key>15</key>
+			<string>цена продажи предметов</string>
+			<key>16</key>
+			<string>сила покупаемых артефактов</string>
+			<key>19</key>
+			<string>восстановление энергии</string>
+			<key>20</key>
+			<string>лечение героя</string>
+			<key>21</key>
+			<string>лечение спутника</string>
+			<key>22</key>
+			<string>экономика</string>
+			<key>23</key>
+			<string>специализация «Торговый центр»</string>
+			<key>24</key>
+			<string>специализация «Город ремёсел»</string>
+			<key>25</key>
+			<string>специализация «Форт»</string>
+			<key>26</key>
+			<string>специализация «Политический центр»</string>
+			<key>27</key>
+			<string>специализация «Полис»</string>
+			<key>28</key>
+			<string>специализация «Курорт»</string>
+			<key>29</key>
+			<string>специализация «Транспортный узел»</string>
+			<key>30</key>
+			<string>специализация «Вольница»</string>
+			<key>31</key>
+			<string>специализация «Святой город»</string>
+			<key>32</key>
+			<string>сила специализаций</string>
+			<key>33</key>
+			<string>культура</string>
+		</dict>
+	</dict>
+	<key>quest</key>
+	<dict>
+		<key>actor</key>
+		<dict>
+			<key>0</key>
+			<string>житель</string>
+			<key>1</key>
+			<string>место</string>
+			<key>2</key>
+			<string>трата денег</string>
+		</dict>
+		<key>type</key>
+		<dict>
+			<key>0</key>
+			<string>кузница</string>
+			<key>1</key>
+			<string>домик рыболова</string>
+			<key>2</key>
+			<string>мастерская портного</string>
+			<key>3</key>
+			<string>лесопилка</string>
+			<key>4</key>
+			<string>домик охотника</string>
+			<key>5</key>
+			<string>сторожевая башня</string>
+			<key>6</key>
+			<string>торговый пост</string>
+			<key>7</key>
+			<string>трактир</string>
+			<key>8</key>
+			<string>логово вора</string>
+			<key>9</key>
+			<string>ферма</string>
+			<key>10</key>
+			<string>шахта</string>
+			<key>11</key>
+			<string>храм</string>
+			<key>12</key>
+			<string>больница</string>
+			<key>13</key>
+			<string>лаборатория</string>
+			<key>14</key>
+			<string>плаха</string>
+			<key>15</key>
+			<string>башня мага</string>
+			<key>16</key>
+			<string>ломбард</string>
+			<key>17</key>
+			<string>бюро</string>
+			<key>18</key>
+			<string>цех</string>
+			<key>19</key>
+			<string>сцена</string>
+			<key>20</key>
+			<string>конюшни</string>
+			<key>21</key>
+			<string>ранчо</string>
+		</dict>
+	</dict>
+	<key>common</key>
+	<dict>
+		<key>gender</key>
+		<dict>
+			<key>0</key>
+			<string>мужчина</string>
+			<key>1</key>
+			<string>женщина</string>
+			<key>2</key>
+			<string>оно</string>
+		</dict>
+		<key>race</key>
+		<dict>
+			<key>0</key>
+			<string>человек</string>
+			<key>1</key>
+			<string>эльф</string>
+			<key>2</key>
+			<string>орк</string>
+			<key>3</key>
+			<string>гоблин</string>
+			<key>4</key>
+			<string>дварф</string>
+		</dict>
+		<key>traitInt</key>
+		<dict>
+			<key>0</key>
+			<string>честь</string>
+			<key>1</key>
+			<string>миролюбие</string>
+		</dict>
+		<key>traitStr</key>
+		<dict>
+			<key>honor</key>
+			<string>честь</string>
+			<key>peacefulness</key>
+			<string>миролюбие</string>
+		</dict>
+	</dict>
+	<key>game</key>
+	<dict>
+		<key>authorizationStatus</key>
+		<dict>
+			<key>0</key>
+			<string>авторизация не запрашивалась</string>
+			<key>1</key>
+			<string>пользователь ещё не принял решение</string>
+			<key>2</key>
+			<string>авторизация прошла успешно</string>
+			<key>3</key>
+			<string>в авторизации отказано</string>
+		</dict>
+		<key>state</key>
+		<dict>
+			<key>0</key>
+			<string>остановлена</string>
+			<key>1</key>
+			<string>запущена</string>
+		</dict>
+	</dict>
+	<key>master</key>
+	<dict>
+		<key>profession</key>
+		<dict>
+			<key>0</key>
+			<string>кузнец</string>
+			<key>1</key>
+			<string>рыбак</string>
+			<key>2</key>
+			<string>портной</string>
+			<key>3</key>
+			<string>плотник</string>
+			<key>4</key>
+			<string>охотник</string>
+			<key>5</key>
+			<string>стражник</string>
+			<key>6</key>
+			<string>торговец</string>
+			<key>7</key>
+			<string>трактирщик</string>
+			<key>8</key>
+			<string>вор</string>
+			<key>9</key>
+			<string>фермер</string>
+			<key>10</key>
+			<string>шахтёр</string>
+			<key>11</key>
+			<string>священник</string>
+			<key>12</key>
+			<string>лекарь</string>
+			<key>13</key>
+			<string>алхимик</string>
+			<key>14</key>
+			<string>палач</string>
+			<key>15</key>
+			<string>волшебник</string>
+			<key>16</key>
+			<string>ростовщик</string>
+			<key>17</key>
+			<string>писарь</string>
+			<key>18</key>
+			<string>магомеханик</string>
+			<key>19</key>
+			<string>бард</string>
+			<key>20</key>
+			<string>дрессировщик</string>
+			<key>21</key>
+			<string>скотовод</string>
+		</dict>
+		<key>socialCommunication</key>
+		<dict>
+			<key>0</key>
+			<string>партнёр</string>
+			<key>1</key>
+			<string>конкурент</string>
+		</dict>
+		<key>cosmeticFeaturesOfCharacter</key>
+		<dict>
+			<key>0</key>
+			<string>правдолюб</string>
+			<key>1</key>
+			<string>плут</string>
+			<key>2</key>
+			<string>добряк</string>
+			<key>3</key>
+			<string>забияка</string>
+			<key>4</key>
+			<string>лидер</string>
+			<key>5</key>
+			<string>непоседа</string>
+			<key>6</key>
+			<string>поручитель</string>
+			<key>7</key>
+			<string>нигилист</string>
+			<key>8</key>
+			<string>затворник</string>
+			<key>9</key>
+			<string>организатор</string>
+		</dict>
+		<key>practicalFeaturesOfCharacter</key>
+		<dict>
+			<key>1</key>
+			<string>многомудрый</string>
+			<key>2</key>
+			<string>влиятельный</string>
+			<key>3</key>
+			<string>щедрый</string>
+			<key>4</key>
+			<string>харизматичный</string>
+			<key>5</key>
+			<string>мстительный</string>
+			<key>6</key>
+			<string>деятельный</string>
+			<key>7</key>
+			<string>надёжный</string>
+			<key>8</key>
+			<string>аккуратный</string>
+			<key>9</key>
+			<string>набожный</string>
+			<key>10</key>
+			<string>трудолюбивый</string>
+			<key>11</key>
+			<string>предприимчивый</string>
+			<key>12</key>
+			<string>романтичный</string>
+			<key>13</key>
+			<string>ответственный</string>
+			<key>14</key>
+			<string>коварный</string>
+		</dict>
+	</dict>
+	<key>project</key>
+	<dict>
+		<key>culture</key>
+		<dict>
+			<key>1</key>
+			<string>производство</string>
+			<key>2</key>
+			<string>безопасность</string>
+			<key>3</key>
+			<string>транспорт</string>
+			<key>4</key>
+			<string>свобода</string>
+			<key>5</key>
+			<string>стабильность</string>
+			<key>6</key>
+			<string>золото ближнему кругу</string>
+			<key>7</key>
+			<string>артефакт ближнему кругу</string>
+			<key>8</key>
+			<string>опыт ближнему кругу</string>
+			<key>9</key>
+			<string>энергию ближнему кругу</string>
+			<key>10</key>
+			<string>культура</string>
+		</dict>
+	</dict>
+	<key>card</key>
+	<dict>
+		<key>type</key>
+		<dict>
+			<key>0</key>
+			<array>
+				<string>рог изобилия</string>
+				<string>Создаёт в указанном городе 5120 «даров Хранителей». Город будет постепенно переводить их в продукцию, пока дары не кончатся.</string>
+			</array>
+			<key>1</key>
+			<array>
+				<string>озарение</string>
+				<string>Герой получает новый уровень. Накопленный опыт не сбрасывается.</string>
+			</array>
+			<key>5</key>
+			<array>
+				<string>капля энергии</string>
+				<string>Вы получаете 10 единиц дополнительной энергии.</string>
+			</array>
+			<key>6</key>
+			<array>
+				<string>чаша Силы</string>
+				<string>Вы получаете 40 единиц дополнительной энергии.</string>
+			</array>
+			<key>7</key>
+			<array>
+				<string>магический вихрь</string>
+				<string>Вы получаете 160 единиц дополнительной энергии.</string>
+			</array>
+			<key>8</key>
+			<array>
+				<string>энергетический шторм</string>
+				<string>Вы получаете 640 единиц дополнительной энергии.</string>
+			</array>
+			<key>9</key>
+			<array>
+				<string>шквал Силы</string>
+				<string>Вы получаете 2560 единиц дополнительной энергии.</string>
+			</array>
+			<key>10</key>
+			<array>
+				<string>горсть монет</string>
+				<string>Герой получает 1000 монет.</string>
+			</array>
+			<key>11</key>
+			<array>
+				<string>увесистый кошель</string>
+				<string>Герой получает 4000 монет.</string>
+			</array>
+			<key>12</key>
+			<array>
+				<string>сундучок на счастье</string>
+				<string>Герой получает 16000 монет.</string>
+			</array>
+			<key>13</key>
+			<array>
+				<string>умеренность</string>
+				<string>Увеличивает честь героя на 25 единиц.</string>
+			</array>
+			<key>14</key>
+			<array>
+				<string>чревоугодие</string>
+				<string>Уменьшает честь героя на 25 единиц.</string>
+			</array>
+			<key>15</key>
+			<array>
+				<string>спокойствие</string>
+				<string>Увеличивает миролюбие героя на 25 единиц.</string>
+			</array>
+			<key>16</key>
+			<array>
+				<string>вспыльчивость</string>
+				<string>Уменьшает миролюбие героя на 25 единиц.</string>
+			</array>
+			<key>17</key>
+			<array>
+				<string>верность</string>
+				<string>Увеличивает честь героя на 100 единиц.</string>
+			</array>
+			<key>18</key>
+			<array>
+				<string>блуд</string>
+				<string>Уменьшает честь героя на 100 единиц.</string>
+			</array>
+			<key>19</key>
+			<array>
+				<string>дружелюбие</string>
+				<string>Увеличивает миролюбие героя на 100 единиц.</string>
+			</array>
+			<key>20</key>
+			<array>
+				<string>алчность</string>
+				<string>Уменьшает миролюбие героя на 100 единиц.</string>
+			</array>
+			<key>21</key>
+			<array>
+				<string>скромность</string>
+				<string>Увеличивает честь героя на 400 единиц.</string>
+			</array>
+			<key>22</key>
+			<array>
+				<string>тщеславие</string>
+				<string>Уменьшает честь героя на 400 единиц.</string>
+			</array>
+			<key>23</key>
+			<array>
+				<string>сдержанность</string>
+				<string>Увеличивает миролюбие героя на 400 единиц.</string>
+			</array>
+			<key>24</key>
+			<array>
+				<string>гнев</string>
+				<string>Уменьшает миролюбие героя на 400 единиц.</string>
+			</array>
+			<key>25</key>
+			<array>
+				<string>смирение</string>
+				<string>Увеличивает честь героя на 1600 единиц.</string>
+			</array>
+			<key>26</key>
+			<array>
+				<string>гордыня</string>
+				<string>Уменьшает честь героя на 1600 единиц.</string>
+			</array>
+			<key>27</key>
+			<array>
+				<string>миролюбие</string>
+				<string>Увеличивает миролюбие героя на 1600 единиц.</string>
+			</array>
+			<key>28</key>
+			<array>
+				<string>ярость</string>
+				<string>Уменьшает миролюбие героя на 1600 единиц.</string>
+			</array>
+			<key>29</key>
+			<array>
+				<string>знание врага</string>
+				<string>Сбрасывает задержку на изменение предпочтения «любимая добыча».</string>
+			</array>
+			<key>30</key>
+			<array>
+				<string>новая родина</string>
+				<string>Сбрасывает задержку на изменение предпочтения «родной город».</string>
+			</array>
+			<key>31</key>
+			<array>
+				<string>новый соратник</string>
+				<string>Сбрасывает задержку на изменение предпочтения «соратник».</string>
+			</array>
+			<key>32</key>
+			<array>
+				<string>новый противник</string>
+				<string>Сбрасывает задержку на изменение предпочтения «противник».</string>
+			</array>
+			<key>33</key>
+			<array>
+				<string>прозрение</string>
+				<string>Сбрасывает задержку на изменение предпочтения «религиозность».</string>
+			</array>
+			<key>34</key>
+			<array>
+				<string>вкусы в экипировке</string>
+				<string>Сбрасывает задержку на изменение предпочтения «экипировка».</string>
+			</array>
+			<key>35</key>
+			<array>
+				<string>определение лихости</string>
+				<string>Сбрасывает задержку на изменение предпочтения «уровень риска».</string>
+			</array>
+			<key>36</key>
+			<array>
+				<string>наскучившая вещь</string>
+				<string>Сбрасывает задержку на изменение предпочтения «любимая вещь».</string>
+			</array>
+			<key>37</key>
+			<array>
+				<string>пересмотр стиля боя</string>
+				<string>Сбрасывает задержку на изменение предпочтения «архетип».</string>
+			</array>
+			<key>38</key>
+			<array>
+				<string>пересмотр ценностей</string>
+				<string>Сбрасывает задержку на изменение всех предпочтений.</string>
+			</array>
+			<key>39</key>
+			<array>
+				<string>альтернатива</string>
+				<string>Изменяет список предлагаемых герою способностей (при выборе новой способности).</string>
+			</array>
+			<key>40</key>
+			<array>
+				<string>странный зуд</string>
+				<string>Текущей целью трат героя становится лечение.</string>
+			</array>
+			<key>41</key>
+			<array>
+				<string>магазинный импульс</string>
+				<string>Текущей целью трат героя становится покупка артефакта.</string>
+			</array>
+			<key>42</key>
+			<array>
+				<string>стремление к совершенству</string>
+				<string>Текущей целью трат героя становится заточка артефакта.</string>
+			</array>
+			<key>43</key>
+			<array>
+				<string>тяга к знаниям</string>
+				<string>Текущей целью трат героя становится обучение.</string>
+			</array>
+			<key>44</key>
+			<array>
+				<string>забота об имуществе</string>
+				<string>Текущей целью трат героя становится починка артефакта.</string>
+			</array>
+			<key>45</key>
+			<array>
+				<string>фея-мастерица</string>
+				<string>Чинит случайный артефакт из экипировки героя.</string>
+			</array>
+			<key>46</key>
+			<array>
+				<string>благословение Великого Творца</string>
+				<string>Чинит все артефакты из экипировки героя.</string>
+			</array>
+			<key>47</key>
+			<array>
+				<string>другие заботы</string>
+				<string>Отменяет текущее задание героя.</string>
+			</array>
+			<key>48</key>
+			<array>
+				<string>внезапная находка</string>
+				<string>Герой получает случайный бесполезный предмет или артефакт.</string>
+			</array>
+			<key>49</key>
+			<array>
+				<string>полезный подарок</string>
+				<string>Герой получает случайный артефакт.</string>
+			</array>
+			<key>50</key>
+			<array>
+				<string>редкое приобретение</string>
+				<string>Герой получает случайный редкий или эпический артефакт.</string>
+			</array>
+			<key>51</key>
+			<array>
+				<string>дар Хранителя</string>
+				<string>Герой получает случайный эпический артефакт.</string>
+			</array>
+			<key>52</key>
+			<array>
+				<string>длань Смерти</string>
+				<string>Мгновенно убивает монстра, с которым сражается герой.</string>
+			</array>
+			<key>53</key>
+			<array>
+				<string>неразменная монета</string>
+				<string>Создаёт в указанном городе 20 «даров Хранителей». Город будет постепенно переводить их в продукцию, пока дары не кончатся.</string>
+			</array>
+			<key>54</key>
+			<array>
+				<string>волшебный горшочек</string>
+				<string>Создаёт в указанном городе 80 «даров Хранителей». Город будет постепенно переводить их в продукцию, пока дары не кончатся.</string>
+			</array>
+			<key>55</key>
+			<array>
+				<string>скатерть самобранка</string>
+				<string>Создаёт в указанном городе 320 «даров Хранителей». Город будет постепенно переводить их в продукцию, пока дары не кончатся.</string>
+			</array>
+			<key>58</key>
+			<array>
+				<string>удачный день</string>
+				<string>Моментально увеличивает влияние Мастера на 40 единиц. Влияние засчитывается так, как если бы герой имел Мастера в предпочтении.</string>
+			</array>
+			<key>56</key>
+			<array>
+				<string>несметные богатства</string>
+				<string>Создаёт в указанном городе 1280 «даров Хранителей». Город будет постепенно переводить их в продукцию, пока дары не кончатся.</string>
+			</array>
+			<key>57</key>
+			<array>
+				<string>волшебный инструмент</string>
+				<string>Полностью ремонтирует указанное строение.</string>
+			</array>
+			<key>59</key>
+			<array>
+				<string>нежданная выгода</string>
+				<string>Моментально увеличивает влияние Мастера на 160 единиц. Влияние засчитывается так, как если бы герой имел Мастера в предпочтении.</string>
+			</array>
+			<key>60</key>
+			<array>
+				<string>удачная афера</string>
+				<string>Моментально увеличивает влияние Мастера на 640 единиц. Влияние засчитывается так, как если бы герой имел Мастера в предпочтении.</string>
+			</array>
+			<key>61</key>
+			<array>
+				<string>преступление века</string>
+				<string>Моментально увеличивает влияние Мастера на 2560 единиц. Влияние засчитывается так, как если бы герой имел Мастера в предпочтении.</string>
+			</array>
+			<key>62</key>
+			<array>
+				<string>погожие деньки</string>
+				<string>Моментально увеличивает влияние города на 40 единиц. Влияние засчитывается так, как если бы герой имел город в предпочтении.</string>
+			</array>
+			<key>63</key>
+			<array>
+				<string>торговый день</string>
+				<string>Моментально увеличивает влияние города на 160 единиц. Влияние засчитывается так, как если бы герой имел город в предпочтении.</string>
+			</array>
+			<key>64</key>
+			<array>
+				<string>городской праздник</string>
+				<string>Моментально увеличивает влияние города на 640 единиц. Влияние засчитывается так, как если бы герой имел город в предпочтении.</string>
+			</array>
+			<key>65</key>
+			<array>
+				<string>экономический рост</string>
+				<string>Моментально увеличивает влияние города на 2560 единиц. Влияние засчитывается так, как если бы герой имел город в предпочтении.</string>
+			</array>
+			<key>66</key>
+			<array>
+				<string>ужасная погода</string>
+				<string>Моментально уменьшает влияние города на 40 единиц. Влияние засчитывается так, как если бы герой имел город в предпочтении.</string>
+			</array>
+			<key>67</key>
+			<array>
+				<string>запустение</string>
+				<string>Моментально уменьшает влияние города на 160 единиц. Влияние засчитывается так, как если бы герой имел город в предпочтении.</string>
+			</array>
+			<key>68</key>
+			<array>
+				<string>нашествие крыс</string>
+				<string>Моментально уменьшает влияние города на 640 единиц. Влияние засчитывается так, как если бы герой имел город в предпочтении.</string>
+			</array>
+			<key>69</key>
+			<array>
+				<string>экономический спад</string>
+				<string>Моментально уменьшает влияние города на 2560 единиц. Влияние засчитывается так, как если бы герой имел город в предпочтении.</string>
+			</array>
+			<key>70</key>
+			<array>
+				<string>ошибка в архивах</string>
+				<string>В документах города появляется дополнительная запись о помощи, полученной от героя.</string>
+			</array>
+			<key>71</key>
+			<array>
+				<string>фальшивые рекомендации</string>
+				<string>В документах города появляются дополнительные записи о помощи, полученной от героя в количестве 4 шт.</string>
+			</array>
+			<key>72</key>
+			<array>
+				<string>застолье в Совете</string>
+				<string>В документах города появляются дополнительные записи о помощи, полученной от героя в количестве 16 шт.</string>
+			</array>
+			<key>73</key>
+			<array>
+				<string>интриги</string>
+				<string>В документах города появляются дополнительные записи о помощи, полученной от героя в количестве 64 шт.</string>
+			</array>
+			<key>74</key>
+			<array>
+				<string>удачная мысль</string>
+				<string>Увеличивает опыт, который герой получит за выполнение текущего задания, на 25 единиц.</string>
+			</array>
+			<key>75</key>
+			<array>
+				<string>чистый разум</string>
+				<string>Увеличивает опыт, который герой получит за выполнение текущего задания, на 100 единиц.</string>
+			</array>
+			<key>76</key>
+			<array>
+				<string>неожиданные осложнения</string>
+				<string>Увеличивает опыт, который герой получит за выполнение текущего задания, на 400 единиц.</string>
+			</array>
+			<key>77</key>
+			<array>
+				<string>слово Гзанзара</string>
+				<string>Увеличивает опыт, который герой получит за выполнение текущего задания, на 1600 единиц.</string>
+			</array>
+			<key>78</key>
+			<array>
+				<string>новые обстоятельства</string>
+				<string>Увеличивает влияние, которое окажет герой после выполнения текущего задания, на 20 единиц.</string>
+			</array>
+			<key>79</key>
+			<array>
+				<string>специальная операция</string>
+				<string>Увеличивает влияние, которое окажет герой после выполнения текущего задания, на 80 единиц.</string>
+			</array>
+			<key>80</key>
+			<array>
+				<string>слово Дабнглана</string>
+				<string>Увеличивает влияние, которое окажет герой после выполнения текущего задания, на 320 единиц.</string>
+			</array>
+			<key>81</key>
+			<array>
+				<string>благословение Дабнглана</string>
+				<string>Увеличивает влияние, которое окажет герой после выполнения текущего задания, на 1280 единиц.</string>
+			</array>
+			<key>82</key>
+			<array>
+				<string>телепорт</string>
+				<string>Телепортирует героя до ближайшего города либо до ближайшей ключевой точки задания. Работает только во время движения по дорогам.</string>
+			</array>
+			<key>83</key>
+			<array>
+				<string>ТАРДИС</string>
+				<string>Телепортирует героя в конечную точку назначения либо до ближайшей ключевой точки задания. Работает только во время движения по дорогам.</string>
+			</array>
+			<key>84</key>
+			<array>
+				<string>амнезия</string>
+				<string>Преобразует опыт героя на текущем уровне в дополнительную энергию по курсу 7 опыта за 1 энергии.</string>
+			</array>
+			<key>85</key>
+			<array>
+				<string>донор Силы</string>
+				<string>Преобразует опыт героя на текущем уровне в дополнительную энергию по курсу 6 опыта за 1 энергии.</string>
+			</array>
+			<key>86</key>
+			<array>
+				<string>взыскание долга</string>
+				<string>Преобразует опыт героя на текущем уровне в дополнительную энергию по курсу 5 опыта за 1 энергии.</string>
+			</array>
+			<key>87</key>
+			<array>
+				<string>ритуал Силы</string>
+				<string>Преобразует опыт героя на текущем уровне в дополнительную энергию по курсу 4 опыта за 1 энергии.</string>
+			</array>
+			<key>88</key>
+			<array>
+				<string>волшебное точило</string>
+				<string>Улучшает случайный артефакт из экипировки героя.</string>
+			</array>
+			<key>89</key>
+			<array>
+				<string>суть вещей</string>
+				<string>Улучшает все артефакты из экипировки героя.</string>
+			</array>
+			<key>90</key>
+			<array>
+				<string>обычный спутник</string>
+				<string>Герой получает спутника, указанного в названии карты. Если у героя уже есть спутник, он покинет героя.</string>
+			</array>
+			<key>91</key>
+			<array>
+				<string>необычный спутник</string>
+				<string>Герой получает спутника, указанного в названии карты. Если у героя уже есть спутник, он покинет героя.</string>
+			</array>
+			<key>92</key>
+			<array>
+				<string>редкий спутник</string>
+				<string>Герой получает спутника, указанного в названии карты. Если у героя уже есть спутник, он покинет героя.</string>
+			</array>
+			<key>93</key>
+			<array>
+				<string>эпический спутник</string>
+				<string>Герой получает спутника, указанного в названии карты. Если у героя уже есть спутник, он покинет героя.</string>
+			</array>
+			<key>94</key>
+			<array>
+				<string>легендарный спутник</string>
+				<string>Герой получает спутника, указанного в названии карты. Если у героя уже есть спутник, он покинет героя.</string>
+			</array>
+			<key>95</key>
+			<array>
+				<string>новый взгляд</string>
+				<string>Сбрасывает задержку на изменение предпочтения «отношение со спутником».</string>
+			</array>
+			<key>96</key>
+			<array>
+				<string>чуткость</string>
+				<string>Сбрасывает задержку на изменение предпочтения «эмпатия».</string>
+			</array>
+			<key>97</key>
+			<array>
+				<string>благословение Гзанзара</string>
+				<string>Увеличивает опыт, который герой получит за выполнение текущего задания, на 6400 единиц.</string>
+			</array>
+			<key>98</key>
+			<array>
+				<string>новый путь</string>
+				<string>Сбрасывает все способности героя.</string>
+			</array>
+			<key>99</key>
+			<array>
+				<string>четыре стороны</string>
+				<string>Спутник героя навсегда покидает его.</string>
+			</array>
+			<key>100</key>
+			<array>
+				<string>передышка</string>
+				<string>Восстанавливает спутнику 10 здоровья.</string>
+			</array>
+			<key>101</key>
+			<array>
+				<string>подорожник</string>
+				<string>Восстанавливает спутнику 40 здоровья.</string>
+			</array>
+			<key>102</key>
+			<array>
+				<string>священный мёд</string>
+				<string>Восстанавливает спутнику 160 здоровья.</string>
+			</array>
+			<key>103</key>
+			<array>
+				<string>молодильное яблоко</string>
+				<string>Восстанавливает спутнику 640 здоровья.</string>
+			</array>
+			<key>104</key>
+			<array>
+				<string>живая вода</string>
+				<string>Восстанавливает спутнику 2560 здоровья.</string>
+			</array>
+			<key>105</key>
+			<array>
+				<string>забота о ближнем</string>
+				<string>Текущей целью трат героя становится лечение спутника.</string>
+			</array>
+			<key>106</key>
+			<array>
+				<string>скрытый потенциал</string>
+				<string>Заменяет случайный экипированный не эпический артефакт, на более редкий того же вида.</string>
+			</array>
+			<key>107</key>
+			<array>
+				<string>туз в рукаве</string>
+				<string>Увеличивает влияние, которое окажет герой после выполнения текущего задания, на 5120 единиц.</string>
+			</array>
+			<key>108</key>
+			<array>
+				<string>улыбка фортуны</string>
+				<string>Моментально увеличивает влияние Мастера на 10 единиц. Влияние засчитывается так, как если бы герой имел Мастера в предпочтении.</string>
+			</array>
+			<key>109</key>
+			<array>
+				<string>выгодный контракт</string>
+				<string>Моментально увеличивает влияние города на 10 единиц. Влияние засчитывается так, как если бы герой имел город в предпочтении.</string>
+			</array>
+			<key>110</key>
+			<array>
+				<string>сорванный контракт</string>
+				<string>Моментально уменьшает влияние города на 10 единиц. Влияние засчитывается так, как если бы герой имел город в предпочтении.</string>
+			</array>
+			<key>111</key>
+			<array>
+				<string>гримаса фортуны</string>
+				<string>Моментально уменьшает влияние Мастера на 10 единиц. Влияние засчитывается так, как если бы герой имел Мастера в предпочтении.</string>
+			</array>
+			<key>112</key>
+			<array>
+				<string>гадкий день</string>
+				<string>Моментально уменьшает влияние Мастера на 40 единиц. Влияние засчитывается так, как если бы герой имел Мастера в предпочтении.</string>
+			</array>
+			<key>113</key>
+			<array>
+				<string>нежданная беда</string>
+				<string>Моментально уменьшает влияние Мастера на 160 единиц. Влияние засчитывается так, как если бы герой имел Мастера в предпочтении.</string>
+			</array>
+			<key>114</key>
+			<array>
+				<string>провальное мероприятие</string>
+				<string>Моментально уменьшает влияние Мастера на 640 единиц. Влияние засчитывается так, как если бы герой имел Мастера в предпочтении.</string>
+			</array>
+			<key>115</key>
+			<array>
+				<string>чёрная полоса</string>
+				<string>Моментально уменьшает влияние Мастера на 2560 единиц. Влияние засчитывается так, как если бы герой имел Мастера в предпочтении.</string>
+			</array>
+		</dict>
+		<key>rarity</key>
+		<dict>
+			<key>0</key>
+			<string>обычная карта</string>
+			<key>1</key>
+			<string>необычная карта</string>
+			<key>2</key>
+			<string>редкая карта</string>
+			<key>3</key>
+			<string>эпическая карта</string>
+			<key>4</key>
+			<string>легендарная карта</string>
+		</dict>
+	</dict>
+	<key>artifact</key>
+	<dict>
+		<key>imageName</key>
+		<dict>
+			<key>0</key>
+			<string></string>
+			<key>1</key>
+			<string>artifact_main_hand</string>
+			<key>2</key>
+			<string>artifact_off_hand</string>
+			<key>3</key>
+			<string>artifact_body</string>
+			<key>4</key>
+			<string>artifact_amulet</string>
+			<key>5</key>
+			<string>artifact_head</string>
+			<key>6</key>
+			<string>artifact_cloak</string>
+			<key>7</key>
+			<string>artifact_shoulders</string>
+			<key>8</key>
+			<string>artifact_gloves</string>
+			<key>9</key>
+			<string>artifact_trousers</string>
+			<key>10</key>
+			<string>artifact_boots</string>
+			<key>11</key>
+			<string>artifact_ring</string>
+		</dict>
+		<key>rarity</key>
+		<dict>
+			<key>0</key>
+			<string>обычный артефакт</string>
+			<key>1</key>
+			<string>редкий артефакт</string>
+			<key>2</key>
+			<string>эпический артефакт</string>
+		</dict>
+		<key>type</key>
+		<dict>
+			<key>0</key>
+			<string>хлам</string>
+			<key>1</key>
+			<string>основная рука</string>
+			<key>2</key>
+			<string>вторая рука</string>
+			<key>3</key>
+			<string>доспех</string>
+			<key>4</key>
+			<string>амулет</string>
+			<key>5</key>
+			<string>шлем</string>
+			<key>6</key>
+			<string>плащ</string>
+			<key>7</key>
+			<string>наплечники</string>
+			<key>8</key>
+			<string>перчатки</string>
+			<key>9</key>
+			<string>штаны</string>
+			<key>10</key>
+			<string>обувь</string>
+			<key>11</key>
+			<string>кольцо</string>
+		</dict>
+		<key>equipment</key>
+		<dict>
+			<key>0</key>
+			<string>основная рука</string>
+			<key>1</key>
+			<string>вспомогательная рука</string>
+			<key>2</key>
+			<string>шлем</string>
+			<key>3</key>
+			<string>наплечники</string>
+			<key>4</key>
+			<string>доспех</string>
+			<key>5</key>
+			<string>перчатки</string>
+			<key>6</key>
+			<string>плащ</string>
+			<key>7</key>
+			<string>штаны</string>
+			<key>8</key>
+			<string>сапоги</string>
+			<key>9</key>
+			<string>амулет</string>
+			<key>10</key>
+			<string>кольц</string>
+		</dict>
+		<key>effect</key>
+		<dict>
+			<key>0</key>
+			<string>мощь</string>
+			<key>1</key>
+			<string>колдовство</string>
+			<key>2</key>
+			<string>хорошая реакция</string>
+			<key>3</key>
+			<string>здоровье</string>
+			<key>4</key>
+			<string>повышение интуиции</string>
+			<key>5</key>
+			<string>хитрость</string>
+			<key>6</key>
+			<string>астральный сосуд</string>
+			<key>7</key>
+			<string>скороход</string>
+			<key>8</key>
+			<string>карманы</string>
+			<key>666</key>
+			<string>нет эффекта</string>
+			<key>1000</key>
+			<string>небывалая мощь</string>
+			<key>1001</key>
+			<string>могучее колдовство</string>
+			<key>1002</key>
+			<string>превосходная реакция</string>
+			<key>1003</key>
+			<string>невероятное здоровье</string>
+			<key>1004</key>
+			<string>сверхинтуиция</string>
+			<key>1005</key>
+			<string>особая хитрость</string>
+			<key>1006</key>
+			<string>большой астральный сосуд</string>
+			<key>1007</key>
+			<string>неутомимый скороход</string>
+			<key>1008</key>
+			<string>большие карманы</string>
+			<key>1009</key>
+			<string>выносливость</string>
+			<key>1010</key>
+			<string>живучесть</string>
+			<key>1011</key>
+			<string>деятельность</string>
+			<key>1012</key>
+			<string>убеждение</string>
+			<key>1013</key>
+			<string>очарование</string>
+			<key>1014</key>
+			<string>духовная связь</string>
+			<key>1015</key>
+			<string>душевное равновесие</string>
+			<key>1016</key>
+			<string>особая аура</string>
+			<key>1017</key>
+			<string>регенерация</string>
+			<key>1018</key>
+			<string>последний шанс</string>
+			<key>1019</key>
+			<string>лёд</string>
+			<key>1020</key>
+			<string>пламя</string>
+			<key>1021</key>
+			<string>яд</string>
+			<key>1022</key>
+			<string>вампиризм</string>
+			<key>1023</key>
+			<string>живость ума</string>
+			<key>1024</key>
+			<string>ужасный вид</string>
+			<key>1025</key>
+			<string>точные атаки</string>
+			<key>1026</key>
+			<string>астральная преграда</string>
+			<key>1027</key>
+			<string>затуманенный разум</string>
+			<key>1028</key>
+			<string>удача странника</string>
+			<key>1029</key>
+			<string>удача героя</string>
+			<key>1030</key>
+			<string>крепость духа</string>
+			<key>1031</key>
+			<string>идейность</string>
+			<key>1032</key>
+			<string>нерушимость</string>
+			<key>1033</key>
+			<string>ускорение</string>
+			<key>1034</key>
+			<string>безрассудность</string>
+			<key>100001</key>
+			<string>детский подаро</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
