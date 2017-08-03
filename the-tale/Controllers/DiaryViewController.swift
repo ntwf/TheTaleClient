@@ -12,11 +12,13 @@ class DiaryViewController: UIViewController {
   
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-  
+
   let diaryCell = "Cell"
   
   var allMessages    = [DiaryMessage]()
   let refreshControl = UIRefreshControl()
+  
+  let keyPathDiary = #keyPath(TaleAPI.diaryManager.diary)
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -28,7 +30,7 @@ class DiaryViewController: UIViewController {
   }
   
   func setupNotification() {
-    NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name("updateDiary"), object: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: keyPathDiary, options: [.new], context: nil)
   }
   
   func setupTableView() {
@@ -41,40 +43,61 @@ class DiaryViewController: UIViewController {
     tableView.tableFooterView    = UIView()
   }
   
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if keyPath == keyPathDiary {
+      updateUI()
+    }
+  }
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    allMessages = TaleAPI.shared.diaryMessages
-    TaleAPI.shared.fetchDiary()
+    fetchDiary()
   }
-  
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    
-    TaleAPI.shared.diaryMessages = allMessages
-  }
-  
+
   func refreshData(sender: UIRefreshControl) {
-    TaleAPI.shared.fetchDiary()
+    fetchDiary()
     refreshControl.endRefreshing()
+  }
+  
+  func fetchDiary() {
+    TaleAPI.shared.getDiary { (result) in
+      switch result {
+      case .success(let data):
+        TaleAPI.shared.diaryManager.getNewMessages(jsonObject: data)
+      case .failure(let error as NSError):
+        debugPrint("fetchDiary \(error)")
+      default: break
+      }
+    }
   }
   
   func updateUI() {
     activityIndicator.stopAnimating()
     
-    for message in TaleAPI.shared.diaryMessages {
+    for message in TaleAPI.shared.diaryManager.diary {
       tableView.beginUpdates()
       
       allMessages.insert(message, at: 0)
       tableView.insertRows(at: [IndexPath(row:0, section: 0)], with: .automatic)
       
-      while allMessages.count > 40 {
+      while allMessages.count > 50 {
         allMessages.removeLast()
         tableView.deleteRows(at: [IndexPath(row: allMessages.count - 1, section: 0)], with: .fade)
       }
       
       tableView.endUpdates()
     }
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    TaleAPI.shared.diaryManager.diary = allMessages
+  }
+  
+  deinit {
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathDiary)
   }
   
 }

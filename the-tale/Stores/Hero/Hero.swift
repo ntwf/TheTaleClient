@@ -9,28 +9,23 @@
 import Foundation
 import UIKit
 
-struct Hero {
+class Hero: NSObject {
+
   var accountID: Int
   var actualOnTurn: Bool
   var image: UIImage
-}
 
-extension Hero: JSONDecodable {
-  init?(jsonObject: JSON) {
+  required init?(jsonObject: JSON) {
     
     guard let accountID    = jsonObject["id"] as? Int,
           let actualOnTurn = jsonObject["actual_on_turn"] as? Bool,
           let sprite       = jsonObject["sprite"] as? Int else {
         return nil
     }
-
+    
     self.accountID    = accountID
     self.actualOnTurn = actualOnTurn
     self.image        = UIImage(named: "map_default_\(String(sprite))")!
     
-  }
-  
-  init?() {
-    self.init(jsonObject: [:])
   }
 }

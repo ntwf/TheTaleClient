@@ -8,31 +8,25 @@
 
 import Foundation
 
-struct Position {
+class Position: NSObject {
+
   var xCoordinate: Int
   var yCoordinate: Int
   var xDirection: Int
   var yDirection: Int
-}
 
-extension Position: JSONDecodable {
-  init?(jsonObject: JSON) {
+  required init?(jsonObject: JSON) {
     
     guard let xCoordinate = jsonObject["x"] as? Int,
           let yCoordinate = jsonObject["y"] as? Int,
           let xDirection  = jsonObject["dx"] as? Int,
           let yDirection  = jsonObject["dy"] as? Int else {
-        return nil
+      return nil
     }
     
     self.xCoordinate = xCoordinate
     self.yCoordinate = yCoordinate
     self.xDirection  = xDirection
     self.yDirection  = yDirection
-    
-  }
-  
-  init?() {
-    self.init(jsonObject: [:])
   }
 }

@@ -8,17 +8,16 @@
 
 import Foundation
 
-struct AccountInformation {
+final class AccountInformation: NSObject {
+
   var accountID: Int
   var isOwn: Bool
   var isOld: Bool
   var hero: JSON
   var inPvPQueue: Bool
   var lastVisit: Int
-}
 
-extension AccountInformation: JSONDecodable {
-  init?(jsonObject: JSON) {
+  required init?(jsonObject: JSON) {
 
     guard let accountID   = jsonObject["id"] as? Int,
           let isOwn       = jsonObject["is_own"] as? Bool,
@@ -26,7 +25,7 @@ extension AccountInformation: JSONDecodable {
           let inPvPQueue  = jsonObject["in_pvp_queue"] as? Bool,
           let lastVisit   = jsonObject["last_visit"] as? Int,
           let hero        = jsonObject["hero"] as? JSON else {
-        return nil
+      return nil
     }
 
     self.accountID   = accountID
@@ -35,10 +34,5 @@ extension AccountInformation: JSONDecodable {
     self.hero        = hero
     self.inPvPQueue  = inPvPQueue
     self.lastVisit   = lastVisit
-    
-  }
-  
-  init?() {
-    self.init(jsonObject: [:])
   }
 }

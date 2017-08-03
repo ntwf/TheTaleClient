@@ -37,8 +37,6 @@ protocol NetworkClient {
   
   func JSONTaskWith(request: URLRequest, completionHandler: @escaping JSONCompletionHandler) -> JSONTask
   func fetch<T: JSONDecodable>(request: URLRequest, parse: @escaping (JSON) -> T?, completionHandler: @escaping (APIResult<T>) -> Void)
-  
-  init(sessionConfiguration: URLSessionConfiguration)
 }
 
 extension NetworkClient {

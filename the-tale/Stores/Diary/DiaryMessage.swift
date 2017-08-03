@@ -8,22 +8,19 @@
 
 import Foundation
 
-struct DiaryMessage: Hashable, Equatable {
+class DiaryMessage: NSObject {
+  
   var position: String
   var gameDate: String
   var gameTime: String
   var message: String
   var type: Int
-  var timestamp: Double
+  var timestamp: Int
   
-  var hashValue: Int { return timestamp.hashValue }
-}
+  override var hashValue: Int {
+    return self.timestamp
+  }
 
-func == (rhs: DiaryMessage, lhs: DiaryMessage) -> Bool {
-  return rhs.timestamp == lhs.timestamp
-}
-
-extension DiaryMessage: JSONDecodable {
   init?(jsonObject: JSON) {
     
     guard let position  = jsonObject["position"] as? String,
@@ -32,7 +29,7 @@ extension DiaryMessage: JSONDecodable {
           let message   = jsonObject["message"] as? String,
           let type      = jsonObject["type"] as? Int,
           let timestamp = jsonObject["timestamp"] as? Double else {
-        return nil
+      return nil
     }
     
     self.position  = position
@@ -40,12 +37,21 @@ extension DiaryMessage: JSONDecodable {
     self.gameTime  = gameTime
     self.message   = message
     self.type      = type
-    self.timestamp = timestamp
-    
+    self.timestamp = Int(timestamp)
   }
   
-  init?() {
-    self.init(jsonObject: [:])
+  override func isEqual(_ object: Any?) -> Bool {
+    if let rhs = object as? DiaryMessage {
+      return timestamp == rhs.timestamp && timestamp == rhs.timestamp
+    } else {
+      return false
+    }
+  }
+}
+
+extension DiaryMessage {
+  static func == (rhs: DiaryMessage, lhs: DiaryMessage) -> Bool {
+    return rhs.timestamp == lhs.timestamp
   }
 }
 

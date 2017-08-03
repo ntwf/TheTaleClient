@@ -9,17 +9,23 @@
 import Foundation
 
 extension TaleAPI {
-  
-  func fetchDiary() {
-    networkManager.fetchDiary { (result) in
-      switch result {
-      case .success(let data):
-        self.dataManager.getNewDiaryMessages(recivedDiary: data)
-      case .failure(let error as NSError):
-        debugPrint("fetchDiary \(error)")
-      default: break
+
+  func getDiary(completionHandler: @escaping (APIResult<JSON>) -> Void) {
+    pathComponents.removeAll()
+    pathComponents["api_client"]  = APIConfiguration.client.rawValue
+    pathComponents["api_version"] = APIPath.diary.version
+    
+    httpParams.removeAll()
+    
+    let request = URLRequest(baseURL: baseURL, path: APIPath.diary.rawValue, pathComponents: pathComponents, method: .get, httpParams: httpParams)
+    
+    fetch(request: request, parse: { (json) -> JSON? in
+      if let dictionary = json["data"] as? JSON {
+        return dictionary
+      } else {
+        return nil
       }
-    }
+    }, completionHandler: completionHandler)
   }
   
 }

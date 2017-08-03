@@ -8,32 +8,25 @@
 
 import Foundation
 
-struct Energy {
+class Energy: NSObject {
   var bonus: Int
   var max: Int
   var value: Int
   var discount: Int
-}
 
-extension Energy: JSONDecodable {
-  init?(jsonObject: JSON) {
+  required init?(jsonObject: JSON) {
     
     guard let bonus    = jsonObject["bonus"] as? Int,
           let max      = jsonObject["max"] as? Int,
           let value    = jsonObject["value"] as? Int,
           let discount = jsonObject["discount"] as? Int else {
-        return nil
+      return nil
     }
     
     self.bonus    = bonus
     self.max      = max
     self.value    = value
     self.discount = discount
-    
-  }
-  
-  init?() {
-    self.init(jsonObject: [:])
   }
 }
 

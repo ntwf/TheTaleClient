@@ -19,6 +19,8 @@ class QuestViewController: UIViewController {
   let actorCell  = "ActorsCell"
   let choiceCell = "ChoiceCell"
   
+  let keyPathQuests = #keyPath(TaleAPI.playerInformationManager.quests)
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -29,7 +31,7 @@ class QuestViewController: UIViewController {
   }
 
   func setupNotification() {
-    NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name("updateQuests"), object: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: keyPathQuests, options: [.new], context: nil)
   }
   
   func setupTableView() {
@@ -37,10 +39,20 @@ class QuestViewController: UIViewController {
     tableView.rowHeight          = UITableViewAutomaticDimension
     tableView.tableFooterView    = UIView()
   }
+  
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if keyPath == keyPathQuests {
+      updateUI()
+    }
+  }
 
   func updateUI() {
     activityIndicator.stopAnimating()
     tableView.reloadData()
+  }
+  
+  deinit {
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathQuests)
   }
   
 }
@@ -52,7 +64,7 @@ extension QuestViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    if section == 2 && TaleAPI.shared.quests[questIndex].choiceAlternatives.count != 0 {
+    if section == 2 && TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives.count != 0 {
       return "Как поступим?"
     }
     return nil
@@ -63,9 +75,9 @@ extension QuestViewController: UITableViewDataSource {
     case 0:
       return 1
     case 1:
-      return TaleAPI.shared.quests[questIndex].actors.count
+      return TaleAPI.shared.playerInformationManager.quests[questIndex].actors.count
     case 2:
-      return TaleAPI.shared.quests[questIndex].choiceAlternatives.count
+      return TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives.count
     default:
       return 0
     }
@@ -77,26 +89,26 @@ extension QuestViewController: UITableViewDataSource {
       // swiftlint:disable:next force_cast
       let cell = tableView.dequeueReusableCell(withIdentifier: questCell) as! QuestTableViewCell
 
-      cell.configuredQuest(info: TaleAPI.shared.quests[questIndex])
+      cell.configuredQuest(info: TaleAPI.shared.playerInformationManager.quests[questIndex])
 
       return cell
     case 1:
       let cell = tableView.dequeueReusableCell(withIdentifier: actorCell)
 
-      let nameActors = TaleAPI.shared.quests[questIndex].actors[indexPath.row].nameActorsRepresentation()
+      let nameActors = TaleAPI.shared.playerInformationManager.quests[questIndex].actors[indexPath.row].nameActorsRepresentation()
       
-      if let goal = TaleAPI.shared.quests[questIndex].actors[indexPath.row].goal {
+      if let goal = TaleAPI.shared.playerInformationManager.quests[questIndex].actors[indexPath.row].goal {
         cell?.textLabel?.text = "\(nameActors) \(goal)"
-      } else if let name = TaleAPI.shared.quests[questIndex].actors[indexPath.row].name {
+      } else if let name = TaleAPI.shared.playerInformationManager.quests[questIndex].actors[indexPath.row].name {
         cell?.textLabel?.text = "\(nameActors) \(name)"
       }
       
-      cell?.detailTextLabel?.text = TaleAPI.shared.quests[questIndex].actors[indexPath.row].description
+      cell?.detailTextLabel?.text = TaleAPI.shared.playerInformationManager.quests[questIndex].actors[indexPath.row].info
       
       return cell!
     case 2:
       let cell = tableView.dequeueReusableCell(withIdentifier: choiceCell)
-      cell?.textLabel?.text = TaleAPI.shared.quests[questIndex].choiceAlternatives[indexPath.row].description.capitalizeFirstLetter
+      cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives[indexPath.row].info.capitalizeFirstLetter
 
       return cell!
     default:
@@ -114,8 +126,18 @@ extension QuestViewController: UITableViewDelegate {
     }
     activityIndicator.startAnimating()
     
-    let uidChoose = TaleAPI.shared.quests[questIndex].choiceAlternatives[indexPath.row].choiceID
-    TaleAPI.shared.tryChooseQuest(uidChoose)
+    let uidChoose = TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives[indexPath.row].choiceID
+    
+    TaleAPI.shared.tryChooseQuest(uidChoose: uidChoose) { (result) in
+      switch result {
+      case .success(let data):
+        TaleAPI.shared.checkStatusOperation(operation: data)
+      case .failure(let error as NSError):
+        debugPrint("tryChooseQuest \(error)")
+      default: break
+      }
+    }
+    
   }
   
 }

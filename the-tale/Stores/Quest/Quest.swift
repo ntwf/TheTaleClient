@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct Quest {
+class Quest: NSObject {
+  
   var action: String
   var choice: String?
   var experience: Int
@@ -18,10 +19,8 @@ struct Quest {
   var uid: String
   var actors: [Actor]
   var choiceAlternatives: [ChoiceAlternatives]
-}
 
-extension Quest: JSONDecodable {
-  init?(jsonObject: JSON) {
+  required init?(jsonObject: JSON) {
 
     guard let action     = jsonObject["action"] as? String,
           let experience = jsonObject["experience"] as? Int,
@@ -66,8 +65,8 @@ extension Quest: JSONDecodable {
     
   }
   
-  init?() {
-    self.init(jsonObject: [:])
+  convenience override init() {
+    self.init(jsonObject: [:])!
   }
 }
 

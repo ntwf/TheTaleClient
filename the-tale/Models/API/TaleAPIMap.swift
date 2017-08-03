@@ -9,39 +9,24 @@
 import Foundation
 
 extension TaleAPI {
-  
-  func fetchMap() {
-    //    fetchMapVersions()
-    //    guard let turn = mapVersion?.returnLastTurn() else { return }
-    let turn = ""
+
+  func getMap(turn: String, completionHandler: @escaping (APIResult<JSON>) -> Void) {
+    pathComponents.removeAll()
+    pathComponents["api_client"]  = APIConfiguration.client.rawValue
+    pathComponents["api_version"] = APIPath.map.version
+    pathComponents["turn"]        = turn
     
-    networkManager.fetchMap(turn: turn) { (result) in
-      switch result {
-      case .success(let data):
-        let queue = DispatchQueue(label: "mapGenerate", qos: .userInitiated)
-        queue.async {
-          let map  = Map(jsonObject: data)
-          self.map = map
-          NotificationCenter.default.post(name: NSNotification.Name("updateMap"), object: nil)
-        }
-      case .failure(let error as NSError):
-        debugPrint("fetchMap \(error)")
-      default: break
-      }
-    }
+    httpParams.removeAll()
     
-  }
-  
-  private func fetchMapVersions() {
-    networkManager.fetchMapVersions { (result) in
-      switch result {
-      case .success(let data):
-        self.mapVersion = data
-      case .failure(let error as NSError):
-        debugPrint("fetchMapVersions \(error)")
-      default: break
+    let request = URLRequest(baseURL: baseURL, path: APIPath.map.rawValue, pathComponents: pathComponents, method: .get, httpParams: httpParams)
+    
+    fetch(request: request, parse: { (json) -> JSON? in
+      if let dictionary = json["data"] as? JSON {
+        return dictionary
+      } else {
+        return nil
       }
-    }
+    }, completionHandler: completionHandler)
   }
   
 }

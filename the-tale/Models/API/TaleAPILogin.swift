@@ -10,18 +10,27 @@ import Foundation
 
 extension TaleAPI {
   
-  func login(email: String, password: String) {
-    networkManager.login(email: email, password: password) { (result) in
-      switch result {
-      case .success(let data):
-        self.loginState = data
-        NotificationCenter.default.post(name: NSNotification.Name("loginState"), object: nil)
-      case .failure(let error as NSError):
-        debugPrint("login \(error)")
-        NotificationCenter.default.post(name: NSNotification.Name("loginState"), object: nil)
-      default: break
+  func login(email: String, password: String, completionHandler: @escaping (APIResult<Login>) -> Void) {
+    pathComponents.removeAll()
+    pathComponents["api_client"]  = APIConfiguration.client.rawValue
+    pathComponents["api_version"] = APIPath.login.version
+    
+    httpParams.removeAll()
+    httpParams["next_url"] = ""
+    httpParams["email"]    = email
+    httpParams["password"] = password
+    httpParams["remember"] = "on"
+    
+    let request = URLRequest(baseURL: baseURL, path: APIPath.login.rawValue, pathComponents: pathComponents, method: .post, httpParams: httpParams)
+    
+    fetch(request: request, parse: { (json) -> Login? in
+      if let dictionary = json["data"] as? JSON {
+        return Login(jsonObject: dictionary)
+      } else {
+        return nil
       }
-    }
+    }, completionHandler: completionHandler)
+    
   }
   
 }

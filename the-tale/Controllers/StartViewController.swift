@@ -17,23 +17,27 @@ class StartViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     activityIndicator.startAnimating()
-    
-    NotificationCenter.default.addObserver(self, selector: #selector(checkAuthorisation), name: NSNotification.Name("authorisationState"), object: nil)
-    
-    TaleAPI.shared.fetchAuthorisationState()
+    checkAuthorisation()
   }
   
   func checkAuthorisation() {
-    activityIndicator.stopAnimating()
 
-    let account = TaleAPI.shared.authorisationState?.accountID
-    if account != nil {
-      self.performSegue(withIdentifier: journalSegue, sender: self)
-    } else {
-      self.performSegue(withIdentifier: loginSegue, sender: self)
+    TaleAPI.shared.getAuthorisationState { [weak self] (result) in
+      switch result {
+      case .success(let data):
+        TaleAPI.shared.authorisationState = data
+        self?.performSegue(withIdentifier: (self?.journalSegue)!, sender: self)
+      case .failure(let error as NSError):
+        debugPrint("checkAuthorisation", error)
+        self?.performSegue(withIdentifier: (self?.loginSegue)!, sender: self)
+      default: break
+      }
     }
+    
+    activityIndicator.stopAnimating()
+    
   }
   
 }

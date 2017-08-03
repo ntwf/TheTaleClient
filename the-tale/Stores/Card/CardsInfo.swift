@@ -1,5 +1,5 @@
 //
-//  Cards.swift
+//  CardsInfo.swift
 //  the-tale
 //
 //  Created by Mikhail Vospennikov on 03/07/2017.
@@ -8,52 +8,53 @@
 
 import Foundation
 
-struct Cards {
+class CardsInfo: NSObject {
+
   var helpCount: Int
   var helpBarrier: Int
-  var info: [CardInfo]
+  var cards: [Card]
   var cardCount: Int
-}
 
-extension Cards: Equatable {
-}
-
-func == (lhs: Cards, rhs: Cards) -> Bool {
-  return lhs.helpCount == rhs.helpCount && lhs.cardCount == rhs.cardCount
-}
-
-extension Cards: JSONDecodable {
-  init?(jsonObject: JSON) {
+  required init?(jsonObject: JSON) {
     
     guard let helpCount   = jsonObject["help_count"] as? Int,
           let helpBarrier = jsonObject["help_barrier"] as? Int else {
-        return nil
+      return nil
     }
     
-    var cards: [CardInfo] = []
+    var cards: [Card] = []
     if let cardsArray = jsonObject["cards"] as? NSArray {
       for card in cardsArray {
         guard let card = card as? JSON,
-              let data = CardInfo(jsonObject: card) else {
+              let data = Card(jsonObject: card) else {
             break
         }
         cards.append(data)
       }
     }
+
+    let sortedCards = cards.sorted(by: {
+      if $0.rarity == $1.rarity {
+        return $0.name < $1.name
+      } else {
+        return $0.rarity < $1.rarity
+      }
+    })
     
     self.helpCount   = helpCount
     self.helpBarrier = helpBarrier
-    self.info        = cards
     self.cardCount   = cards.count
-    
-  }
-  
-  init?() {
-    self.init(jsonObject: [:])
+    self.cards       = sortedCards
   }
 }
 
-extension Cards {
+extension CardsInfo {
+  static func == (lhs: CardsInfo, rhs: CardsInfo) -> Bool {
+    return lhs.helpCount == rhs.helpCount && lhs.cardCount == rhs.cardCount
+  }
+}
+
+extension CardsInfo {
   func helpCountRepresentation() -> String {
     return "\(self.helpCount)/\(self.helpBarrier)"
   }

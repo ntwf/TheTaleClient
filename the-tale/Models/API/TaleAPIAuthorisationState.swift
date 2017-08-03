@@ -9,19 +9,23 @@
 import Foundation
 
 extension TaleAPI {
-  
-  func fetchAuthorisationState() {
-    networkManager.fetchAuthorisationState { (result) in
-      switch result {
-      case .success(let data):
-        self.authorisationState = data
-        NotificationCenter.default.post(name: NSNotification.Name("authorisationState"), object: nil)
-      case .failure(let error as NSError):
-        debugPrint("fetchAuthorisationState \(error)")
-        NotificationCenter.default.post(name: NSNotification.Name("authorisationState"), object: nil)
-      default: break
+
+  func getAuthorisationState(completionHandler: @escaping (APIResult<AuthorisationState>) -> Void) {
+    pathComponents.removeAll()
+    pathComponents["api_client"]  = APIConfiguration.client.rawValue
+    pathComponents["api_version"] = APIPath.authState.version
+    
+    httpParams.removeAll()
+    
+    let request = URLRequest(baseURL: baseURL, path: APIPath.authState.rawValue, pathComponents: pathComponents, method: .get, httpParams: httpParams)
+    
+    fetch(request: request, parse: { (json) -> AuthorisationState? in
+      if let dictionary = json["data"] as? JSON {
+        return AuthorisationState(jsonObject: dictionary)
+      } else {
+        return nil
       }
-    }
+    }, completionHandler: completionHandler)
   }
   
 }

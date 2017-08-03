@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct Artifact: Equatable, Hashable {
+class Artifact: NSObject {
   var key: Int
   var name: String
   var pPower: Int?
@@ -25,15 +25,11 @@ struct Artifact: Equatable, Hashable {
   var artifactID: Int
   var imageName: String
   
-  var hashValue: Int { return artifactID.hashValue }
-}
+  override var hashValue: Int {
+    return artifactID.hashValue
+  }
 
-func == (rhs: Artifact, lhs: Artifact) -> Bool {
-  return rhs.artifactID == lhs.artifactID
-}
-
-extension Artifact {
-  init?(key: String, jsonObject: JSON) {
+  required init?(key: String, jsonObject: JSON) {
     guard let key           = Int(key),
           let name          = jsonObject["name"] as? String,
           let type          = jsonObject["type"] as? Int,
@@ -64,7 +60,20 @@ extension Artifact {
     self.equipped         = equipped
     self.artifactID       = artifactID
     self.imageName        = imageName
-    
+  }
+  
+  override func isEqual(_ object: Any?) -> Bool {
+    if let rhs = object as? Artifact {
+      return artifactID == rhs.artifactID && artifactID == rhs.artifactID
+    } else {
+      return false
+    }
+  }
+}
+
+extension Artifact {
+  static func == (rhs: Artifact, lhs: Artifact) -> Bool {
+    return rhs.artifactID == lhs.artifactID
   }
 }
 

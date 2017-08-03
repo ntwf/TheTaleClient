@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct Actor {
+class Actor: NSObject {
+  
   var nameActors: String
   var typeActors: Int
   var gender: Int?
@@ -19,12 +20,10 @@ struct Actor {
   var place: Int?
   var profession: Int?
   var race: String?
-  var description: String?
+  var info: String?
   var goal: String?
-}
 
-extension Actor: ArrayDecodable {
-  init?(arrayObject: NSArray) {
+  required init?(arrayObject: NSArray) {
     
     guard let nameActors = arrayObject[0] as? String,
           let typeActors = arrayObject[1] as? Int,
@@ -45,13 +44,9 @@ extension Actor: ArrayDecodable {
     self.place                = actorJSON["place"] as? Int
     self.profession           = actorJSON["profession"] as? Int
     self.race                 = String(describing: Types.shared.common?.race[race])
-    self.description          = actorJSON["description"] as? String
+    self.info                 = actorJSON["description"] as? String
     self.goal                 = actorJSON["goal"] as? String
     
-  }
-  
-  init?() {
-    self.init(arrayObject: [])
   }
 }
 

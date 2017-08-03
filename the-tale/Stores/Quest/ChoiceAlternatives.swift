@@ -8,25 +8,19 @@
 
 import Foundation
 
-struct ChoiceAlternatives {
+class ChoiceAlternatives: NSObject {
+  
   var choiceID: String
-  var description: String
-}
+  var info: String
 
-extension ChoiceAlternatives: ArrayDecodable {
-  init?(arrayObject: NSArray) {
+  required init?(arrayObject: NSArray) {
     
-    guard let choiceID    = arrayObject[0] as? String,
-          let description = arrayObject[1] as? String else {
-        return nil
+    guard let choiceID = arrayObject[0] as? String,
+          let info     = arrayObject[1] as? String else {
+      return nil
     }
     
-    self.choiceID    = choiceID
-    self.description = description
-    
-  }
-  
-  init?() {
-    self.init(arrayObject: [])
+    self.choiceID = choiceID
+    self.info     = info
   }
 }

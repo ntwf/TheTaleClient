@@ -1,96 +1,43 @@
 //
 //  TaleAPIGameInformation.swift
-//  the-tale
+//  TheTaleClient
 //
-//  Created by Mikhail Vospennikov on 11/07/2017.
+//  Created by Mikhail Vospennikov on 05/08/2017.
 //  Copyright © 2017 Mikhail Vospennikov. All rights reserved.
 //
 
 import Foundation
 
-enum TimerState {
-  case start
-  case stop
-}
-
 extension TaleAPI {
-
-  func updateTimerState(newState: TimerState) {
-    guard timerState != newState else { return }
-    timerState = newState
-  }
   
-  func refreshGameInformation() {
-    stopRefreshGameInformation()
-    
-    fetchBasicInformation()
-    fetchGameInformation()
-    
-    startRefreshGameInformation()
-  }
-  
-  func stopRefreshGameInformation() {
-    autoUpdateTimer.invalidate()
-  }
-  
-  func startRefreshGameInformation() {
-    autoUpdateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(fetchGameInformation), userInfo: nil, repeats: true)
-  }
-  
-  func fetchGameInformation() {
-    let turns = getTurn(needConciseAnswer: true)
-    
-    networkManager.fetchGameInformation(turn: turns) { (result) in
+  func getGameInformation() {
+    fetchGameInformation { [weak self] (result) in
       switch result {
       case .success(let data):
-        self.gameInformation = data
-        
-        self.dataManager.getAccountInformation()
-        self.dataManager.getHeroInformation()
-        self.dataManager.getJournalMessages()
-        self.dataManager.getJournalAction()
-      
-      case.failure(let error as NSError):
-        self.reconnectCounter += 1
-
-        if self.reconnectCounter == 3 {
-          self.stopRefreshGameInformation()
-          self.reconnectCounter = 0
-        }
-        
+        self?.gameInformationManager.gameInformation = data
+      case .failure(let error as NSError):
         debugPrint("fetchGameInformation \(error)")
       default: break
       }
     }
   }
   
-  private func fetchBasicInformation() {
-    networkManager.fetchBasicInformation { (result) in
-      switch result {
-      case .success(let data):
-        self.basicInformation = data
-      case .failure(let error as NSError):
-        debugPrint("fetchBasicInformation \(error)")
-      default: break
+  private func fetchGameInformation(completionHandler: @escaping (APIResult<GameInformation>) -> Void) {
+    pathComponents.removeAll()
+    pathComponents["api_client"]  = APIConfiguration.client.rawValue
+    pathComponents["api_version"] = APIPath.info.version
+    
+    httpParams.removeAll()
+    
+    let request = URLRequest(baseURL: baseURL, path: APIPath.info.rawValue, pathComponents: pathComponents, method: .get, httpParams: httpParams)
+    
+    fetch(request: request, parse: { (json) -> GameInformation? in
+      if let dictionary = json["data"] as? JSON {
+        return GameInformation(jsonObject: dictionary)
+      } else {
+        return nil
       }
-    }
-  }
-  
-  private func getTurn(needConciseAnswer: Bool) -> String {
-    guard let turnNumber = turn?.number else {
-      return ""
-    }
-    
-    clientTurns.append(String(turnNumber))
-    
-    while clientTurns.count > 3 {
-      clientTurns.removeFirst()
-    }
-    
-    if needConciseAnswer {
-      return clientTurns.joined(separator: ",")
-    }
-    return ""
+    }, completionHandler: completionHandler)
   }
   
 }

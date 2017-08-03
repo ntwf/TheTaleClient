@@ -8,29 +8,23 @@
 
 import Foundation
 
-struct Turn {
+class Turn: NSObject {
+
   var number: Int
   var verboseDate: String
   var verboseTime: String
-}
 
-extension Turn: JSONDecodable {
-  init?(jsonObject: JSON) {
+  required init?(jsonObject: JSON) {
     
     guard let number      = jsonObject["number"] as? Int,
           let verboseDate = jsonObject["verbose_date"] as? String,
           let verboseTime = jsonObject["verbose_time"] as? String else {
-        return nil
+      return nil
     }
     
     self.number      = number
     self.verboseDate = verboseDate
     self.verboseTime = verboseTime
-    
-  }
-  
-  init?() {
-    self.init(jsonObject: [:])
   }
 }
 

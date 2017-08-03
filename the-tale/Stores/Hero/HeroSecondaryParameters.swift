@@ -8,17 +8,16 @@
 
 import Foundation
 
-struct HeroSecondaryParameters {
+class HeroSecondaryParameters: NSObject {
+  
   var maxBagSize: Int
   var mPower: Int
   var pPower: Int
   var moveSpeed: Double
   var lootItemsCount: Int
   var initiative: Int
-}
 
-extension HeroSecondaryParameters: JSONDecodable {
-  init?(jsonObject: JSON) {
+  required init?(jsonObject: JSON) {
     
     guard let power          = jsonObject["power"] as? [Int],
           let maxBagSize     = jsonObject["max_bag_size"] as? Int,
@@ -34,11 +33,6 @@ extension HeroSecondaryParameters: JSONDecodable {
     self.moveSpeed      = moveSpeed
     self.lootItemsCount = lootItemsCount
     self.initiative     = initiative
-
-  }
-  
-  init?() {
-    self.init(jsonObject: [:])
   }
 }
 

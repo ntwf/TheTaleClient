@@ -20,8 +20,8 @@ class CompanionTableViewCell: UITableViewCell {
     experienceLabel.text = companion.experienceRepresentation()
     
     DispatchQueue.main.async {
-      self.healthProgressView.setProgress(TaleAPI.shared.companion?.healthProgressRepresentation() ?? 0.5, animated: false)
-      self.experienceProgressView.setProgress(TaleAPI.shared.companion?.experienceProgressRepresentation() ?? 0.5, animated: false)
+      self.healthProgressView.setProgress(TaleAPI.shared.playerInformationManager.companion?.healthProgressRepresentation() ?? 0.5, animated: false)
+      self.experienceProgressView.setProgress(TaleAPI.shared.playerInformationManager.companion?.experienceProgressRepresentation() ?? 0.5, animated: false)
     }
   }
   

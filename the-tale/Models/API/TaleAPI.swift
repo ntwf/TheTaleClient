@@ -8,62 +8,70 @@
 
 import UIKit
 
-class TaleAPI: NSObject {
+class TaleAPI: NSObject, NetworkClient {
+  
+  // MARK: Singleton
+  static let shared = TaleAPI()
 
-  class var shared: TaleAPI {
-    struct Singleton {
-      static let instance = TaleAPI()
-    }
-    return Singleton.instance
+  // MARK: Network variable
+  var sessionConfiguration: URLSessionConfiguration
+  var session: URLSession
+  
+  let baseURL = "http://the-tale.org"
+  
+  var httpParams: JSON
+  var pathComponents: JSON
+
+  // MARK: Managers
+  var playerInformationManager: PlayerInformationManager
+  var gameInformationManager: GameInformationManager
+  var diaryManager: DiaryManager
+  
+  // MARK: Initializer
+  private override init() {
+    self.sessionConfiguration = URLSessionConfiguration.default
+    self.session              = URLSession(configuration: sessionConfiguration)
+    
+    httpParams     = [:]
+    pathComponents = [:]
+
+    playerInformationManager  = PlayerInformationManager()
+    gameInformationManager    = GameInformationManager()
+    diaryManager              = DiaryManager()
   }
   
-  // Managers
-  var networkManager: NetworkManager
-  var dataManager: DataManager
-  
-  // Internal variables
-  var autoUpdateTimer       = Timer()
+  // MARK: Internal variables
+  var playerInformationTimer  = Timer()
   var clientTurns: [String] = []
-  var mapVersion            = MapVersions()
   var reconnectCounter      = 0
   
-  var timerState: TimerState = .start {
+  var playerInformationAutorefresh: TimerState = .stop {
     didSet {
-      switch timerState {
-      case .stop:
-        stopRefreshGameInformation()
+      switch playerInformationAutorefresh {
       case .start:
-        refreshGameInformation()
+        playerInformationTimer.invalidate()
+        
+        getGameInformation()
+        getPlayerInformation()
+        
+        playerInformationTimer = Timer.scheduledTimer(timeInterval: 10,
+                                                      target: self,
+                                                      selector: #selector(getPlayerInformation),
+                                                      userInfo: nil,
+                                                      repeats: true)
+      case .stop:
+        playerInformationTimer.invalidate()
       }
     }
   }
   
-  // External variables
+  // MARK: External variables
   var authorisationState            = AuthorisationState()
-  var loginState                    = Login()
-  var gameInformation               = GameInformation()
-  var messages: [Message]           = []
-  var action                        = Action()
-  var diaryMessages: [DiaryMessage] = []
-  var hero                          = Hero()
-  var heroBaseParameters            = HeroBaseParameters()
-  var heroSecondaryParameters       = HeroSecondaryParameters()
-  var heroPosition                  = Position()
-  var energy                        = Energy()
-  var might                         = Might()
-  var companion                     = Companion()
-  var equipment: [Artifact]         = []
-  var bag: [Artifact]               = []
-  var quests: [Quest]               = []
-  var cards                         = Cards()
-  var map                           = Map()
-  var turn                          = Turn()
-  var basicInformation              = BasicInformation()
   var alarm                         = ""
   
-  override init() {
-    networkManager = NetworkManager(sessionConfiguration: URLSessionConfiguration.default)
-    dataManager    = DataManager()
-  }
-  
+}
+
+enum TimerState {
+  case start
+  case stop
 }

@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct Companion {
+class Companion: NSObject {
+
   var coherence: Int
   var experience: Double
   var experienceToLevel: Double
@@ -17,10 +18,8 @@ struct Companion {
   var name: String
   var realCoherence: Int
   var type: Int
-}
 
-extension Companion: JSONDecodable {
-  init?(jsonObject: JSON) {
+  required init?(jsonObject: JSON) {
     
     guard let coherence         = jsonObject["coherence"] as? Int,
           let experience        = jsonObject["experience"] as? Double,
@@ -41,11 +40,6 @@ extension Companion: JSONDecodable {
     self.name              = name
     self.realCoherence     = realCoherence
     self.type              = type
-    
-  }
-  
-  init?() {
-    self.init(jsonObject: [:])
   }
 }
 

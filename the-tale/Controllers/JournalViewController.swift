@@ -14,7 +14,7 @@ class JournalViewController: UIViewController {
   @IBOutlet weak var timeLabel: UILabel!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
-  var allMessages         = [Message]()
+  var allMessages         = [JournalMessage]()
   var actionText          = ""
   var actionProgress      = 0.0
   var isEnabledHelpButton = false
@@ -22,6 +22,12 @@ class JournalViewController: UIViewController {
   let actionCell  = "ActionCell"
   let messageCell = "MessageCell"
   let diarySegue  = "toDiarySegue"
+
+  let keyPathTurn               = #keyPath(TaleAPI.playerInformationManager.turn)
+  let keyPathAction             = #keyPath(TaleAPI.playerInformationManager.action)
+  let keyPathEnergy             = #keyPath(TaleAPI.playerInformationManager.energy)
+  let keyPathHeroBaseParameters = #keyPath(TaleAPI.playerInformationManager.heroBaseParameters)
+  let keyPathJournal            = #keyPath(TaleAPI.playerInformationManager.journal)
   
   let refreshControl = UIRefreshControl()
   
@@ -33,13 +39,15 @@ class JournalViewController: UIViewController {
     setupNotification()
     setupTableView()
     
-    TaleAPI.shared.refreshGameInformation()
+    TaleAPI.shared.playerInformationAutorefresh = .start
   }
   
   func setupNotification() {
-    NotificationCenter.default.addObserver(self, selector: #selector(updateMessages), name: NSNotification.Name("updateJournalMessages"), object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(updateActionUI), name: NSNotification.Name("updateJournalAction"), object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(updateDateUI), name: NSNotification.Name("updateTurn"), object: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: keyPathTurn, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: keyPathAction, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: keyPathEnergy, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: keyPathHeroBaseParameters, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: keyPathJournal, options: [.new], context: nil)
   }
   
   func setupTableView() {
@@ -52,25 +60,34 @@ class JournalViewController: UIViewController {
     tableView.tableFooterView    = UIView()
   }
   
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if keyPath == keyPathTurn {
+      updateDateUI()
+    }
+    // I don't know how and when the API is updated. Necessary to update the cell several times over the course of the game turn.
+    if keyPath == keyPathAction ||
+       keyPath == keyPathEnergy ||
+       keyPath == keyPathHeroBaseParameters {
+      updateActionUI()
+    }
+    if keyPath == keyPathJournal {
+      updateMessages()
+    }
+  }
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
     navigationController?.isNavigationBarHidden = true
   }
   
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    
-    navigationController?.isNavigationBarHidden = false
-  }
-  
   func refreshData(sender: UIRefreshControl) {
-    TaleAPI.shared.refreshGameInformation()
+    TaleAPI.shared.playerInformationAutorefresh = .start
     refreshControl.endRefreshing()
   }
   
   func updateDateUI() {
-    timeLabel.text = TaleAPI.shared.turn?.timeRepresentation()
+    timeLabel.text = TaleAPI.shared.playerInformationManager.turn?.timeRepresentation()
   }
   
   func updateActionUI() {
@@ -79,17 +96,17 @@ class JournalViewController: UIViewController {
   }
   
   func updateMessages() {
-    if allMessages.count > 0 || TaleAPI.shared.messages.count != 0 {
+    if allMessages.count > 0 || TaleAPI.shared.playerInformationManager.journal.count != 0 {
       activityIndicator.stopAnimating()
     }
     
-    for message in TaleAPI.shared.messages {
+    for message in TaleAPI.shared.playerInformationManager.journal {
       tableView.beginUpdates()
       
       allMessages.insert(message, at: 0)
       tableView.insertRows(at: [IndexPath(row:0, section: 1)], with: .bottom)
       
-      while allMessages.count > 35 {
+      while allMessages.count > 50 {
         allMessages.removeLast()
         tableView.deleteRows(at: [IndexPath(row: allMessages.count - 1, section: 1)], with: .fade)
       }
@@ -99,8 +116,8 @@ class JournalViewController: UIViewController {
   }
   
   func checkAvalibleHelpButton() {
-    if let totalEnergy = TaleAPI.shared.energy?.energyTotal(),
-       let helpCost = TaleAPI.shared.basicInformation?.help,
+    if let totalEnergy = TaleAPI.shared.playerInformationManager.energy?.energyTotal(),
+       let helpCost = TaleAPI.shared.gameInformationManager.gameInformation?.help,
        totalEnergy >= helpCost {
       isEnabledHelpButton = true
       return
@@ -112,11 +129,34 @@ class JournalViewController: UIViewController {
   @IBAction func helpButtonTapped(_ sender: UIButton) {
     isEnabledHelpButton = false
     tableView.reloadSections(IndexSet(integer: 0), with: .none)
-    TaleAPI.shared.tryActionHelp()
+    
+    TaleAPI.shared.tryActionHelp { (result) in
+      switch result {
+      case .success(let data):
+        TaleAPI.shared.checkStatusOperation(operation: data)
+      case .failure(let error as NSError):
+        debugPrint("tryActionHelp \(error)")
+      default: break
+      }
+    }
   }
   
   @IBAction func diaryButtonTapped(_ sender: UIButton) {
     performSegue(withIdentifier: diarySegue, sender: nil)
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    navigationController?.isNavigationBarHidden = false
+  }
+  
+  deinit {
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathTurn)
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathAction)
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathEnergy)
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathHeroBaseParameters)
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathJournal)
   }
   
 }
@@ -144,9 +184,9 @@ extension JournalViewController: UITableViewDataSource {
       // swiftlint:disable:next force_cast
       let cell = tableView.dequeueReusableCell(withIdentifier: actionCell) as! JournalTableViewActionCell
       
-      if let action = TaleAPI.shared.action,
-         let heroBaseParameters = TaleAPI.shared.heroBaseParameters,
-         let energy = TaleAPI.shared.energy {
+      if let action = TaleAPI.shared.playerInformationManager.action,
+         let heroBaseParameters = TaleAPI.shared.playerInformationManager.heroBaseParameters,
+         let energy = TaleAPI.shared.playerInformationManager.energy {
         cell.configuredAction(info: action)
         cell.configuredHeroBase(info: heroBaseParameters)
         cell.configuredEnergy(info: energy)

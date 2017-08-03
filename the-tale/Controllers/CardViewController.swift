@@ -18,11 +18,13 @@ class CardViewController: UIViewController {
   let helpCell = "HelpBarrierCell"
   let cardCell = "CardCell"
   
+  let keyPathCardsInfo = #keyPath(TaleAPI.playerInformationManager.cardsInfo)
+  
   var hiddenGetCard   = true
   var hiddenMergeCard = true
 
-  var selectedCard = [String: CardInfo]()
-  var currentCards = [CardInfo]()
+  var selectedCard = [String: Card]()
+  var currentCards = [Card]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -36,8 +38,13 @@ class CardViewController: UIViewController {
   }
   
   func setupNotification() {
-    NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name("updateCard"), object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(showAlert), name: NSNotification.Name("operationAlarm"), object: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: keyPathCardsInfo, options: [.new], context: nil)
+  }
+
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if keyPath == #keyPath(TaleAPI.playerInformationManager.cardsInfo) {
+      updateUI()
+    }
   }
   
   func setupTableView() {
@@ -50,7 +57,7 @@ class CardViewController: UIViewController {
   }
   
   func refreshData(sender: UIRefreshControl) {
-    TaleAPI.shared.refreshGameInformation()
+    TaleAPI.shared.playerInformationAutorefresh = .start
     refreshControl.endRefreshing()
   }
   
@@ -68,8 +75,8 @@ class CardViewController: UIViewController {
   }
   
   func checkAvalibleGetCardButton() {
-    if let helpCount = TaleAPI.shared.cards?.helpCount,
-       let helpBarrier = TaleAPI.shared.cards?.helpBarrier,
+    if let helpCount = TaleAPI.shared.playerInformationManager.cardsInfo?.helpCount,
+       let helpBarrier = TaleAPI.shared.playerInformationManager.cardsInfo?.helpBarrier,
        helpCount >= helpBarrier {
       hiddenGetCard = false
       return
@@ -88,12 +95,12 @@ class CardViewController: UIViewController {
   }
   
   func saveCurrentCard() {
-    guard let cards = TaleAPI.shared.cards?.info else { return }
+    guard let cards = TaleAPI.shared.playerInformationManager.cardsInfo?.cards else { return }
     currentCards = cards
   }
   
   func showAlertNewCard() {
-    guard let cards = TaleAPI.shared.cards?.info else { return }
+    guard let cards = TaleAPI.shared.playerInformationManager.cardsInfo?.cards else { return }
     let newCard = Set(cards).subtracting(Set(currentCards))
 
     if newCard.count == 1,
@@ -115,16 +122,42 @@ class CardViewController: UIViewController {
   @IBAction func getCardButtonTapped(_ sender: UIButton) {
     hiddenGetCard = true
     activityIndicator.startAnimating()
-    TaleAPI.shared.tryGetCard()
+    
+    TaleAPI.shared.tryGetCard { (result) in
+      switch result {
+      case .success(let data):
+        TaleAPI.shared.checkStatusOperation(operation: data)
+      case .failure(let error as NSError):
+        debugPrint("tryGetCard \(error)")
+      default: break
+      }
+    }
+    
     updateUI()
   }
   
   @IBAction func mergeCardButtonTapped(_ sender: UIButton) {
     hiddenGetCard = true
     activityIndicator.startAnimating()
-    debugPrint(selectedCard)
-    TaleAPI.shared.tryMergeCard(selectedCard)
+    
+    let uidCards = selectedCard.map({ $0.key })
+                               .joined(separator: ",")
+      
+    TaleAPI.shared.tryMergeCard(uidCards: uidCards) { (result) in
+      switch result {
+      case .success(let data):
+        TaleAPI.shared.checkStatusOperation(operation: data)
+      case .failure(let error as NSError):
+        debugPrint("tryMergeCard \(error)")
+      default: break
+      }
+    }
+    
     updateUI()
+  }
+
+  deinit {
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathCardsInfo)
   }
   
 }
@@ -140,7 +173,7 @@ extension CardViewController: UITableViewDataSource {
     case 0:
       return 1
     case 1:
-      return TaleAPI.shared.cards?.info.count ?? 0
+      return TaleAPI.shared.playerInformationManager.cardsInfo?.cards.count ?? 0
     default:
       return 0
     }
@@ -152,7 +185,7 @@ extension CardViewController: UITableViewDataSource {
       // swiftlint:disable:next force_cast
       let cell = tableView.dequeueReusableCell(withIdentifier: helpCell) as! HelpBarrierTableViewCell
       
-      if let cards = TaleAPI.shared.cards {
+      if let cards = TaleAPI.shared.playerInformationManager.cardsInfo {
         cell.configured()
         cell.configuredHelpBarrier(with: cards)
         cell.configuredGetCardButton(isHidden: hiddenGetCard)
@@ -164,7 +197,7 @@ extension CardViewController: UITableViewDataSource {
       // swiftlint:disable:next force_cast
       let cell = tableView.dequeueReusableCell(withIdentifier: cardCell) as! CardTableViewCell
       
-      let cards = TaleAPI.shared.cards?.info
+      let cards = TaleAPI.shared.playerInformationManager.cardsInfo?.cards
       
       if let card            = cards?[indexPath.row],
          let cardDescription = Types.shared.card?.type[card.type] as? [String] {
@@ -182,17 +215,17 @@ extension CardViewController: UITableViewDataSource {
 extension CardViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    guard let card = TaleAPI.shared.cards?.info[indexPath.row],
-          let uid  = TaleAPI.shared.cards?.info[indexPath.row].uidRepresentation() else {
+    guard let card = TaleAPI.shared.playerInformationManager.cardsInfo?.cards[indexPath.row],
+          let uid  = TaleAPI.shared.playerInformationManager.cardsInfo?.cards[indexPath.row].uidRepresentation() else {
         return
     }
-    debugPrint(card)
+
     selectedCard.updateValue(card, forKey: uid)
     checkAvalibleMergeCardButton()
   }
   
   func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-    guard let uid = TaleAPI.shared.cards?.info[indexPath.row].uidRepresentation() else {
+    guard let uid = TaleAPI.shared.playerInformationManager.cardsInfo?.cards[indexPath.row].uidRepresentation() else {
         return
     }
     selectedCard.removeValue(forKey: uid)
@@ -201,8 +234,18 @@ extension CardViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     let useCard = UITableViewRowAction(style: .destructive, title: "Использовать") { (_, indexPath) in
-      if let uidCard = TaleAPI.shared.cards?.info[indexPath.row].uidRepresentation() {
-        TaleAPI.shared.tryUseCard(uidCard)
+      if let uidCard = TaleAPI.shared.playerInformationManager.cardsInfo?.cards[indexPath.row].uidRepresentation() {
+        
+        TaleAPI.shared.tryUseCard(uidCard: uidCard) { (result) in
+          switch result {
+          case .success(let data):
+            TaleAPI.shared.checkStatusOperation(operation: data)
+          case .failure(let error as NSError):
+            debugPrint("tryUseCard \(error)")
+          default: break
+          }
+        }
+        
       }
     }
     

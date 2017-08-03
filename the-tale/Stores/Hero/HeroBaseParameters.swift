@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct HeroBaseParameters {
+class HeroBaseParameters: NSObject {
+
   var alive: Bool
   var destinyPoints: Int
   var experience: Int
@@ -20,10 +21,8 @@ struct HeroBaseParameters {
   var money: Int
   var name: String
   var race: String
-}
 
-extension HeroBaseParameters: JSONDecodable {
-  init?(jsonObject: JSON) {
+  required init?(jsonObject: JSON) {
     
     guard let alive             = jsonObject["alive"] as? Bool,
           let destinyPoints     = jsonObject["destiny_points"] as? Int,
@@ -36,7 +35,7 @@ extension HeroBaseParameters: JSONDecodable {
           let money             = jsonObject["money"] as? Int,
           let name              = jsonObject["name"] as? String,
           let race              = jsonObject["race"] as? Int else {
-        return nil
+      return nil
     }
     
     self.alive             = alive
@@ -50,11 +49,6 @@ extension HeroBaseParameters: JSONDecodable {
     self.money             = money
     self.name              = name
     self.race              = String(describing: Types.shared.common?.race[String(race)])
-    
-  }
-  
-  init?() {
-    self.init(jsonObject: [:])
   }
 }
 

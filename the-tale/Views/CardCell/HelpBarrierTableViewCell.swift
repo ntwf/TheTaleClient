@@ -19,7 +19,7 @@ class HelpBarrierTableViewCell: UITableViewCell {
     selectionStyle = .none
   }
   
-  func configuredHelpBarrier(with card: Cards) {
+  func configuredHelpBarrier(with card: CardsInfo) {
     helpCountLabel.text = card.helpCountRepresentation()
     
     DispatchQueue.main.async {

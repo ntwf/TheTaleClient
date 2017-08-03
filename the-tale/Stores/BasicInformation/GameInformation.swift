@@ -1,5 +1,5 @@
 //
-//  Info.swift
+//  GameInformation.swift
 //  the-tale
 //
 //  Created by Mikhail Vospennikov on 14/05/2017.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BasicInformation {
+struct GameInformation {
   var accountID: Int
   var accountName: String
   var gameVersion: String
@@ -22,7 +22,7 @@ struct BasicInformation {
   var dropItem: Int
 }
 
-extension BasicInformation: JSONDecodable {
+extension GameInformation: JSONDecodable {
   init?(jsonObject: JSON) {
     
     guard let accountID          = jsonObject["account_id"] as? Int,

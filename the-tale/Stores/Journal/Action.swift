@@ -8,34 +8,28 @@
 
 import Foundation
 
-struct Action {
+class Action: NSObject {
+  
   var percents: Double
-  var description: String
+  var info: String
   // var infoLink: String
-  var type: Int
   // var isBoss: Bool
-}
-
-extension Action: JSONDecodable {
-  init?(jsonObject: JSON) {
+  var type: Int
+  
+  required init?(jsonObject: JSON) {
 
     guard let percents    = jsonObject["percents"] as? Double,
-          let description = jsonObject["description"] as? String,
+          let info        = jsonObject["description"] as? String,
           // let infoLink = jsonObject["info_link"] as? String,
           // let isBoss   = jsonObject["is_boss"] as? Bool,
           let type        = jsonObject["type"] as? Int else {
-        return nil
+      return nil
     }
     
     self.percents    = percents
-    self.description = description
+    self.info        = info
     // self.infoLink = infoLink
-    self.type        = type
     // self.isBoss   = isBoss
-    
-  }
-  
-  init?() {
-    self.init(jsonObject: [:])
+    self.type        = type
   }
 }

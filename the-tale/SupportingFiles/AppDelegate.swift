@@ -24,11 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   func applicationDidEnterBackground(_ application: UIApplication) {
-    TaleAPI.shared.updateTimerState(newState: .stop)
+    TaleAPI.shared.playerInformationAutorefresh = .stop
   }
   
   func applicationWillEnterForeground(_ application: UIApplication) {
-    // TaleAPI.shared.updateTimerState(newState: .start)
+    if TaleAPI.shared.authorisationState != nil {
+      TaleAPI.shared.playerInformationAutorefresh = .stop
+    }
   }
 
   func applicationDidBecomeActive(_ application: UIApplication) {

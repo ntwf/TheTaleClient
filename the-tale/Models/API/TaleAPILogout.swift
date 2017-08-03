@@ -9,18 +9,19 @@
 import Foundation
 
 extension TaleAPI {
-  
-  func logout() {
-    networkManager.logout { (result) in
-      switch result {
-      case .success:
-        NotificationCenter.default.post(name: NSNotification.Name("logoutState"), object: nil)
-      case .failure(let error as NSError):
-        debugPrint("logout \(error)")
-        NotificationCenter.default.post(name: NSNotification.Name("logoutState"), object: nil)
-      default: break
-      }
-    }
+ 
+  func logout(completionHandler: @escaping (APIResult<Logout>) -> Void) {
+    pathComponents.removeAll()
+    pathComponents["api_client"]  = APIConfiguration.client.rawValue
+    pathComponents["api_version"] = APIPath.logout.version
+    
+    httpParams.removeAll()
+    
+    let request = URLRequest(baseURL: baseURL, path: APIPath.logout.rawValue, pathComponents: pathComponents, method: .post, httpParams: httpParams)
+    
+    fetch(request: request, parse: { (json) -> Logout? in
+      return Logout(jsonObject: json)
+    }, completionHandler: completionHandler)
   }
   
 }

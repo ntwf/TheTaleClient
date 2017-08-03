@@ -21,7 +21,7 @@ struct Map {
 
 extension Map: JSONDecodable {
   init?(jsonObject: JSON) {
-    
+
     let sizeBlock = CGSize(width: 32, height: 32)
     
     guard let turn           = jsonObject["turn"] as? Int,

@@ -8,29 +8,19 @@
 
 import Foundation
 
-struct CardInfo {
+class Card: NSObject {
+  
   var auction: Bool
   var name: String
   var rarity: Int
   var type: String
   var uid: Int
-}
 
-extension CardInfo: Equatable {
-}
-
-extension CardInfo: Hashable {
-  var hashValue: Int { return uid.hashValue }
-}
-
-func == (lhs: CardInfo, rhs: CardInfo) -> Bool {
-  return lhs.uid == rhs.uid
-}
-
-extension CardInfo: JSONDecodable {
-  init?(jsonObject: JSON) {
-    
-    debugPrint(jsonObject)
+  override var hashValue: Int {
+    return uid.hashValue
+  }
+  
+  required init?(jsonObject: JSON) {
     
     guard let auction = jsonObject["auction"] as? Bool,
           let name    = jsonObject["name"] as? String,
@@ -45,15 +35,16 @@ extension CardInfo: JSONDecodable {
     self.rarity  = rarity
     self.type    = String(type)
     self.uid     = uid
-    
-  }
-  
-  init?() {
-    self.init(jsonObject: [:])
   }
 }
 
-extension CardInfo {
+extension Card {
+  static func == (lhs: Card, rhs: Card) -> Bool {
+    return lhs.uid == rhs.uid
+  }
+}
+
+extension Card {
   func uidRepresentation() -> String {
     return String(self.uid)
   }

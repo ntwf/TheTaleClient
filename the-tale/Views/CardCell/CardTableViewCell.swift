@@ -13,7 +13,7 @@ class CardTableViewCell: UITableViewCell {
   @IBOutlet weak var cardNameLabel: UILabel!
   @IBOutlet weak var cardDescriptionLabel: UILabel!
   
-  func configuredCard(info card: CardInfo, description: String) {
+  func configuredCard(info card: Card, description: String) {
     cardNameLabel.text        = card.name.capitalizeFirstLetter
     cardDescriptionLabel.text = description
     
