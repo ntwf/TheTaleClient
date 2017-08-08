@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_the_taleVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_the_taleVersionString[];
+FOUNDATION_EXPORT double Pods_TheTaleClientVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_TheTaleClientVersionString[];
 
