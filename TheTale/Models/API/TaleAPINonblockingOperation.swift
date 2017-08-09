@@ -102,14 +102,17 @@ extension TaleAPI {
   }
   
   func checkStatusOperation(operation: NonblockingOperationStatus) {
+    if let error = operation.error {
+      NotificationCenter.default.post(name: .nonblockingOperationAlarm, object: nil, userInfo: ["alarm": error])
+    }
+    
     guard let pathURL = operation.statusURL else {
-      alarm = operation.error ?? "error"
-      NotificationCenter.default.post(name: NSNotification.Name("operationAlarm"), object: nil)
+      // debugPrint("API didn't return a link to check the status operation. It's ok.", operation)
       return
     }
 
     if operation.retry >= 3 {
-      debugPrint("Attempts to perform the operation are exhausted. What to do?", operation)
+      debugPrint("Attempts to perform the operation are over. What to do?", operation)
       return
     }
     
@@ -130,8 +133,7 @@ extension TaleAPI {
     case "ok":
       playerInformationAutorefresh = .start
     case "error":
-      alarm = operation.error ?? "error"
-      NotificationCenter.default.post(name: NSNotification.Name("operationAlarm"), object: nil)
+      debugPrint("State of the nonblocking operation is an error.", operation)
     default:
       return
     }

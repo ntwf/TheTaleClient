@@ -39,23 +39,25 @@ class CardViewController: UIViewController {
   
   func setupNotification() {
     TaleAPI.shared.addObserver(self, forKeyPath: keyPathCardsInfo, options: [.new], context: nil)
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(catchNotification(notification:)), name: .nonblockingOperationAlarm, object: nil)
   }
 
-  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == #keyPath(TaleAPI.playerInformationManager.cardsInfo) {
-      updateUI()
-    }
-  }
-  
   func setupTableView() {
     refreshControl.addTarget(self, action: #selector(CardViewController.refreshData(sender:)), for: .valueChanged)
-
+    
     tableView.refreshControl     = refreshControl
     tableView.estimatedRowHeight = 46
     tableView.rowHeight          = UITableViewAutomaticDimension
     tableView.tableFooterView    = UIView()
   }
   
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if keyPath == #keyPath(TaleAPI.playerInformationManager.cardsInfo) {
+      updateUI()
+    }
+  }
+
   func refreshData(sender: UIRefreshControl) {
     TaleAPI.shared.playerInformationAutorefresh = .start
     refreshControl.endRefreshing()
@@ -64,7 +66,7 @@ class CardViewController: UIViewController {
   func updateUI() {
     activityIndicator.stopAnimating()
 
-    showAlertNewCard()
+    showNewCard()
     
     selectedCard.removeAll()
 
@@ -99,24 +101,28 @@ class CardViewController: UIViewController {
     currentCards = cards
   }
   
-  func showAlertNewCard() {
+  func catchNotification(notification: Notification) {
+    guard let userInfo = notification.userInfo,
+          let message  = userInfo["alarm"] as? String else {
+        return
+    }
+    
+    let alertController = UIAlertController(title: "Ошибка!", message: message)
+    present(alertController, animated: true, completion: nil)
+  }
+  
+  func showNewCard() {
     guard let cards = TaleAPI.shared.playerInformationManager.cardsInfo?.cards else { return }
     let newCard = Set(cards).subtracting(Set(currentCards))
 
     if newCard.count == 1,
        let cardName = newCard.first?.name {
-      let alert = UIAlertController(title: "Получена новая карта.", message: cardName.capitalizeFirstLetter)
-      let rootViewController = tabBarController?.selectedViewController
-      rootViewController?.present(alert, animated: true, completion: nil)
+      
+      let alertController = UIAlertController(title: "Получена новая карта.", message: cardName)
+      present(alertController, animated: true, completion: nil)
     }
     
     saveCurrentCard()
-  }
-  
-  func showAlert() {
-    let alert = UIAlertController(title: "Ошибка!", message: TaleAPI.shared.alarm)
-    let rootViewController = tabBarController?.selectedViewController
-    rootViewController?.present(alert, animated: true, completion: nil)
   }
   
   @IBAction func getCardButtonTapped(_ sender: UIButton) {
