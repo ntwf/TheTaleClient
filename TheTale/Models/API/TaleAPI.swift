@@ -67,7 +67,6 @@ class TaleAPI: NSObject, NetworkClient {
   
   // MARK: External variables
   var authorisationState            = AuthorisationState()
-  var alarm                         = ""
   
 }
 
