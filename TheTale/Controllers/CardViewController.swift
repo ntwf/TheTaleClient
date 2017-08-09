@@ -113,7 +113,7 @@ class CardViewController: UIViewController {
   
   func showNewCard() {
     guard let cards = TaleAPI.shared.playerInformationManager.cardsInfo?.cards else { return }
-    let newCard = Set(cards).subtracting(Set(currentCards))
+    let newCard = cards.filter { !currentCards.contains($0) }
 
     if newCard.count == 1,
        let cardName = newCard.first?.name {

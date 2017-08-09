@@ -36,6 +36,14 @@ class Card: NSObject {
     self.type    = String(type)
     self.uid     = uid
   }
+  
+  override func isEqual(_ object: Any?) -> Bool {
+    if let rhs = object as? Card {
+      return uid == rhs.uid && uid == rhs.uid
+    } else {
+      return false
+    }
+  }
 }
 
 extension Card {
