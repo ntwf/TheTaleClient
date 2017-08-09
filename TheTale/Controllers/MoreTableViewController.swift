@@ -15,8 +15,8 @@ class MoreTableViewController: UITableViewController {
   let loginStoryboard = "loginScreen"
   
   let gameURL      = "http://the-tale.org"
-  let gameForumURL = "http://the-tale.org/guide/game"
-  let gameGuideURL = "http://the-tale.org/forum"
+  let gameGuideURL = "http://the-tale.org/guide/game"
+  let gameForumURL = "http://the-tale.org/forum"
   
   // Apple did not approve of using the built-in browser. Now opens a Safari.
   // var url = URL(string: "")
