@@ -88,3 +88,11 @@ class MoreTableViewController: UITableViewController {
   // }
   
 }
+
+extension MoreTableViewController: UITableViewDelegate {
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
+  }
+  
+}
