@@ -58,6 +58,8 @@ class MoreTableViewController: UITableViewController {
     default:
       break
     }
+    
+    tableView.deselectRow(at: indexPath, animated: true)
   }
   
   func logout() {
@@ -86,13 +88,5 @@ class MoreTableViewController: UITableViewController {
   //     destinationViewController.myURL = url
   //   }
   // }
-  
-}
-
-extension MoreTableViewController: UITableViewDelegate {
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
-  }
   
 }
