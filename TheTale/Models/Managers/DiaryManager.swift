@@ -10,7 +10,8 @@ import Foundation
 
 class DiaryManager: NSObject {
   
-  dynamic var diary: [DiaryMessage]           = []
+  var oldDiary: [DiaryMessage]      = []
+  dynamic var diary: [DiaryMessage] = []
   
   private var recivedMessages: [DiaryMessage] = []
   

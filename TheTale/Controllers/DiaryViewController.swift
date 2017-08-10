@@ -52,6 +52,7 @@ class DiaryViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
+    allMessages = TaleAPI.shared.diaryManager.oldDiary
     fetchDiary()
   }
 
@@ -93,7 +94,7 @@ class DiaryViewController: UIViewController {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     
-    TaleAPI.shared.diaryManager.diary = allMessages
+    TaleAPI.shared.diaryManager.oldDiary = allMessages
   }
   
   deinit {
