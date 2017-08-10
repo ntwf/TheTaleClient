@@ -15,9 +15,10 @@ class QuestViewController: UIViewController {
   
   var questIndex: Int!
   
-  let questCell  = "QuestCell"
-  let actorCell  = "ActorsCell"
-  let choiceCell = "ChoiceCell"
+  let questCell      = "QuestCell"
+  let actorCell      = "ActorsCell"
+  let madeChoiceCell = "MadeChoiceCell"
+  let choicesCell     = "ChoicesCell"
   
   let keyPathQuests = #keyPath(TaleAPI.playerInformationManager.quests)
   
@@ -64,7 +65,10 @@ extension QuestViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    if section == 2 && TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives.count != 0 {
+    if section == 2 && TaleAPI.shared.playerInformationManager.quests[questIndex].choice != nil {
+      return "Поступки героя."
+    }
+    if section == 3 && TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives.count != 0 {
       return "Как поступим?"
     }
     return nil
@@ -77,6 +81,11 @@ extension QuestViewController: UITableViewDataSource {
     case 1:
       return TaleAPI.shared.playerInformationManager.quests[questIndex].actors.count
     case 2:
+      if TaleAPI.shared.playerInformationManager.quests[questIndex].choice != nil {
+        return 1
+      }
+      return 0
+    case 3:
       return TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives.count
     default:
       return 0
@@ -107,7 +116,12 @@ extension QuestViewController: UITableViewDataSource {
       
       return cell!
     case 2:
-      let cell = tableView.dequeueReusableCell(withIdentifier: choiceCell)
+      let cell = tableView.dequeueReusableCell(withIdentifier: madeChoiceCell)
+      cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[questIndex].choice?.capitalizeFirstLetter
+      
+      return cell!
+    case 3:
+      let cell = tableView.dequeueReusableCell(withIdentifier: choicesCell)
       cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives[indexPath.row].info.capitalizeFirstLetter
 
       return cell!
