@@ -28,8 +28,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func applicationWillEnterForeground(_ application: UIApplication) {
-    if TaleAPI.shared.authorisationState != nil {
-      TaleAPI.shared.playerInformationAutorefresh = .stop
+    TaleAPI.shared.getAuthorisationState { (result) in
+      switch result {
+      case .success(let data):
+        TaleAPI.shared.authorisationState = data
+        TaleAPI.shared.playerInformationAutorefresh = .start
+      case .failure(let error as NSError):
+        debugPrint("checkAuthorisation", error)
+      default: break
+      }
     }
   }
 
