@@ -292,13 +292,17 @@ extension HeroViewController: UITableViewDataSource {
       let cell = tableView.dequeueReusableCell(withIdentifier: questCell)
       cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[indexPath.row].nameRepresentation()
       cell?.textLabel?.adjustsFontSizeToFitWidth = true
+ 
+      if TaleAPI.shared.playerInformationManager.quests[indexPath.row].choiceAlternatives.count >= 1 {
+        cell?.textLabel?.isHighlighted = true
+      }
       
       return cell!
     case 3:
       // swiftlint:disable:next force_cast
       let cell = tableView.dequeueReusableCell(withIdentifier: equipmentCell) as! EquipmentTableViewCell
       cell.configuredEquipment(info: TaleAPI.shared.playerInformationManager.equipment[indexPath.row])
-      
+
       return cell
     case 4:
       // swiftlint:disable:next force_cast
