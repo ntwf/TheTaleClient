@@ -313,12 +313,15 @@ extension HeroViewController: UITableViewDataSource {
     case 5:
       let cell = tableView.dequeueReusableCell(withIdentifier: bagCell)
       
-      let artifact = Array(TaleAPI.shared.playerInformationManager.bag.keys)[indexPath.row]
-      let counter = Array(TaleAPI.shared.playerInformationManager.bag.values)[indexPath.row]
+      guard let artifact = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.key.name.capitalizeFirstLetter,
+            let counter  = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.value else {
+        return cell!
+      }
+      
       if counter >= 2 {
-        cell?.textLabel?.text = "\(artifact.name.capitalizeFirstLetter) (x\(counter))"
+        cell?.textLabel?.text = "\(artifact) (x\(counter))"
       } else {
-        cell?.textLabel?.text = "\(artifact.name.capitalizeFirstLetter)"
+        cell?.textLabel?.text = "\(artifact)"
       }
       
       return cell!

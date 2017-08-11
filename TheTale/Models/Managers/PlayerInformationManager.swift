@@ -18,7 +18,7 @@ class PlayerInformationManager: NSObject {
   dynamic var action                    = Action(jsonObject: [:])
   dynamic var cardsInfo                 = CardsInfo(jsonObject: [:])
   dynamic var equipment: [Artifact]     = []
-  dynamic var bag: [Artifact: Int]      = [:]
+  dynamic var bag: [[Artifact: Int]]    = [[:]]
   dynamic var companion                 = Companion(jsonObject: [:])
   dynamic var energy                    = Energy(jsonObject: [:])
   dynamic var heroBaseParameters        = HeroBaseParameters(jsonObject: [:])
@@ -147,15 +147,16 @@ class PlayerInformationManager: NSObject {
       return
     }
     
-    var bagCounts: [Artifact: Int] = [:]
-    var uniqueBag: [Artifact: Int] = [:]
+    var bagCounts: [Artifact: Int]   = [:]
+    var uniqueBag: [[Artifact: Int]] = [[:]]
     
     for artifact in recivedBags {
       bagCounts[artifact] = (bagCounts[artifact] ?? 0) + 1
     }
-
-    for (artifact, counter) in bagCounts {
-      uniqueBag[artifact] = counter
+    
+    uniqueBag.removeAll()
+    for (artifact, counter) in bagCounts.sorted(by: { $0.key.name < $1.key.name }) {
+      uniqueBag.append([artifact: counter])
     }
     
     bag = uniqueBag
