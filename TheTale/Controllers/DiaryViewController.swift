@@ -39,7 +39,6 @@ class DiaryViewController: UIViewController {
     tableView.refreshControl     = refreshControl
     tableView.estimatedRowHeight = 78
     tableView.rowHeight          = UITableViewAutomaticDimension
-    tableView.allowsSelection    = false
     tableView.tableFooterView    = UIView()
   }
   
@@ -91,6 +90,23 @@ class DiaryViewController: UIViewController {
     }
   }
   
+  func showActionSheet(save text: String) {
+    let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+    
+    let saveButton = UIAlertAction(title: "Скопировать", style: .default) { _ in
+      let pasteboard = UIPasteboard.general
+      
+      pasteboard.string = text
+    }
+    
+    let okButton = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+    
+    alertController.addAction(okButton)
+    alertController.addAction(saveButton)
+    
+    present(alertController, animated: true, completion: nil)
+  }
+  
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     
@@ -116,6 +132,21 @@ extension DiaryViewController: UITableViewDataSource {
     cell.configuredDiary(diary: allMessages[indexPath.row])
     
     return cell
+  }
+  
+}
+
+extension DiaryViewController: UITableViewDelegate {
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    if indexPath.section == 0 {
+      let messageData = allMessages[indexPath.row]
+      let text        = "\(messageData.position.capitalizeFirstLetter)\n\(messageData.message.capitalizeFirstLetter)\n\(messageData.gameDate)"
+      
+      showActionSheet(save: text)
+    }
+    
+    tableView.deselectRow(at: indexPath, animated: true)
   }
   
 }

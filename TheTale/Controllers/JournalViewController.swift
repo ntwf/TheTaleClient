@@ -56,7 +56,6 @@ class JournalViewController: UIViewController {
     tableView.refreshControl     = refreshControl
     tableView.estimatedRowHeight = 78
     tableView.rowHeight          = UITableViewAutomaticDimension
-    tableView.allowsSelection    = false
     tableView.tableFooterView    = UIView()
   }
   
@@ -124,6 +123,23 @@ class JournalViewController: UIViewController {
     }
     
     isEnabledHelpButton = false
+  }
+  
+  func showActionSheet(save text: String) {
+    let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+    
+    let saveButton = UIAlertAction(title: "Скопировать", style: .default) { _ in
+      let pasteboard = UIPasteboard.general
+      
+      pasteboard.string = text
+    }
+    
+    let okButton = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+    
+    alertController.addAction(okButton)
+    alertController.addAction(saveButton)
+    
+    present(alertController, animated: true, completion: nil)
   }
   
   @IBAction func helpButtonTapped(_ sender: UIButton) {
@@ -203,6 +219,18 @@ extension JournalViewController: UITableViewDataSource {
     default:
       fatalError("Wrong number of sections")
     }
+  }
+  
+}
+
+extension JournalViewController: UITableViewDelegate {
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    if indexPath.section == 1 {
+      showActionSheet(save: allMessages[indexPath.row].text)
+    }
+    
+    tableView.deselectRow(at: indexPath, animated: true)
   }
   
 }
