@@ -267,25 +267,17 @@ extension HeroViewController: UITableViewDataSource {
     case 0:
       // swiftlint:disable:next force_cast
       let cell = tableView.dequeueReusableCell(withIdentifier: heroCell) as! HeroTableViewCell
-            
-      if let heroBaseParameters      = TaleAPI.shared.playerInformationManager.heroBaseParameters,
-         let heroSecondaryParameters = TaleAPI.shared.playerInformationManager.heroSecondaryParameters,
-         let energy                  = TaleAPI.shared.playerInformationManager.energy,
-         let might                   = TaleAPI.shared.playerInformationManager.might {
-        cell.configuredHeroBaseParameters(info: heroBaseParameters)
-        cell.configuredHeroSecondParameters(info: heroSecondaryParameters)
-        cell.configuredEnergy(info: energy)
-        cell.configuredMight(info: might)
-      }
+      
+      cell.configuredHeroBaseParameters(info: TaleAPI.shared.playerInformationManager.heroBaseParameters!)
+      cell.configuredHeroSecondParameters(info: TaleAPI.shared.playerInformationManager.heroSecondaryParameters!)
+      cell.configuredEnergy(info: TaleAPI.shared.playerInformationManager.energy!)
+      cell.configuredMight(info: TaleAPI.shared.playerInformationManager.might!)
 
       return cell
     case 1:
       // swiftlint:disable:next force_cast
       let cell = tableView.dequeueReusableCell(withIdentifier: companionCell) as! CompanionTableViewCell
-
-      if let companion = TaleAPI.shared.playerInformationManager.companion {
-        cell.configuredCompanion(info: companion)
-      }
+      cell.configuredCompanion(info: TaleAPI.shared.playerInformationManager.companion!)
       
       return cell
     case 2:

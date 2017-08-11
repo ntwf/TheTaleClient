@@ -17,8 +17,8 @@ class QuestViewController: UIViewController {
   
   let questCell      = "QuestCell"
   let actorCell      = "ActorsCell"
-  let madeChoiceCell = "MadeChoiceCell"
-  let choicesCell     = "ChoicesCell"
+  let madeChoiceCell = "MadeСhoiceCell"
+  let choicesCell    = "ChoicesCell"
   
   let keyPathQuests = #keyPath(TaleAPI.playerInformationManager.quests)
   
@@ -61,7 +61,7 @@ class QuestViewController: UIViewController {
 extension QuestViewController: UITableViewDataSource {
   
   func numberOfSections(in tableView: UITableView) -> Int {
-    return 3
+    return 4
   }
   
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -117,7 +117,11 @@ extension QuestViewController: UITableViewDataSource {
       return cell!
     case 2:
       let cell = tableView.dequeueReusableCell(withIdentifier: madeChoiceCell)
-      cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[questIndex].choice?.capitalizeFirstLetter
+      
+      guard let choice = TaleAPI.shared.playerInformationManager.quests[questIndex].choice else {
+        return cell!
+      }
+      cell?.textLabel?.text = choice.capitalizeFirstLetter
       
       return cell!
     case 3:
@@ -135,7 +139,7 @@ extension QuestViewController: UITableViewDataSource {
 extension QuestViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    guard indexPath.section == 2 else {
+    guard indexPath.section == 3 else {
       return
     }
     activityIndicator.startAnimating()
