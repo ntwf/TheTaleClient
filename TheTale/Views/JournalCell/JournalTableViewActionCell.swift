@@ -17,7 +17,7 @@ class JournalTableViewActionCell: UITableViewCell {
   @IBOutlet weak var helpButton: UIButton!
   
   func configuredAction(info action: Action) {
-    actionLabel.text = action.info.capitalizeFirstLetter
+    actionLabel.text = action.infoRepresentation()
 
     DispatchQueue.main.async {
       self.progressViewBar.setProgress(Float(action.percents), animated: false)

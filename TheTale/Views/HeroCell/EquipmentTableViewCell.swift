@@ -18,7 +18,7 @@ class EquipmentTableViewCell: UITableViewCell {
   func configuredEquipment(info equipment: Artifact) {
 
     equipImageView.image = UIImage(named: equipment.imageName)
-    equipLabel.text      = equipment.name.capitalizeFirstLetter
+    equipLabel.text      = equipment.nameRepresentation()
     mPowerLabel.text     = equipment.mPowerRepresentation()
     pPowerLabel.text     = equipment.pPowerRepresentation()
     

@@ -21,7 +21,7 @@ class AboutViewController: UIViewController {
   func setupTextView() {
     DispatchQueue.main.async {
       self.textView.dataDetectorTypes = [.link]
-      self.textView.isSelectable = true
+      self.textView.isSelectable      = true
     }
   }
   

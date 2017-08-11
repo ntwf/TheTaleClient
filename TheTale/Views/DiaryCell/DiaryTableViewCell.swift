@@ -15,7 +15,7 @@ class DiaryTableViewCell: UITableViewCell {
   @IBOutlet weak var messageLabel: UILabel!
   
   func configuredDiary(diary message: DiaryMessage) {
-    locationLabel.text = message.position.capitalizeFirstLetter
+    locationLabel.text = message.positionRepresentation()
     dateLabel.text     = message.dateRepresentation()
     messageLabel.text  = message.message
   }

@@ -66,7 +66,7 @@ extension QuestViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     if section == 2 && TaleAPI.shared.playerInformationManager.quests[questIndex].choice != nil {
-      return "Поступки героя."
+      return "Поступки героя"
     }
     if section == 3 && TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives.count != 0 {
       return "Как поступим?"
@@ -118,15 +118,15 @@ extension QuestViewController: UITableViewDataSource {
     case 2:
       let cell = tableView.dequeueReusableCell(withIdentifier: madeChoiceCell)
       
-      guard let choice = TaleAPI.shared.playerInformationManager.quests[questIndex].choice else {
+      guard let choice = TaleAPI.shared.playerInformationManager.quests[questIndex].choiceRepresentation() else {
         return cell!
       }
-      cell?.textLabel?.text = choice.capitalizeFirstLetter
+      cell?.textLabel?.text = choice
       
       return cell!
     case 3:
       let cell = tableView.dequeueReusableCell(withIdentifier: choicesCell)
-      cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives[indexPath.row].info.capitalizeFirstLetter
+      cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives[indexPath.row].infoRepresentation()
 
       return cell!
     default:

@@ -33,3 +33,9 @@ class Action: NSObject {
     self.type        = type
   }
 }
+
+extension Action {
+  func infoRepresentation() -> String {
+    return String(info.capitalizeFirstLetter)
+  }
+}

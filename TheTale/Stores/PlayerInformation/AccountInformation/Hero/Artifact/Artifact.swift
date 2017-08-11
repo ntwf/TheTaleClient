@@ -78,11 +78,15 @@ extension Artifact {
 }
 
 extension Artifact {
+  func nameRepresentation() -> String {
+    return String(name.capitalizeFirstLetter)
+  }
+  
   func mPowerRepresentation() -> String {
-    return "\(self.mPower ?? 0)"
+    return "\(mPower ?? 0)"
   }
   
   func pPowerRepresentation() -> String {
-    return "\(self.pPower ?? 0)"
+    return "\(pPower ?? 0)"
   }
 }

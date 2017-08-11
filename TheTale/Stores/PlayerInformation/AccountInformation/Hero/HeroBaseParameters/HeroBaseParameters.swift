@@ -54,30 +54,30 @@ class HeroBaseParameters: NSObject {
 
 extension HeroBaseParameters {
   func levelRepresentation() -> String {
-    return "\(self.level)"
+    return "\(level)"
   }
   
   func moneyRepresentation() -> String {
-    return "\(self.money)"
+    return "\(money)"
   }
   
   func healthRepresentation() -> String {
-    return "\(Int(self.health))/\(Int(self.maxHealth))"
+    return "\(Int(health))/\(Int(maxHealth))"
   }
   
   func experienceRepresentation() -> String {
-    return "\(Int(self.experience))/\(Int(self.experienceToLevel))"
+    return "\(Int(experience))/\(Int(experienceToLevel))"
   }
   
   func healthProgressRepresentation() -> Float {
-    return (Float(self.health) / Float(self.maxHealth))
+    return (Float(health) / Float(maxHealth))
   }
   
   func experienceProgressRepresentation() -> Float {
-    return (Float(self.experience) / Float(self.experienceToLevel))
+    return (Float(experience) / Float(experienceToLevel))
   }
   
   func nameRepresentation() -> String {
-    return "\(self.level) \(self.name)"
+    return "\(level) \(name)"
   }
 }

@@ -30,6 +30,6 @@ class Turn: NSObject {
 
 extension Turn {
   func timeRepresentation() -> String {
-    return "\(self.verboseTime) \(self.verboseDate)"
+    return "\(verboseTime) \(verboseDate)"
   }
 }

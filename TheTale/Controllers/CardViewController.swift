@@ -58,6 +58,16 @@ class CardViewController: UIViewController {
     }
   }
 
+  func catchNotification(notification: Notification) {
+    guard let userInfo = notification.userInfo,
+      let message  = userInfo["alarm"] as? String else {
+        return
+    }
+    
+    let alertController = UIAlertController(title: "Ошибка!", message: message)
+    present(alertController, animated: true, completion: nil)
+  }
+  
   func refreshData(sender: UIRefreshControl) {
     TaleAPI.shared.playerInformationAutorefresh = .start
     refreshControl.endRefreshing()
@@ -101,23 +111,11 @@ class CardViewController: UIViewController {
     currentCards = cards
   }
   
-  func catchNotification(notification: Notification) {
-    guard let userInfo = notification.userInfo,
-          let message  = userInfo["alarm"] as? String else {
-        return
-    }
-    
-    let alertController = UIAlertController(title: "Ошибка!", message: message)
-    present(alertController, animated: true, completion: nil)
-  }
-  
   func showNewCard() {
     guard let cards = TaleAPI.shared.playerInformationManager.cardsInfo?.cards else { return }
     let newCard = cards.filter { !currentCards.contains($0) }
 
-    if newCard.count == 1,
-       let cardName = newCard.first?.name {
-      
+    if newCard.count == 1, let cardName = newCard.first?.nameRepresentation() {
       let alertController = UIAlertController(title: "Получена новая карта.", message: cardName)
       present(alertController, animated: true, completion: nil)
     }

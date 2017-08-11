@@ -35,6 +35,6 @@ extension MapVersions: JSONDecodable {
 
 extension MapVersions {
   func returnLastTurn() -> String {
-    return String(describing: self.turns.last)
+    return String(describing: turns.last)
   }
 }

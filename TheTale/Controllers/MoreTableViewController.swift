@@ -30,12 +30,6 @@ class MoreTableViewController: UITableViewController {
     
     navigationController?.isNavigationBarHidden = true
   }
-  
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    
-    navigationController?.isNavigationBarHidden = false
-  }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     switch (indexPath.section, indexPath.row) {
@@ -89,4 +83,9 @@ class MoreTableViewController: UITableViewController {
   //   }
   // }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    navigationController?.isNavigationBarHidden = false
+  }
 }

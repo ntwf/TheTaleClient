@@ -56,10 +56,10 @@ extension CardsInfo {
 
 extension CardsInfo {
   func helpCountRepresentation() -> String {
-    return "\(self.helpCount)/\(self.helpBarrier)"
+    return "\(helpCount)/\(helpBarrier)"
   }
   
   func helpBarrierProgressRepresentation() -> Float {
-    return (Float(self.helpCount) / Float(self.helpBarrier))
+    return (Float(helpCount) / Float(helpBarrier))
   }
 }

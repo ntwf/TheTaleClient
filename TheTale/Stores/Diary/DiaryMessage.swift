@@ -56,6 +56,14 @@ extension DiaryMessage {
 }
 
 extension DiaryMessage {
+  func positionRepresentation() -> String {
+    return String(position.capitalizeFirstLetter)
+  }
+  
+  func messageRepresentation() -> String {
+    return String(message.capitalizeFirstLetter)
+  }
+  
   func dateRepresentation() -> String {
     return "\(gameTime) \(gameDate)"
   }

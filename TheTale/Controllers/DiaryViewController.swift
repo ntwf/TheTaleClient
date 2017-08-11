@@ -141,7 +141,7 @@ extension DiaryViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if indexPath.section == 0 {
       let messageData = allMessages[indexPath.row]
-      let text        = "\(messageData.position.capitalizeFirstLetter)\n\(messageData.message.capitalizeFirstLetter)\n\(messageData.gameDate)"
+      let text        = "\(messageData.positionRepresentation())\n\(messageData.messageRepresentation())\n\(messageData.gameDate)"
       
       showActionSheet(save: text)
     }

@@ -32,11 +32,11 @@ class Energy: NSObject {
 
 extension Energy {
   func energyRepresentation() -> String {
-    return "\(self.value)/\(self.max) + \(self.bonus)"
+    return "\(value)/\(max) + \(bonus)"
   }
   
   func energyProgressRepresentation() -> Float {
-    return (Float(self.value) / Float(self.max))
+    return (Float(value) / Float(max))
   }
   
   func energyTotal() -> Int {

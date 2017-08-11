@@ -116,7 +116,7 @@ class JournalViewController: UIViewController {
   
   func checkAvalibleHelpButton() {
     if let totalEnergy = TaleAPI.shared.playerInformationManager.energy?.energyTotal(),
-       let helpCost = TaleAPI.shared.gameInformationManager.gameInformation?.help,
+       let helpCost    = TaleAPI.shared.gameInformationManager.gameInformation?.help,
        totalEnergy >= helpCost {
       isEnabledHelpButton = true
       return
@@ -200,9 +200,9 @@ extension JournalViewController: UITableViewDataSource {
       // swiftlint:disable:next force_cast
       let cell = tableView.dequeueReusableCell(withIdentifier: actionCell) as! JournalTableViewActionCell
       
-      if let action = TaleAPI.shared.playerInformationManager.action,
+      if let action             = TaleAPI.shared.playerInformationManager.action,
          let heroBaseParameters = TaleAPI.shared.playerInformationManager.heroBaseParameters,
-         let energy = TaleAPI.shared.playerInformationManager.energy {
+         let energy             = TaleAPI.shared.playerInformationManager.energy {
         cell.configuredAction(info: action)
         cell.configuredHeroBase(info: heroBaseParameters)
         cell.configuredEnergy(info: energy)

@@ -52,6 +52,6 @@ class Actor: NSObject {
 
 extension Actor {
   func nameActorsRepresentation() -> String {
-    return "\(self.nameActors.capitalizeFirstLetter):"
+    return "\(nameActors.capitalizeFirstLetter):"
   }
 }

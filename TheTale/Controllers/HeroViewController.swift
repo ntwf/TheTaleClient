@@ -52,15 +52,12 @@ class HeroViewController: UIViewController {
     TaleAPI.shared.addObserver(self, forKeyPath: keyPathEquipment, options: [.new], context: nil)
     TaleAPI.shared.addObserver(self, forKeyPath: keyPathBag, options: [.new], context: nil)
   }
-  
-  deinit {
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathHeroBaseParameters)
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathHeroSecondaryParameters)
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathEnergy)
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathQuests)
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathCompanion)
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathEquipment)
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathBag)
+
+  func setupTableView() {
+    refreshControl.addTarget(self, action: #selector(HeroViewController.refreshData(sender:)), for: .valueChanged)
+    
+    tableView.refreshControl  = refreshControl
+    tableView.tableFooterView = UIView()
   }
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -86,32 +83,19 @@ class HeroViewController: UIViewController {
       updateBagUI()
     }
   }
-  
-  func setupTableView() {
-    refreshControl.addTarget(self, action: #selector(HeroViewController.refreshData(sender:)), for: .valueChanged)
-    
-    tableView.refreshControl     = refreshControl
-    tableView.tableFooterView    = UIView()
-  }
-  
-  func setupBackgroundStatusBar() {
-    statusBarView                  = UIView(frame: UIApplication.shared.statusBarFrame)
-    statusBarView?.backgroundColor = UIColor(red: 255, green: 255, blue: 255, transparency: 0.8)
-    view.addSubview(statusBarView!)
-  }
-  
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
     navigationController?.isNavigationBarHidden = true
   }
-  
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    
-    navigationController?.isNavigationBarHidden = false
+
+  func setupBackgroundStatusBar() {
+    statusBarView                  = UIView(frame: UIApplication.shared.statusBarFrame)
+    statusBarView?.backgroundColor = UIColor(red: 255, green: 255, blue: 255, transparency: 0.8)
+    view.addSubview(statusBarView!)
   }
-  
+
   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
     switch UIDevice.current.orientation {
     case UIDeviceOrientation.portrait, UIDeviceOrientation.portraitUpsideDown:
@@ -199,6 +183,22 @@ class HeroViewController: UIViewController {
       default: break
       }
     }
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    navigationController?.isNavigationBarHidden = false
+  }
+  
+  deinit {
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathHeroBaseParameters)
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathHeroSecondaryParameters)
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathEnergy)
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathQuests)
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathCompanion)
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathEquipment)
+    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathBag)
   }
   
 }
@@ -305,7 +305,7 @@ extension HeroViewController: UITableViewDataSource {
     case 5:
       let cell = tableView.dequeueReusableCell(withIdentifier: bagCell)
       
-      guard let artifact = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.key.name.capitalizeFirstLetter,
+      guard let artifact = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.key.nameRepresentation(),
             let counter  = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.value else {
         return cell!
       }
