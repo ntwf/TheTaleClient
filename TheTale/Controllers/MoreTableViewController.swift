@@ -10,16 +10,11 @@ import UIKit
 
 class MoreTableViewController: UITableViewController {
   
-  let aboutSegue      = "toAboutSegue"
-  let webSegue        = "toWebViewSegue"
-  let loginStoryboard = "loginScreen"
-  
-  let gameURL      = "http://the-tale.org"
-  let gameGuideURL = "http://the-tale.org/guide/game"
-  let gameForumURL = "http://the-tale.org/forum"
-  
-  // Apple did not approve of using the built-in browser. Now opens a Safari.
-  // var url = URL(string: "")
+  enum Constants {
+    static let segueAbout = "toAboutSegue"
+    
+    static let storyboardLoginID = "loginScreen"
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -34,19 +29,13 @@ class MoreTableViewController: UITableViewController {
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     switch (indexPath.section, indexPath.row) {
     case (0, 0):
-      UIApplication.shared.open(URL(string: gameURL)!)
-      // url = URL(string: gameURL)
-      // performSegue(withIdentifier: webSegue, sender: nil)
+      UIApplication.shared.open(URL(string: TaleAPI.shared.baseURL)!)
     case (0, 1):
-      UIApplication.shared.open(URL(string: gameGuideURL)!)
-      // url = URL(string: gameGuideURL)
-      // performSegue(withIdentifier: webSegue, sender: nil)
+      UIApplication.shared.open(URL(string: TaleAPI.shared.gameGuideURL)!)
     case (0, 2):
-      UIApplication.shared.open(URL(string: gameForumURL)!)
-      // url = URL(string: gameForumURL)
-      // performSegue(withIdentifier: webSegue, sender: nil)
+      UIApplication.shared.open(URL(string: TaleAPI.shared.gameForumURL)!)
     case (1, 0):
-      performSegue(withIdentifier: aboutSegue, sender: nil)
+      performSegue(withIdentifier: Constants.segueAbout, sender: nil)
     case (2, 0):
       logout()
     default:
@@ -61,7 +50,7 @@ class MoreTableViewController: UITableViewController {
       switch result {
       case .success:
         TaleAPI.shared.playerInformationAutorefresh = .stop
-        TaleAPI.shared.authorisationState = AuthorisationState()
+        TaleAPI.shared.authorisationState           = AuthorisationState()
         
         self?.presentLoginScreen()
       case .failure(let error as NSError):
@@ -72,16 +61,9 @@ class MoreTableViewController: UITableViewController {
   }
   
   func presentLoginScreen() {
-    let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: loginStoryboard)
+    let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: Constants.storyboardLoginID)
     present(loginViewController, animated: true, completion: nil)
   }
-  
-  // override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-  //   if segue.identifier == "toWebViewSegue" {
-  //     guard let destinationViewController = segue.destination as? WebViewController else { return }
-  //     destinationViewController.myURL = url
-  //   }
-  // }
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)

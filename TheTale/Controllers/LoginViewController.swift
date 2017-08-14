@@ -10,13 +10,13 @@ import UIKit
 
 class LoginViewController: UIViewController {
   
+  enum Constants {
+    static let segueJournal = "toJournalSegue"
+  }
+  
   @IBOutlet weak var loginTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-  
-  let journalSegue = "toJournalSegue"
-  
-  let gameURL      = "http://the-tale.org"
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -42,7 +42,7 @@ class LoginViewController: UIViewController {
       case .success:
         self?.activityIndicator.stopAnimating()
         
-        self?.performSegue(withIdentifier: (self?.journalSegue)!, sender: self)
+        self?.performSegue(withIdentifier: Constants.segueJournal, sender: self)
       
       case .failure(let error as NSError):
         self?.activityIndicator.stopAnimating()
@@ -73,7 +73,9 @@ class LoginViewController: UIViewController {
   }
   
   @IBAction func goToSiteButtonTapped(_ sender: UIButton) {
-    UIApplication.shared.open(URL(string: gameURL)!)
+    if let baseURL = URL(string: TaleAPI.shared.baseURL) {
+      UIApplication.shared.open(baseURL)
+    }
   }
   
 }

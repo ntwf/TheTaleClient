@@ -9,19 +9,21 @@
 import UIKit
 
 class QuestViewController: UIViewController {
+
+  enum Constants {
+    static let cellQuest      = "QuestCell"
+    static let cellActor      = "ActorsCell"
+    static let cellMadeChoice = "MadeСhoiceCell"
+    static let cellChoices    = "ChoicesCell"
+    
+    static let keyPathQuests = #keyPath(TaleAPI.playerInformationManager.quests)
+  }
   
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
   var questIndex: Int!
-  
-  let questCell      = "QuestCell"
-  let actorCell      = "ActorsCell"
-  let madeChoiceCell = "MadeСhoiceCell"
-  let choicesCell    = "ChoicesCell"
-  
-  let keyPathQuests = #keyPath(TaleAPI.playerInformationManager.quests)
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -32,7 +34,7 @@ class QuestViewController: UIViewController {
   }
 
   func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: keyPathQuests, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathQuests, options: [.new], context: nil)
   }
   
   func setupTableView() {
@@ -42,7 +44,7 @@ class QuestViewController: UIViewController {
   }
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == keyPathQuests {
+    if keyPath == Constants.keyPathQuests {
       updateUI()
     }
   }
@@ -53,7 +55,7 @@ class QuestViewController: UIViewController {
   }
   
   deinit {
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathQuests)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constants.keyPathQuests)
   }
   
 }
@@ -96,13 +98,13 @@ extension QuestViewController: UITableViewDataSource {
     switch indexPath.section {
     case 0:
       // swiftlint:disable:next force_cast
-      let cell = tableView.dequeueReusableCell(withIdentifier: questCell) as! QuestTableViewCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellQuest) as! QuestTableViewCell
 
       cell.configuredQuest(info: TaleAPI.shared.playerInformationManager.quests[questIndex])
 
       return cell
     case 1:
-      let cell = tableView.dequeueReusableCell(withIdentifier: actorCell)
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellActor)
 
       let nameActors = TaleAPI.shared.playerInformationManager.quests[questIndex].actors[indexPath.row].nameActorsRepresentation
       
@@ -116,7 +118,7 @@ extension QuestViewController: UITableViewDataSource {
       
       return cell!
     case 2:
-      let cell = tableView.dequeueReusableCell(withIdentifier: madeChoiceCell)
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellMadeChoice)
       
       guard let choice = TaleAPI.shared.playerInformationManager.quests[questIndex].choiceRepresentation else {
         return cell!
@@ -125,7 +127,7 @@ extension QuestViewController: UITableViewDataSource {
       
       return cell!
     case 3:
-      let cell = tableView.dequeueReusableCell(withIdentifier: choicesCell)
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellChoices)
       cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives[indexPath.row].infoRepresentation
 
       return cell!

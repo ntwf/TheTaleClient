@@ -10,11 +10,13 @@ import UIKit
 
 class StartViewController: UIViewController {
   
+  enum Constants {
+    static let segueJournal = "toJournalSegue"
+    static let segueLogin   = "toLoginSegue"
+  }
+  
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-  
-  let journalSegue = "toJournalSegue"
-  let loginSegue   = "toLoginSegue"
-  
+ 
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -28,10 +30,10 @@ class StartViewController: UIViewController {
       switch result {
       case .success(let data):
         TaleAPI.shared.authorisationState = data
-        self?.performSegue(withIdentifier: (self?.journalSegue)!, sender: self)
+        self?.performSegue(withIdentifier: Constants.segueJournal, sender: self)
       case .failure(let error as NSError):
         debugPrint("checkAuthorisation", error)
-        self?.performSegue(withIdentifier: (self?.loginSegue)!, sender: self)
+        self?.performSegue(withIdentifier: Constants.segueLogin, sender: self)
       default: break
       }
     }

@@ -10,6 +10,10 @@ import UIKit
 
 class MapViewController: UIViewController {
   
+  enum Constants {
+    static let cellMap = "Cell"
+  }
+  
   @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet weak var mapActivityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var compassButton: UIButton!
@@ -123,7 +127,7 @@ extension MapViewController: UICollectionViewDataSource {
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     // swiftlint:disable:next force_cast
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! MapCollectionViewCell
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellMap, for: indexPath) as! MapCollectionViewCell
     
     if let image = map?.image[indexPath.section][indexPath.item] {
       cell.configuredCell()

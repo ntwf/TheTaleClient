@@ -17,7 +17,9 @@ class TaleAPI: NSObject, NetworkClient {
   var sessionConfiguration: URLSessionConfiguration
   var session: URLSession
   
-  let baseURL = "http://the-tale.org"
+  let baseURL      = "http://the-tale.org"
+  let gameGuideURL = "http://the-tale.org/guide/game"
+  let gameForumURL = "http://the-tale.org/forum"
   
   var httpParams: JSON
   var pathComponents: JSON
@@ -35,9 +37,9 @@ class TaleAPI: NSObject, NetworkClient {
     httpParams     = [:]
     pathComponents = [:]
 
-    playerInformationManager  = PlayerInformationManager()
-    gameInformationManager    = GameInformationManager()
-    diaryManager              = DiaryManager()
+    playerInformationManager = PlayerInformationManager()
+    gameInformationManager   = GameInformationManager()
+    diaryManager             = DiaryManager()
   }
   
   // MARK: Internal variables

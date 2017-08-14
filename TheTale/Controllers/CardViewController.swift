@@ -10,15 +10,17 @@ import UIKit
 
 class CardViewController: UIViewController {
   
+  enum Constants {
+    static let cellHelp = "HelpBarrierCell"
+    static let cellCard = "CardCell"
+    
+    static let keyPathCardsInfo = #keyPath(TaleAPI.playerInformationManager.cardsInfo)
+  }
+  
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
   let refreshControl = UIRefreshControl()
-  
-  let helpCell = "HelpBarrierCell"
-  let cardCell = "CardCell"
-  
-  let keyPathCardsInfo = #keyPath(TaleAPI.playerInformationManager.cardsInfo)
   
   var hiddenGetCard   = true
   var hiddenMergeCard = true
@@ -38,7 +40,7 @@ class CardViewController: UIViewController {
   }
   
   func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: keyPathCardsInfo, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathCardsInfo, options: [.new], context: nil)
     
     NotificationCenter.default.addObserver(self, selector: #selector(catchNotification(notification:)), name: .nonblockingOperationAlarm, object: nil)
   }
@@ -161,7 +163,7 @@ class CardViewController: UIViewController {
   }
 
   deinit {
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathCardsInfo)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constants.keyPathCardsInfo)
   }
   
 }
@@ -187,7 +189,7 @@ extension CardViewController: UITableViewDataSource {
     switch indexPath.section {
     case 0:
       // swiftlint:disable:next force_cast
-      let cell = tableView.dequeueReusableCell(withIdentifier: helpCell) as! HelpBarrierTableViewCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellHelp) as! HelpBarrierTableViewCell
       
       if let cards = TaleAPI.shared.playerInformationManager.cardsInfo {
         cell.configured()
@@ -199,7 +201,7 @@ extension CardViewController: UITableViewDataSource {
       return cell
     case 1:
       // swiftlint:disable:next force_cast
-      let cell = tableView.dequeueReusableCell(withIdentifier: cardCell) as! CardTableViewCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellCard) as! CardTableViewCell
       
       let cards = TaleAPI.shared.playerInformationManager.cardsInfo?.cards
       
