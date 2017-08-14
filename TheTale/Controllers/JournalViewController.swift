@@ -86,7 +86,7 @@ class JournalViewController: UIViewController {
   }
   
   func updateDateUI() {
-    timeLabel.text = TaleAPI.shared.playerInformationManager.turn?.timeRepresentation()
+    timeLabel.text = TaleAPI.shared.playerInformationManager.turn?.timeRepresentation
   }
   
   func updateActionUI() {
@@ -115,7 +115,7 @@ class JournalViewController: UIViewController {
   }
   
   func checkAvalibleHelpButton() {
-    if let totalEnergy = TaleAPI.shared.playerInformationManager.energy?.energyTotal(),
+    if let totalEnergy = TaleAPI.shared.playerInformationManager.energy?.energyTotal,
        let helpCost    = TaleAPI.shared.gameInformationManager.gameInformation?.help,
        totalEnergy >= helpCost {
       isEnabledHelpButton = true

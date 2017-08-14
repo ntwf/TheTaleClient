@@ -32,7 +32,7 @@ class Might: NSObject {
 }
 
 extension Might {
-  func mightRepresentation() -> String {
+  var mightRepresentation: String {
     return String(format: "%.1f", value)
   }
 }

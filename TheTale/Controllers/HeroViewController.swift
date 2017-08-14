@@ -151,7 +151,7 @@ class HeroViewController: UIViewController {
       return
     }
     
-    if let totalEnergy  = TaleAPI.shared.playerInformationManager.energy?.energyTotal(),
+    if let totalEnergy  = TaleAPI.shared.playerInformationManager.energy?.energyTotal,
        let dropItemCost = TaleAPI.shared.gameInformationManager.gameInformation?.dropItem,
        totalEnergy >= dropItemCost {
       hiddenDropItemBag = false
@@ -237,15 +237,15 @@ extension HeroViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     switch section {
     case 0:
-      return TaleAPI.shared.playerInformationManager.heroBaseParameters?.nameRepresentation()
+      return TaleAPI.shared.playerInformationManager.heroBaseParameters?.nameRepresentation
     case 1:
-      return TaleAPI.shared.playerInformationManager.companion?.nameRepresentation()
+      return TaleAPI.shared.playerInformationManager.companion?.nameRepresentation
     case 2:
       return "Задания"
     case 3:
       return "Экипировка"
     case 4:
-      return TaleAPI.shared.playerInformationManager.heroSecondaryParameters?.lootItemsCountRepresentation()
+      return TaleAPI.shared.playerInformationManager.heroSecondaryParameters?.lootItemsCountRepresentation
     default:
       return nil
     }
@@ -282,7 +282,7 @@ extension HeroViewController: UITableViewDataSource {
       return cell
     case 2:
       let cell = tableView.dequeueReusableCell(withIdentifier: questCell)
-      cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[indexPath.row].nameRepresentation()
+      cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[indexPath.row].nameRepresentation
       cell?.textLabel?.adjustsFontSizeToFitWidth = true
  
       if TaleAPI.shared.playerInformationManager.quests[indexPath.row].choiceAlternatives.count >= 1 {
@@ -305,7 +305,7 @@ extension HeroViewController: UITableViewDataSource {
     case 5:
       let cell = tableView.dequeueReusableCell(withIdentifier: bagCell)
       
-      guard let artifact = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.key.nameRepresentation(),
+      guard let artifact = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.key.nameRepresentation,
             let counter  = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.value else {
         return cell!
       }

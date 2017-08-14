@@ -104,7 +104,7 @@ extension QuestViewController: UITableViewDataSource {
     case 1:
       let cell = tableView.dequeueReusableCell(withIdentifier: actorCell)
 
-      let nameActors = TaleAPI.shared.playerInformationManager.quests[questIndex].actors[indexPath.row].nameActorsRepresentation()
+      let nameActors = TaleAPI.shared.playerInformationManager.quests[questIndex].actors[indexPath.row].nameActorsRepresentation
       
       if let goal = TaleAPI.shared.playerInformationManager.quests[questIndex].actors[indexPath.row].goal {
         cell?.textLabel?.text = "\(nameActors) \(goal)"
@@ -118,7 +118,7 @@ extension QuestViewController: UITableViewDataSource {
     case 2:
       let cell = tableView.dequeueReusableCell(withIdentifier: madeChoiceCell)
       
-      guard let choice = TaleAPI.shared.playerInformationManager.quests[questIndex].choiceRepresentation() else {
+      guard let choice = TaleAPI.shared.playerInformationManager.quests[questIndex].choiceRepresentation else {
         return cell!
       }
       cell?.textLabel?.text = choice
@@ -126,7 +126,7 @@ extension QuestViewController: UITableViewDataSource {
       return cell!
     case 3:
       let cell = tableView.dequeueReusableCell(withIdentifier: choicesCell)
-      cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives[indexPath.row].infoRepresentation()
+      cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[questIndex].choiceAlternatives[indexPath.row].infoRepresentation
 
       return cell!
     default:

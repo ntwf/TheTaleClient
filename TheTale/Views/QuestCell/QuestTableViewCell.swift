@@ -17,13 +17,13 @@ class QuestTableViewCell: UITableViewCell {
 
   func configuredQuest(info quest: Quest) {
     questImageView.image = UIImage(named: quest.type)
-    questNameLabel.text  = quest.nameRepresentation()
-    actionLabel.text     = quest.actionRepresentation()
+    questNameLabel.text  = quest.nameRepresentation
+    actionLabel.text     = quest.actionRepresentation
     
     if quest.experience == 0, quest.power == 0 {
       experienceLabel.isHidden = true
     } else {
-      experienceLabel.text = quest.experienceRepresentation()
+      experienceLabel.text = quest.experienceRepresentation
     }
   }
   

@@ -29,7 +29,7 @@ class Turn: NSObject {
 }
 
 extension Turn {
-  func timeRepresentation() -> String {
+  var timeRepresentation: String {
     return "\(verboseTime) \(verboseDate)"
   }
 }

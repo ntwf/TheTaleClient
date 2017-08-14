@@ -45,7 +45,7 @@ extension PlaceInfo: JSONDecodable {
 }
 
 extension PlaceInfo {
-  func nameRepresentation() -> String {
+  var nameRepresentation: String {
     return " (\(size)) \(name) "
   }
 }

@@ -131,7 +131,7 @@ extension MapViewController: UICollectionViewDataSource {
     }
     
     if let place = map?.places.filter({ $0.posY == indexPath.section - 1 && $0.posX == indexPath.item }).first {
-      cell.setAnnotation(with: place.nameRepresentation())
+      cell.setAnnotation(with: place.nameRepresentation)
     }
     
     if let hero = TaleAPI.shared.playerInformationManager.hero,

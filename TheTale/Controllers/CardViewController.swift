@@ -115,7 +115,7 @@ class CardViewController: UIViewController {
     guard let cards = TaleAPI.shared.playerInformationManager.cardsInfo?.cards else { return }
     let newCard = cards.filter { !currentCards.contains($0) }
 
-    if newCard.count == 1, let cardName = newCard.first?.nameRepresentation() {
+    if newCard.count == 1, let cardName = newCard.first?.nameRepresentation {
       let alertController = UIAlertController(title: "Получена новая карта.", message: cardName)
       present(alertController, animated: true, completion: nil)
     }
@@ -220,7 +220,7 @@ extension CardViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let card = TaleAPI.shared.playerInformationManager.cardsInfo?.cards[indexPath.row],
-          let uid  = TaleAPI.shared.playerInformationManager.cardsInfo?.cards[indexPath.row].uidRepresentation() else {
+          let uid  = TaleAPI.shared.playerInformationManager.cardsInfo?.cards[indexPath.row].uidRepresentation else {
         return
     }
 
@@ -229,7 +229,7 @@ extension CardViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-    guard let uid = TaleAPI.shared.playerInformationManager.cardsInfo?.cards[indexPath.row].uidRepresentation() else {
+    guard let uid = TaleAPI.shared.playerInformationManager.cardsInfo?.cards[indexPath.row].uidRepresentation else {
         return
     }
     selectedCard.removeValue(forKey: uid)
@@ -238,7 +238,7 @@ extension CardViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     let useCard = UITableViewRowAction(style: .destructive, title: "Использовать") { (_, indexPath) in
-      if let uidCard = TaleAPI.shared.playerInformationManager.cardsInfo?.cards[indexPath.row].uidRepresentation() {
+      if let uidCard = TaleAPI.shared.playerInformationManager.cardsInfo?.cards[indexPath.row].uidRepresentation {
         
         TaleAPI.shared.tryUseCard(uidCard: uidCard) { (result) in
           switch result {

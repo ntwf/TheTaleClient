@@ -17,7 +17,7 @@ class JournalTableViewActionCell: UITableViewCell {
   @IBOutlet weak var helpButton: UIButton!
   
   func configuredAction(info action: Action) {
-    actionLabel.text = action.infoRepresentation()
+    actionLabel.text = action.infoRepresentation
 
     DispatchQueue.main.async {
       self.progressViewBar.setProgress(Float(action.percents), animated: false)
@@ -25,11 +25,11 @@ class JournalTableViewActionCell: UITableViewCell {
   }
   
   func configuredHeroBase(info hero: HeroBaseParameters) {
-    hpLabel.text = hero.healthRepresentation()
+    hpLabel.text = hero.healthRepresentation
   }
   
   func configuredEnergy(info energy: Energy) {
-    energyLabel.text = energy.energyRepresentation()
+    energyLabel.text = energy.energyRepresentation
   }
   
   func configuredHelpButton(isEnabled: Bool) {
