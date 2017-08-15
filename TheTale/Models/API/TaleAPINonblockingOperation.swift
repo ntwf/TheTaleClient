@@ -105,37 +105,38 @@ extension TaleAPI {
     if let error = operation.error {
       NotificationCenter.default.post(name: .nonblockingOperationAlarm, object: nil, userInfo: ["alarm": error])
     }
-    
-    guard let pathURL = operation.statusURL else {
-      // debugPrint("API didn't return a link to check the status operation. It's ok.", operation)
-      return
-    }
 
-    if operation.retry >= 3 {
-      debugPrint("Attempts to perform the operation are over. What to do?", operation)
+    guard let pathURL = operation.statusURL,
+          operation.retry <= 3 else {
       return
     }
     
-    switch operation.status {
-    case "processing":
-      sleep(UInt32(operation.retry + 1))
-      fetchStatusOperation(url: pathURL) { (result) in
-        switch result {
-        case .success(var data):
-          data.retry     = operation.retry + 1
-          data.statusURL = operation.statusURL
-          return self.checkStatusOperation(operation: data)
-        case .failure(let error as NSError):
-          debugPrint("checkStatusOperation \(error)")
-        default: break
-        }
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
       }
-    case "ok":
-      playerInformationAutorefresh = .start
-    case "error":
-      debugPrint("State of the nonblocking operation is an error.", operation)
-    default:
-      return
+      
+      switch operation.status {
+      case "processing":
+        sleep(UInt32(operation.retry + 1))
+        strongSelf.fetchStatusOperation(url: pathURL) { (result) in
+          switch result {
+          case .success(var data):
+            data.retry     = operation.retry + 1
+            data.statusURL = operation.statusURL
+            return strongSelf.checkStatusOperation(operation: data)
+          case .failure(let error as NSError):
+            debugPrint("checkStatusOperation \(error)")
+          default: break
+          }
+        }
+      case "ok":
+        strongSelf.playerInformationAutorefresh = .start
+      case "error":
+        debugPrint("State of the nonblocking operation is an error.", operation)
+      default:
+        return
+      }
     }
   }
   

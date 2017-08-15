@@ -62,7 +62,7 @@ class CardViewController: UIViewController {
 
   func catchNotification(notification: Notification) {
     guard let userInfo = notification.userInfo,
-      let message  = userInfo["alarm"] as? String else {
+          let message  = userInfo["alarm"] as? String else {
         return
     }
     
@@ -76,16 +76,22 @@ class CardViewController: UIViewController {
   }
   
   func updateUI() {
-    activityIndicator.stopAnimating()
-
-    showNewCard()
-    
-    selectedCard.removeAll()
-
-    hiddenMergeCard = true
-    checkAvalibleGetCardButton()
-    
-    tableView.reloadData()
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      strongSelf.activityIndicator.stopAnimating()
+      
+      strongSelf.showNewCard()
+      
+      strongSelf.selectedCard.removeAll()
+      
+      strongSelf.hiddenMergeCard = true
+      strongSelf.checkAvalibleGetCardButton()
+      
+      strongSelf.tableView.reloadData()
+    }
   }
   
   func checkAvalibleGetCardButton() {

@@ -29,13 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func applicationWillEnterForeground(_ application: UIApplication) {
     TaleAPI.shared.getAuthorisationState { (result) in
-      switch result {
-      case .success(let data):
-        TaleAPI.shared.authorisationState = data
-        TaleAPI.shared.playerInformationAutorefresh = .start
-      case .failure(let error as NSError):
-        debugPrint("checkAuthorisation", error)
-      default: break
+      DispatchQueue.main.async {
+        switch result {
+        case .success(let data):
+          TaleAPI.shared.authorisationState = data
+          TaleAPI.shared.playerInformationAutorefresh = .start
+        case .failure(let error as NSError):
+          debugPrint("checkAuthorisation", error)
+        default: break
+        }
       }
     }
   }

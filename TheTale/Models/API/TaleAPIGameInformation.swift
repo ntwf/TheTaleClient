@@ -12,9 +12,13 @@ extension TaleAPI {
   
   func getGameInformation() {
     fetchGameInformation { [weak self] (result) in
+      guard let strongSelf = self else {
+        return
+      }
+      
       switch result {
       case .success(let data):
-        self?.gameInformationManager.gameInformation = data
+        strongSelf.gameInformationManager.gameInformation = data
       case .failure(let error as NSError):
         debugPrint("fetchGameInformation \(error)")
       default: break

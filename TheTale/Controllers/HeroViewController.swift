@@ -43,8 +43,6 @@ class HeroViewController: UIViewController {
     setupNotification()
     setupTableView()
     setupBackgroundStatusBar()
-    
-    updateHeroUI()
   }
   
   func setupNotification() {
@@ -117,35 +115,65 @@ class HeroViewController: UIViewController {
   }
   
   func updateHeroUI() {
-    UIView.performWithoutAnimation {
-      tableView.reloadSections(IndexSet(integer: 0), with: .none)
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
       
-      checkAvalibleDropItemBagButton()
-      tableView.reloadSections(IndexSet(integer: 4), with: .none)
+      UIView.performWithoutAnimation {
+        strongSelf.tableView.reloadSections(IndexSet(integer: 0), with: .none)
+        
+        strongSelf.checkAvalibleDropItemBagButton()
+        strongSelf.tableView.reloadSections(IndexSet(integer: 4), with: .none)
+      }
     }
   }
   
   func updateCompanionUI() {
-    UIView.performWithoutAnimation {
-      tableView.reloadSections(IndexSet(integer: 1), with: .none)
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      UIView.performWithoutAnimation {
+        strongSelf.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+      }
     }
   }
 
   func updateQuestsUI() {
-    UIView.performWithoutAnimation {
-      tableView.reloadSections(IndexSet(integer: 2), with: .none)
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      UIView.performWithoutAnimation {
+        strongSelf.tableView.reloadSections(IndexSet(integer: 2), with: .none)
+      }
     }
   }
   
   func updateEquipmentUI() {
-    UIView.performWithoutAnimation {
-      tableView.reloadSections(IndexSet(integer: 3), with: .none)
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      UIView.performWithoutAnimation {
+        strongSelf.tableView.reloadSections(IndexSet(integer: 3), with: .none)
+      }
     }
   }
   
   func updateBagUI() {
-    UIView.performWithoutAnimation {
-      tableView.reloadSections(IndexSet(integer: 5), with: .none)
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      UIView.performWithoutAnimation {
+        strongSelf.tableView.reloadSections(IndexSet(integer: 5), with: .none)
+      }
     }
   }
   
@@ -179,12 +207,14 @@ class HeroViewController: UIViewController {
     tableView.reloadSections(IndexSet(integer: 4), with: .none)
     
     TaleAPI.shared.tryDropItem { (result) in
-      switch result {
-      case .success(let data):
-        TaleAPI.shared.checkStatusOperation(operation: data)
-      case .failure(let error as NSError):
-        debugPrint("tryDropItem \(error)")
-      default: break
+      DispatchQueue.main.async {
+        switch result {
+        case .success(let data):
+          TaleAPI.shared.checkStatusOperation(operation: data)
+        case .failure(let error as NSError):
+          debugPrint("tryDropItem \(error)")
+        default: break
+        }
       }
     }
   }
