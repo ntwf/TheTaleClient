@@ -75,26 +75,20 @@ class DiaryViewController: UIViewController {
   }
   
   func updateUI() {
-    DispatchQueue.main.async { [weak self] in
-      guard let strongSelf = self else {
-        return
+    activityIndicator.stopAnimating()
+    
+    for message in TaleAPI.shared.diaryManager.diary {
+      tableView.beginUpdates()
+      
+      allMessages.insert(message, at: 0)
+      tableView.insertRows(at: [IndexPath(row:0, section: 0)], with: .automatic)
+      
+      while allMessages.count > 50 {
+        allMessages.removeLast()
+        tableView.deleteRows(at: [IndexPath(row: allMessages.count - 1, section: 0)], with: .fade)
       }
       
-      strongSelf.activityIndicator.stopAnimating()
-      
-      for message in TaleAPI.shared.diaryManager.diary {
-        strongSelf.tableView.beginUpdates()
-        
-        strongSelf.allMessages.insert(message, at: 0)
-        strongSelf.tableView.insertRows(at: [IndexPath(row:0, section: 0)], with: .automatic)
-        
-        while strongSelf.allMessages.count > 50 {
-          strongSelf.allMessages.removeLast()
-          strongSelf.tableView.deleteRows(at: [IndexPath(row: strongSelf.allMessages.count - 1, section: 0)], with: .fade)
-        }
-        
-        strongSelf.tableView.endUpdates()
-      }
+      tableView.endUpdates()
     }
   }
   

@@ -66,14 +66,10 @@ class MapViewController: UIViewController {
   }
   
   func reloadMap() {
-    DispatchQueue.main.async { [weak self] in
-      guard let strongSelf = self else {
-        return
-      }
-      
-      strongSelf.collectionView.reloadData()
-      strongSelf.mapActivityIndicator.stopAnimating()
-      strongSelf.scrollingToHero()
+    DispatchQueue.main.async {
+      self.collectionView.reloadData()
+      self.mapActivityIndicator.stopAnimating()
+      self.scrollingToHero()
     }
   }
   
@@ -81,18 +77,13 @@ class MapViewController: UIViewController {
     // Blanket. Used to get old maps.
     let turn = ""
     
-    TaleAPI.shared.getMap(turn: turn) { (result) in
+    TaleAPI.shared.getMap(turn: turn) { [weak self] (result) in
       switch result {
       case .success(let data):
-        
         let queue = DispatchQueue(label: "mapGenerate", qos: .userInitiated)
-        queue.async { [weak self] in
-          guard let strongSelf = self else {
-            return
-          }
-          
-          strongSelf.map = Map(jsonObject: data)
-          strongSelf.reloadMap()
+        queue.async {
+          self?.map = Map(jsonObject: data)
+          self?.reloadMap()
         }
       case .failure(let error as NSError):
         debugPrint("fetchMap \(error)")
@@ -156,4 +147,8 @@ extension MapViewController: UICollectionViewDataSource {
     return cell
   }
 
+}
+
+extension MapViewController: UICollectionViewDelegate {
+  
 }

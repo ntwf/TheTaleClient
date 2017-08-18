@@ -74,10 +74,8 @@ extension NetworkClient {
   
   func fetch<T>(request: URLRequest, parse: @escaping (JSON) -> T?, completionHandler: @escaping (APIResult<T>) -> Void) {
     
-    let networkQueue = DispatchQueue(label: "networkQueue", qos: .utility)
-    
     let dataTask = JSONTaskWith(request: request) { (json, _, error) in
-      networkQueue.async {
+      DispatchQueue.main.async {
         guard let json = json else {
           if let error = error {
             completionHandler(.failure(error))

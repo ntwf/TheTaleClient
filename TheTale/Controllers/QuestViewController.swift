@@ -50,14 +50,8 @@ class QuestViewController: UIViewController {
   }
 
   func updateUI() {
-    DispatchQueue.main.async { [weak self] in
-      guard let strongSelf = self else {
-        return
-      }
-      
-      strongSelf.activityIndicator.stopAnimating()
-      strongSelf.tableView.reloadData()
-    }
+    activityIndicator.stopAnimating()
+    tableView.reloadData()
   }
   
   deinit {

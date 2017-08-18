@@ -47,16 +47,12 @@ class MoreTableViewController: UITableViewController {
   
   func logout() {
     TaleAPI.shared.logout { [weak self] (result) in
-      guard let strongSelf = self else {
-        return
-      }
-      
       switch result {
       case .success:
         TaleAPI.shared.playerInformationAutorefresh = .stop
         TaleAPI.shared.authorisationState           = AuthorisationState()
         
-        strongSelf.presentLoginScreen()
+        self?.presentLoginScreen()
       case .failure(let error as NSError):
         debugPrint("logout \(error)")
       default: break
@@ -65,14 +61,8 @@ class MoreTableViewController: UITableViewController {
   }
   
   func presentLoginScreen() {
-    DispatchQueue.main.async { [weak self] in
-      guard let strongSelf = self else {
-        return
-      }
-      
-      let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: Constants.storyboardLoginID)
-      strongSelf.present(loginViewController, animated: true, completion: nil)
-    }
+    let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: Constants.storyboardLoginID)
+    present(loginViewController, animated: true, completion: nil)
   }
   
   override func viewWillDisappear(_ animated: Bool) {

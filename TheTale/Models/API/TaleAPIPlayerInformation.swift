@@ -15,19 +15,15 @@ extension TaleAPI {
     let turns = getTurn(needConciseAnswer: true)
     
     fetchPlayerInformation(turn: turns) { [weak self] (result) in
-      guard let strongSelf = self else {
-        return
-      }
-      
       switch result {
       case .success(let data):
-        strongSelf.playerInformationManager.getPlayerInformation(from: data)
+        self?.playerInformationManager.getPlayerInformation(from: data)
       case.failure(let error as NSError):
-        strongSelf.reconnectCounter += 1
+        self?.reconnectCounter += 1
 
-        if strongSelf.reconnectCounter == 3 {
-          strongSelf.playerInformationAutorefresh = .stop
-          strongSelf.reconnectCounter = 0
+        if self?.reconnectCounter == 3 {
+          self?.playerInformationAutorefresh = .stop
+          self?.reconnectCounter = 0
         }
         
         debugPrint("fetchPlayerInformation \(error)")

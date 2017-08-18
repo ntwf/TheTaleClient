@@ -89,49 +89,31 @@ class JournalViewController: UIViewController {
   }
   
   func updateDateUI() {
-    DispatchQueue.main.async { [weak self] in
-      guard let strongSelf = self else {
-        return
-      }
-      
-      strongSelf.timeLabel.text = TaleAPI.shared.playerInformationManager.turn?.timeRepresentation
-    }
+    timeLabel.text = TaleAPI.shared.playerInformationManager.turn?.timeRepresentation
   }
   
   func updateActionUI() {
-    DispatchQueue.main.async { [weak self] in
-      guard let strongSelf = self else {
-        return
-      }
-      
-      strongSelf.checkAvalibleHelpButton()
-      strongSelf.tableView.reloadSections(IndexSet(integer: 0), with: .none)
-    }
+    checkAvalibleHelpButton()
+    tableView.reloadSections(IndexSet(integer: 0), with: .none)
   }
   
   func updateMessages() {
-    DispatchQueue.main.async { [weak self] in
-      guard let strongSelf = self else {
-        return
+    if allMessages.count > 0 || TaleAPI.shared.playerInformationManager.journal.count != 0 {
+      activityIndicator.stopAnimating()
+    }
+    
+    for message in TaleAPI.shared.playerInformationManager.journal {
+      tableView.beginUpdates()
+      
+      allMessages.insert(message, at: 0)
+      tableView.insertRows(at: [IndexPath(row:0, section: 1)], with: .bottom)
+      
+      while allMessages.count > 50 {
+        allMessages.removeLast()
+        tableView.deleteRows(at: [IndexPath(row: allMessages.count - 1, section: 1)], with: .fade)
       }
       
-      if strongSelf.allMessages.count > 0 || TaleAPI.shared.playerInformationManager.journal.count != 0 {
-        strongSelf.activityIndicator.stopAnimating()
-      }
-      
-      for message in TaleAPI.shared.playerInformationManager.journal {
-        strongSelf.tableView.beginUpdates()
-        
-        strongSelf.allMessages.insert(message, at: 0)
-        strongSelf.tableView.insertRows(at: [IndexPath(row:0, section: 1)], with: .bottom)
-        
-        while strongSelf.allMessages.count > 50 {
-          strongSelf.allMessages.removeLast()
-          strongSelf.tableView.deleteRows(at: [IndexPath(row: strongSelf.allMessages.count - 1, section: 1)], with: .fade)
-        }
-        
-        strongSelf.tableView.endUpdates()
-      }
+      tableView.endUpdates()
     }
   }
   
