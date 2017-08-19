@@ -22,8 +22,8 @@ class CardViewController: UIViewController {
   
   let refreshControl = UIRefreshControl()
   
-  var hiddenGetCard   = true
-  var hiddenMergeCard = true
+  var hiddenGetCardButton   = true
+  var hiddenMergeCardButton = true
 
   var selectedCard = [String: Card]()
   var currentCards = [Card]()
@@ -40,7 +40,7 @@ class CardViewController: UIViewController {
   }
   
   func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathCardsInfo, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathCardsInfo, options: [], context: nil)
     
     NotificationCenter.default.addObserver(self, selector: #selector(catchNotification(notification:)), name: .nonblockingOperationAlarm, object: nil)
   }
@@ -55,14 +55,14 @@ class CardViewController: UIViewController {
   }
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == #keyPath(TaleAPI.playerInformationManager.cardsInfo) {
+    if keyPath == Constants.keyPathCardsInfo {
       updateUI()
     }
   }
 
   func catchNotification(notification: Notification) {
     guard let userInfo = notification.userInfo,
-      let message  = userInfo["alarm"] as? String else {
+          let message  = userInfo["alarm"] as? String else {
         return
     }
     
@@ -82,28 +82,28 @@ class CardViewController: UIViewController {
     
     selectedCard.removeAll()
 
-    hiddenMergeCard = true
+    hiddenMergeCardButton = true
     checkAvalibleGetCardButton()
     
     tableView.reloadData()
   }
   
   func checkAvalibleGetCardButton() {
-    if let helpCount = TaleAPI.shared.playerInformationManager.cardsInfo?.helpCount,
+    if let helpCount   = TaleAPI.shared.playerInformationManager.cardsInfo?.helpCount,
        let helpBarrier = TaleAPI.shared.playerInformationManager.cardsInfo?.helpBarrier,
        helpCount >= helpBarrier {
-      hiddenGetCard = false
+      hiddenGetCardButton = false
       return
     }
     
-    hiddenGetCard = true
+    hiddenGetCardButton = true
   }
   
   func checkAvalibleMergeCardButton() {
     if selectedCard.count > 1 {
-      hiddenMergeCard = false
+      hiddenMergeCardButton = false
     } else {
-      hiddenMergeCard = true
+      hiddenMergeCardButton = true
     }
     tableView.reloadSections(IndexSet(integer: 0), with: .none)
   }
@@ -126,7 +126,7 @@ class CardViewController: UIViewController {
   }
   
   @IBAction func getCardButtonTapped(_ sender: UIButton) {
-    hiddenGetCard = true
+    hiddenGetCardButton = true
     activityIndicator.startAnimating()
     
     TaleAPI.shared.tryGetCard { (result) in
@@ -143,7 +143,7 @@ class CardViewController: UIViewController {
   }
   
   @IBAction func mergeCardButtonTapped(_ sender: UIButton) {
-    hiddenGetCard = true
+    hiddenGetCardButton = true
     activityIndicator.startAnimating()
     
     let uidCards = selectedCard.map({ $0.key })
@@ -194,8 +194,8 @@ extension CardViewController: UITableViewDataSource {
       if let cards = TaleAPI.shared.playerInformationManager.cardsInfo {
         cell.configured()
         cell.configuredHelpBarrier(with: cards)
-        cell.configuredGetCardButton(isHidden: hiddenGetCard)
-        cell.configuredMergeCardButton(isHidden: hiddenMergeCard)
+        cell.configuredGetCardButton(isHidden: hiddenGetCardButton)
+        cell.configuredMergeCardButton(isHidden: hiddenMergeCardButton)
       }
 
       return cell

@@ -34,7 +34,7 @@ class QuestViewController: UIViewController {
   }
 
   func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathQuests, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathQuests, options: [], context: nil)
   }
   
   func setupTableView() {

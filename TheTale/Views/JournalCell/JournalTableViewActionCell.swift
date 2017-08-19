@@ -19,8 +19,12 @@ class JournalTableViewActionCell: UITableViewCell {
   func configuredAction(info action: Action) {
     actionLabel.text = action.infoRepresentation
 
-    DispatchQueue.main.async {
-      self.progressViewBar.setProgress(Float(action.percents), animated: false)
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      strongSelf.progressViewBar.setProgress(Float(action.percents), animated: false)
     }
   }
   

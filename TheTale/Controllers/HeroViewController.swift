@@ -48,13 +48,13 @@ class HeroViewController: UIViewController {
   }
   
   func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroSecondaryParameters, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEnergy, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathQuests, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathCompanion, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEquipment, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathBag, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroSecondaryParameters, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEnergy, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathQuests, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathCompanion, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEquipment, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathBag, options: [], context: nil)
   }
 
   func setupTableView() {

@@ -47,12 +47,16 @@ class MoreTableViewController: UITableViewController {
   
   func logout() {
     TaleAPI.shared.logout { [weak self] (result) in
+      guard let strongSelf = self else {
+        return
+      }
+      
       switch result {
       case .success:
         TaleAPI.shared.playerInformationAutorefresh = .stop
         TaleAPI.shared.authorisationState           = AuthorisationState()
         
-        self?.presentLoginScreen()
+        strongSelf.presentLoginScreen()
       case .failure(let error as NSError):
         debugPrint("logout \(error)")
       default: break

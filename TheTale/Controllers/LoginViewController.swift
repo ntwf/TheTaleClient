@@ -37,21 +37,21 @@ class LoginViewController: UIViewController {
   
   func checkLogin(email: String, password: String) {
     TaleAPI.shared.login(email: email, password: password) { [weak self] (result) in
+      guard let strongSelf = self else {
+        return
+      }
+      
       switch result {
-        
       case .success:
-        self?.activityIndicator.stopAnimating()
-        
-        self?.performSegue(withIdentifier: Constants.segueJournal, sender: self)
+        strongSelf.activityIndicator.stopAnimating()
+        strongSelf.performSegue(withIdentifier: Constants.segueJournal, sender: self)
       
       case .failure(let error as NSError):
-        self?.activityIndicator.stopAnimating()
-        
-        debugPrint("login \(error)")
-      
+        strongSelf.activityIndicator.stopAnimating()
         let alert = UIAlertController(title: "Ошибка авторизации.", message: "Неправильный логин или пароль.")
-        self?.present(alert, animated: true, completion: nil)
-      
+        strongSelf.present(alert, animated: true, completion: nil)
+        debugPrint("login \(error)")
+        
       default: break
       }
     }

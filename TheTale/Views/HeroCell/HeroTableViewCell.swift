@@ -26,9 +26,13 @@ class HeroTableViewCell: UITableViewCell {
     experienceLabel.text = hero.experienceRepresentation
     moneyLabel.text      = hero.moneyRepresentation
     
-    DispatchQueue.main.async {
-      self.experienceProgressView.setProgress(hero.experienceProgressRepresentation, animated: false)
-      self.healthProgressView.setProgress(hero.healthProgressRepresentation, animated: false)
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      strongSelf.experienceProgressView.setProgress(hero.experienceProgressRepresentation, animated: false)
+      strongSelf.healthProgressView.setProgress(hero.healthProgressRepresentation, animated: false)
     }
   }
   
@@ -40,8 +44,12 @@ class HeroTableViewCell: UITableViewCell {
   func configuredEnergy(info energy: Energy) {
     energyLabel.text = energy.energyRepresentation
     
-    DispatchQueue.main.async {
-      self.energyProgressView.setProgress(energy.energyProgressRepresentation, animated: false)
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      strongSelf.energyProgressView.setProgress(energy.energyProgressRepresentation, animated: false)
     }
   }
   

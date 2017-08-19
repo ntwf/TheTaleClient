@@ -32,7 +32,7 @@ class DiaryViewController: UIViewController {
   }
   
   func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathDiary, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathDiary, options: [], context: nil)
   }
   
   func setupTableView() {
@@ -142,8 +142,8 @@ extension DiaryViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if indexPath.section == 0 {
-      let messageData = allMessages[indexPath.row]
-      let text        = "\(messageData.positionRepresentation)\n\(messageData.messageRepresentation)\n\(messageData.gameDate)"
+       let messageData = allMessages[indexPath.row]
+       let text        = "\(messageData.positionRepresentation)\n\(messageData.messageRepresentation)\n\(messageData.gameDate)"
       
       showActionSheet(save: text)
     }

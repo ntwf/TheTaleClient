@@ -46,11 +46,11 @@ class JournalViewController: UIViewController {
   }
   
   func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathTurn, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathAction, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEnergy, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathJournal, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathTurn, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathAction, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEnergy, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathJournal, options: [], context: nil)
   }
   
   func setupTableView() {
