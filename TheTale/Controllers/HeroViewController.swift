@@ -10,27 +10,31 @@ import UIKit
 
 class HeroViewController: UIViewController {
   
+  enum Constatns {
+    static let cellHero        = "HeroCell"
+    static let cellQuest       = "QuestsCell"
+    static let cellCompanion   = "CompanionCell"
+    static let cellEquipment   = "EquipmentCell"
+    static let cellDropBagItem = "DropBagItemCell"
+    static let cellBag         = "BagCell"
+    
+    static let segueQuest = "toQuestSegue"
+    
+    static let keyPathHeroBaseParameters      = #keyPath(TaleAPI.playerInformationManager.heroBaseParameters)
+    static let keyPathHeroSecondaryParameters = #keyPath(TaleAPI.playerInformationManager.heroSecondaryParameters)
+    static let keyPathEnergy                  = #keyPath(TaleAPI.playerInformationManager.energy)
+    static let keyPathQuests                  = #keyPath(TaleAPI.playerInformationManager.quests)
+    static let keyPathCompanion               = #keyPath(TaleAPI.playerInformationManager.companion)
+    static let keyPathEquipment               = #keyPath(TaleAPI.playerInformationManager.equipment)
+    static let keyPathBag                     = #keyPath(TaleAPI.playerInformationManager.bag)
+  }
+  
   @IBOutlet weak var tableView: UITableView!
 
   var statusBarView: UIView?
   
   let refreshControl = UIRefreshControl()
-  
-  let heroCell        = "HeroCell"
-  let questCell       = "QuestsCell"
-  let companionCell   = "CompanionCell"
-  let equipmentCell   = "EquipmentCell"
-  let dropBagItemCell = "DropBagItemCell"
-  let bagCell         = "BagCell"
-  
-  let keyPathHeroBaseParameters      = #keyPath(TaleAPI.playerInformationManager.heroBaseParameters)
-  let keyPathHeroSecondaryParameters = #keyPath(TaleAPI.playerInformationManager.heroSecondaryParameters)
-  let keyPathEnergy                  = #keyPath(TaleAPI.playerInformationManager.energy)
-  let keyPathQuests                  = #keyPath(TaleAPI.playerInformationManager.quests)
-  let keyPathCompanion               = #keyPath(TaleAPI.playerInformationManager.companion)
-  let keyPathEquipment               = #keyPath(TaleAPI.playerInformationManager.equipment)
-  let keyPathBag                     = #keyPath(TaleAPI.playerInformationManager.bag)
-  
+
   var hiddenDropItemBag = true
 
   override func viewDidLoad() {
@@ -44,13 +48,13 @@ class HeroViewController: UIViewController {
   }
   
   func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: keyPathHeroBaseParameters, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: keyPathHeroSecondaryParameters, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: keyPathEnergy, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: keyPathQuests, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: keyPathCompanion, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: keyPathEquipment, options: [.new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: keyPathBag, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroSecondaryParameters, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEnergy, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathQuests, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathCompanion, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEquipment, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathBag, options: [], context: nil)
   }
 
   func setupTableView() {
@@ -61,25 +65,25 @@ class HeroViewController: UIViewController {
   }
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == keyPathHeroBaseParameters ||
-       keyPath == keyPathHeroSecondaryParameters ||
-       keyPath == keyPathEnergy {
+    if keyPath == Constatns.keyPathHeroBaseParameters ||
+       keyPath == Constatns.keyPathHeroSecondaryParameters ||
+       keyPath == Constatns.keyPathEnergy {
       updateHeroUI()
     }
     
-    if keyPath == keyPathQuests {
+    if keyPath == Constatns.keyPathQuests {
       updateQuestsUI()
     }
     
-    if keyPath == keyPathCompanion {
+    if keyPath == Constatns.keyPathCompanion {
       updateCompanionUI()
     }
     
-    if keyPath == keyPathEquipment {
+    if keyPath == Constatns.keyPathEquipment {
       updateEquipmentUI()
     }
     
-    if keyPath == keyPathBag {
+    if keyPath == Constatns.keyPathBag {
       updateBagUI()
     }
   }
@@ -151,7 +155,7 @@ class HeroViewController: UIViewController {
       return
     }
     
-    if let totalEnergy  = TaleAPI.shared.playerInformationManager.energy?.energyTotal(),
+    if let totalEnergy  = TaleAPI.shared.playerInformationManager.energy?.energyTotal,
        let dropItemCost = TaleAPI.shared.gameInformationManager.gameInformation?.dropItem,
        totalEnergy >= dropItemCost {
       hiddenDropItemBag = false
@@ -162,7 +166,7 @@ class HeroViewController: UIViewController {
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.identifier == "toQuestSegue" {
+    if segue.identifier == Constatns.segueQuest {
       if let indexPath                 = tableView.indexPathForSelectedRow,
          let destinationViewController = segue.destination as? QuestViewController {
         destinationViewController.questIndex = indexPath.row
@@ -192,13 +196,13 @@ class HeroViewController: UIViewController {
   }
   
   deinit {
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathHeroBaseParameters)
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathHeroSecondaryParameters)
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathEnergy)
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathQuests)
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathCompanion)
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathEquipment)
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathBag)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathHeroSecondaryParameters)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathEnergy)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathQuests)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathCompanion)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathEquipment)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathBag)
   }
   
 }
@@ -237,15 +241,15 @@ extension HeroViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     switch section {
     case 0:
-      return TaleAPI.shared.playerInformationManager.heroBaseParameters?.nameRepresentation()
+      return TaleAPI.shared.playerInformationManager.heroBaseParameters?.nameRepresentation
     case 1:
-      return TaleAPI.shared.playerInformationManager.companion?.nameRepresentation()
+      return TaleAPI.shared.playerInformationManager.companion?.nameRepresentation
     case 2:
       return "Задания"
     case 3:
       return "Экипировка"
     case 4:
-      return TaleAPI.shared.playerInformationManager.heroSecondaryParameters?.lootItemsCountRepresentation()
+      return TaleAPI.shared.playerInformationManager.heroSecondaryParameters?.lootItemsCountRepresentation
     default:
       return nil
     }
@@ -266,7 +270,7 @@ extension HeroViewController: UITableViewDataSource {
     switch indexPath.section {
     case 0:
       // swiftlint:disable:next force_cast
-      let cell = tableView.dequeueReusableCell(withIdentifier: heroCell) as! HeroTableViewCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellHero) as! HeroTableViewCell
       
       cell.configuredHeroBaseParameters(info: TaleAPI.shared.playerInformationManager.heroBaseParameters!)
       cell.configuredHeroSecondParameters(info: TaleAPI.shared.playerInformationManager.heroSecondaryParameters!)
@@ -276,13 +280,13 @@ extension HeroViewController: UITableViewDataSource {
       return cell
     case 1:
       // swiftlint:disable:next force_cast
-      let cell = tableView.dequeueReusableCell(withIdentifier: companionCell) as! CompanionTableViewCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellCompanion) as! CompanionTableViewCell
       cell.configuredCompanion(info: TaleAPI.shared.playerInformationManager.companion!)
       
       return cell
     case 2:
-      let cell = tableView.dequeueReusableCell(withIdentifier: questCell)
-      cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[indexPath.row].nameRepresentation()
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellQuest)
+      cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[indexPath.row].nameRepresentation
       cell?.textLabel?.adjustsFontSizeToFitWidth = true
  
       if TaleAPI.shared.playerInformationManager.quests[indexPath.row].choiceAlternatives.count >= 1 {
@@ -292,20 +296,20 @@ extension HeroViewController: UITableViewDataSource {
       return cell!
     case 3:
       // swiftlint:disable:next force_cast
-      let cell = tableView.dequeueReusableCell(withIdentifier: equipmentCell) as! EquipmentTableViewCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellEquipment) as! EquipmentTableViewCell
       cell.configuredEquipment(info: TaleAPI.shared.playerInformationManager.equipment[indexPath.row])
 
       return cell
     case 4:
       // swiftlint:disable:next force_cast
-      let cell = tableView.dequeueReusableCell(withIdentifier: dropBagItemCell) as! DropBagItemTableViewCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellDropBagItem) as! DropBagItemTableViewCell
       cell.configuredDropItemButton(isHidden: hiddenDropItemBag)
       
       return cell
     case 5:
-      let cell = tableView.dequeueReusableCell(withIdentifier: bagCell)
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellBag)
       
-      guard let artifact = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.key.nameRepresentation(),
+      guard let artifact = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.key.nameRepresentation,
             let counter  = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.value else {
         return cell!
       }

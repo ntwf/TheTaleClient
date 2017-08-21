@@ -17,19 +17,23 @@ class JournalTableViewActionCell: UITableViewCell {
   @IBOutlet weak var helpButton: UIButton!
   
   func configuredAction(info action: Action) {
-    actionLabel.text = action.infoRepresentation()
+    actionLabel.text = action.infoRepresentation
 
-    DispatchQueue.main.async {
-      self.progressViewBar.setProgress(Float(action.percents), animated: false)
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      strongSelf.progressViewBar.setProgress(Float(action.percents), animated: false)
     }
   }
   
   func configuredHeroBase(info hero: HeroBaseParameters) {
-    hpLabel.text = hero.healthRepresentation()
+    hpLabel.text = hero.healthRepresentation
   }
   
   func configuredEnergy(info energy: Energy) {
-    energyLabel.text = energy.energyRepresentation()
+    energyLabel.text = energy.energyRepresentation
   }
   
   func configuredHelpButton(isEnabled: Bool) {

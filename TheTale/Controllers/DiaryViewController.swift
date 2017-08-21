@@ -10,16 +10,18 @@ import UIKit
 
 class DiaryViewController: UIViewController {
   
+  enum Constants {
+    static let cellDiary = "Cell"
+    
+    static let keyPathDiary = #keyPath(TaleAPI.diaryManager.diary)
+  }
+  
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
-  let diaryCell = "Cell"
-  
   var allMessages    = [DiaryMessage]()
   let refreshControl = UIRefreshControl()
-  
-  let keyPathDiary = #keyPath(TaleAPI.diaryManager.diary)
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -30,7 +32,7 @@ class DiaryViewController: UIViewController {
   }
   
   func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: keyPathDiary, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathDiary, options: [], context: nil)
   }
   
   func setupTableView() {
@@ -43,7 +45,7 @@ class DiaryViewController: UIViewController {
   }
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == keyPathDiary {
+    if keyPath == Constants.keyPathDiary {
       updateUI()
     }
   }
@@ -114,7 +116,7 @@ class DiaryViewController: UIViewController {
   }
   
   deinit {
-    TaleAPI.shared.removeObserver(self, forKeyPath: keyPathDiary)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constants.keyPathDiary)
   }
   
 }
@@ -127,7 +129,7 @@ extension DiaryViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     // swiftlint:disable:next force_cast
-    let cell = tableView.dequeueReusableCell(withIdentifier: diaryCell) as! DiaryTableViewCell
+    let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellDiary) as! DiaryTableViewCell
     
     cell.configuredDiary(diary: allMessages[indexPath.row])
     
@@ -140,8 +142,8 @@ extension DiaryViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if indexPath.section == 0 {
-      let messageData = allMessages[indexPath.row]
-      let text        = "\(messageData.positionRepresentation())\n\(messageData.messageRepresentation())\n\(messageData.gameDate)"
+       let messageData = allMessages[indexPath.row]
+       let text        = "\(messageData.positionRepresentation)\n\(messageData.messageRepresentation)\n\(messageData.gameDate)"
       
       showActionSheet(save: text)
     }

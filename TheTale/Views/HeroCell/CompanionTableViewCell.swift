@@ -16,12 +16,16 @@ class CompanionTableViewCell: UITableViewCell {
   @IBOutlet weak var experienceLabel: UILabel!
 
   func configuredCompanion(info companion: Companion) {
-    healthLabel.text     = companion.healthRepresentation()
-    experienceLabel.text = companion.experienceRepresentation()
+    healthLabel.text     = companion.healthRepresentation
+    experienceLabel.text = companion.experienceRepresentation
     
-    DispatchQueue.main.async {
-      self.healthProgressView.setProgress(TaleAPI.shared.playerInformationManager.companion?.healthProgressRepresentation() ?? 0.5, animated: false)
-      self.experienceProgressView.setProgress(TaleAPI.shared.playerInformationManager.companion?.experienceProgressRepresentation() ?? 0.5, animated: false)
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      strongSelf.healthProgressView.setProgress(TaleAPI.shared.playerInformationManager.companion?.healthProgressRepresentation ?? 0.5, animated: false)
+      strongSelf.experienceProgressView.setProgress(TaleAPI.shared.playerInformationManager.companion?.experienceProgressRepresentation ?? 0.5, animated: false)
     }
   }
   

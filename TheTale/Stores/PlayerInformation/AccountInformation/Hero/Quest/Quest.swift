@@ -71,22 +71,22 @@ class Quest: NSObject {
 }
 
 extension Quest {
-  func choiceRepresentation() -> String? {
+  var choiceRepresentation: String? {
     if let data = choice {
       return data.capitalizeFirstLetter
     }
     return nil
   }
   
-  func experienceRepresentation() -> String {
+  var experienceRepresentation: String {
     return "(+\(power) опыта, +\(experience) влияния)"
   }
   
-  func actionRepresentation() -> String {
+  var actionRepresentation: String {
     return action.capitalizeFirstLetter
   }
   
-  func nameRepresentation() -> String {
+  var nameRepresentation: String {
     return name.capitalizeFirstLetter
   }
 }

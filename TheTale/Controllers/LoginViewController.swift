@@ -10,13 +10,21 @@ import UIKit
 
 class LoginViewController: UIViewController {
   
+  enum Constants {
+    static let segueJournal = "toJournalSegue"
+  }
+  
   @IBOutlet weak var loginTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
-  let journalSegue = "toJournalSegue"
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    return UIInterfaceOrientationMask.portrait
+  }
   
-  let gameURL      = "http://the-tale.org"
+  override var shouldAutorotate: Bool {
+    return false
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -25,7 +33,7 @@ class LoginViewController: UIViewController {
     passwordTextField.delegate = self
     
     gestureSetup()
-    
+
     activityIndicator.stopAnimating()
   }
   
@@ -34,29 +42,30 @@ class LoginViewController: UIViewController {
     tap.cancelsTouchesInView = false
     view.addGestureRecognizer(tap)
   }
-  
+
   func checkLogin(email: String, password: String) {
     TaleAPI.shared.login(email: email, password: password) { [weak self] (result) in
+      guard let strongSelf = self else {
+        return
+      }
+      
       switch result {
-        
       case .success:
-        self?.activityIndicator.stopAnimating()
-        
-        self?.performSegue(withIdentifier: (self?.journalSegue)!, sender: self)
+        strongSelf.activityIndicator.stopAnimating()
+        TaleAPI.shared.isSigned = true
+        strongSelf.performSegue(withIdentifier: Constants.segueJournal, sender: self)
       
       case .failure(let error as NSError):
-        self?.activityIndicator.stopAnimating()
-        
-        debugPrint("login \(error)")
-      
+        strongSelf.activityIndicator.stopAnimating()
         let alert = UIAlertController(title: "Ошибка авторизации.", message: "Неправильный логин или пароль.")
-        self?.present(alert, animated: true, completion: nil)
-      
+        strongSelf.present(alert, animated: true, completion: nil)
+        debugPrint("login \(error)")
+        
       default: break
       }
     }
   }
-  
+
   @IBAction func loginButtonTapped(_ sender: UIButton) {
     activityIndicator.startAnimating()
     
@@ -72,8 +81,26 @@ class LoginViewController: UIViewController {
     checkLogin(email: email, password: password)
   }
   
+  @IBAction func loginOnSiteButtonTapped(_ sender: UIButton) {
+    TaleAPI.shared.requestURLPathTologinIntoSite { (result) in
+      switch result {
+      case .success(let data):
+        guard let baseURL = URL(string: TaleAPI.shared.baseURL),
+              let url     = URL(string: data.urlPath, relativeTo: baseURL) else {
+            return
+        }
+        UIApplication.shared.open(url)
+      case .failure(let error as NSError):
+        debugPrint("loginOnTheSite \(error)")
+      default: break
+      }
+    }
+  }
+  
   @IBAction func goToSiteButtonTapped(_ sender: UIButton) {
-    UIApplication.shared.open(URL(string: gameURL)!)
+    if let baseURL = URL(string: TaleAPI.shared.baseURL) {
+      UIApplication.shared.open(baseURL)
+    }
   }
   
 }

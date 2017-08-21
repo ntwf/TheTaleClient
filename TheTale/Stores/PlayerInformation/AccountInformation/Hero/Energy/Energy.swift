@@ -31,15 +31,15 @@ class Energy: NSObject {
 }
 
 extension Energy {
-  func energyRepresentation() -> String {
+  var energyRepresentation: String {
     return "\(value)/\(max) + \(bonus)"
   }
   
-  func energyProgressRepresentation() -> Float {
+  var energyProgressRepresentation: Float {
     return (Float(value) / Float(max))
   }
   
-  func energyTotal() -> Int {
+  var energyTotal: Int {
     return bonus + value
   }
 }

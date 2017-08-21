@@ -10,6 +10,10 @@ import UIKit
 
 class MapViewController: UIViewController {
   
+  enum Constants {
+    static let cellMap = "Cell"
+  }
+  
   @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet weak var mapActivityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var compassButton: UIButton!
@@ -62,10 +66,14 @@ class MapViewController: UIViewController {
   }
   
   func reloadMap() {
-    DispatchQueue.main.async {
-      self.collectionView.reloadData()
-      self.mapActivityIndicator.stopAnimating()
-      self.scrollingToHero()
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      strongSelf.collectionView.reloadData()
+      strongSelf.mapActivityIndicator.stopAnimating()
+      strongSelf.scrollingToHero()
     }
   }
   
@@ -73,13 +81,17 @@ class MapViewController: UIViewController {
     // Blanket. Used to get old maps.
     let turn = ""
     
-    TaleAPI.shared.getMap(turn: turn) { [weak self] (result) in
+    TaleAPI.shared.getMap(turn: turn) { (result) in
       switch result {
       case .success(let data):
-        let queue = DispatchQueue(label: "mapGenerate", qos: .userInitiated)
-        queue.async {
-          self?.map = Map(jsonObject: data)
-          self?.reloadMap()
+        let queue = DispatchQueue(label: "ru.the-tale.mapgenerate", qos: .userInitiated)
+        queue.async { [weak self] in
+          guard let strongSelf = self else {
+            return
+          }
+          
+          strongSelf.map = Map(jsonObject: data)
+          strongSelf.reloadMap()
         }
       case .failure(let error as NSError):
         debugPrint("fetchMap \(error)")
@@ -123,7 +135,7 @@ extension MapViewController: UICollectionViewDataSource {
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     // swiftlint:disable:next force_cast
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! MapCollectionViewCell
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellMap, for: indexPath) as! MapCollectionViewCell
     
     if let image = map?.image[indexPath.section][indexPath.item] {
       cell.configuredCell()
@@ -131,7 +143,7 @@ extension MapViewController: UICollectionViewDataSource {
     }
     
     if let place = map?.places.filter({ $0.posY == indexPath.section - 1 && $0.posX == indexPath.item }).first {
-      cell.setAnnotation(with: place.nameRepresentation())
+      cell.setAnnotation(with: place.nameRepresentation)
     }
     
     if let hero = TaleAPI.shared.playerInformationManager.hero,

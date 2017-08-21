@@ -26,7 +26,7 @@ class ChoiceAlternatives: NSObject {
 }
 
 extension ChoiceAlternatives {
-  func infoRepresentation() -> String {
+  var infoRepresentation: String {
     return String(info.capitalizeFirstLetter)
   }
 }

@@ -37,15 +37,15 @@ class HeroSecondaryParameters: NSObject {
 }
 
 extension HeroSecondaryParameters {
-  func mPowerRepresentation() -> String {
+  var mPowerRepresentation: String {
     return "\(mPower)"
   }
   
-  func pPowerRepresentation() -> String {
+  var pPowerRepresentation: String {
     return "\(pPower)"
   }
   
-  func lootItemsCountRepresentation() -> String {
+  var lootItemsCountRepresentation: String {
     return "Рюкзак \(Int(lootItemsCount))/\(Int(maxBagSize))"
   }
 }

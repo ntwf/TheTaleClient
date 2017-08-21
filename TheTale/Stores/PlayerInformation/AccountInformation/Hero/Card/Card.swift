@@ -53,11 +53,11 @@ extension Card {
 }
 
 extension Card {
-  func uidRepresentation() -> String {
+  var uidRepresentation: String {
     return String(uid)
   }
   
-  func nameRepresentation() -> String {
+  var nameRepresentation: String {
     return String(name.capitalizeFirstLetter)
   }
 }

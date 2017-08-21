@@ -44,27 +44,27 @@ class Companion: NSObject {
 }
 
 extension Companion {
-  func levelRepresentation() -> String {
+  var levelRepresentation: String {
     return "\(coherence)"
   }
 
-  func nameRepresentation() -> String {
+  var nameRepresentation: String {
     return "\(coherence) \(name)"
   }
   
-  func healthRepresentation() -> String {
+  var healthRepresentation: String {
     return "\(Int(health))/\(Int(maxHealth))"
   }
   
-  func experienceRepresentation() -> String {
+  var experienceRepresentation: String {
     return "\(Int(experience))/\(Int(experienceToLevel))"
   }
   
-  func healthProgressRepresentation() -> Float {
+  var healthProgressRepresentation: Float {
     return (Float(health) / Float(maxHealth))
   }
   
-  func experienceProgressRepresentation() -> Float {
+  var experienceProgressRepresentation: Float {
     return (Float(experience) / Float(experienceToLevel))
   }
 }

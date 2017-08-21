@@ -20,10 +20,14 @@ class HelpBarrierTableViewCell: UITableViewCell {
   }
   
   func configuredHelpBarrier(with card: CardsInfo) {
-    helpCountLabel.text = card.helpCountRepresentation()
+    helpCountLabel.text = card.helpCountRepresentation
     
-    DispatchQueue.main.async {
-      self.helpBarrierViewBar.setProgress(card.helpBarrierProgressRepresentation(), animated: false)
+    DispatchQueue.main.async { [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      strongSelf.helpBarrierViewBar.setProgress(card.helpBarrierProgressRepresentation, animated: false)
     }
   }
   

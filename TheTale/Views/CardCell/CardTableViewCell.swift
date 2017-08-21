@@ -14,7 +14,7 @@ class CardTableViewCell: UITableViewCell {
   @IBOutlet weak var cardDescriptionLabel: UILabel!
   
   func configuredCard(info card: Card, description: String) {
-    cardNameLabel.text        = card.nameRepresentation()
+    cardNameLabel.text        = card.nameRepresentation
     cardDescriptionLabel.text = description
     
     var textColor: UIColor {
