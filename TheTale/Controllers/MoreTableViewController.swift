@@ -55,6 +55,7 @@ class MoreTableViewController: UITableViewController {
       case .success:
         TaleAPI.shared.playerInformationAutorefresh = .stop
         TaleAPI.shared.authorisationState           = AuthorisationState()
+        TaleAPI.shared.isSigned                     = false
         
         strongSelf.presentLoginScreen()
       case .failure(let error as NSError):

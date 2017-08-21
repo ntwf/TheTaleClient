@@ -68,7 +68,8 @@ class TaleAPI: NSObject, NetworkClient {
   }
   
   // MARK: External variables
-  var authorisationState            = AuthorisationState()
+  var authorisationState = AuthorisationState()
+  var isSigned           = false
   
 }
 

@@ -18,6 +18,14 @@ class LoginViewController: UIViewController {
   @IBOutlet weak var passwordTextField: UITextField!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    return UIInterfaceOrientationMask.portrait
+  }
+  
+  override var shouldAutorotate: Bool {
+    return false
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -25,7 +33,7 @@ class LoginViewController: UIViewController {
     passwordTextField.delegate = self
     
     gestureSetup()
-    
+
     activityIndicator.stopAnimating()
   }
   
@@ -34,7 +42,7 @@ class LoginViewController: UIViewController {
     tap.cancelsTouchesInView = false
     view.addGestureRecognizer(tap)
   }
-  
+
   func checkLogin(email: String, password: String) {
     TaleAPI.shared.login(email: email, password: password) { [weak self] (result) in
       guard let strongSelf = self else {
@@ -44,6 +52,7 @@ class LoginViewController: UIViewController {
       switch result {
       case .success:
         strongSelf.activityIndicator.stopAnimating()
+        TaleAPI.shared.isSigned = true
         strongSelf.performSegue(withIdentifier: Constants.segueJournal, sender: self)
       
       case .failure(let error as NSError):
@@ -56,7 +65,7 @@ class LoginViewController: UIViewController {
       }
     }
   }
-  
+
   @IBAction func loginButtonTapped(_ sender: UIButton) {
     activityIndicator.startAnimating()
     
@@ -70,6 +79,22 @@ class LoginViewController: UIViewController {
     }
     
     checkLogin(email: email, password: password)
+  }
+  
+  @IBAction func loginOnSiteButtonTapped(_ sender: UIButton) {
+    TaleAPI.shared.requestURLPathTologinIntoSite { (result) in
+      switch result {
+      case .success(let data):
+        guard let baseURL = URL(string: TaleAPI.shared.baseURL),
+              let url     = URL(string: data.urlPath, relativeTo: baseURL) else {
+            return
+        }
+        UIApplication.shared.open(url)
+      case .failure(let error as NSError):
+        debugPrint("loginOnTheSite \(error)")
+      default: break
+      }
+    }
   }
   
   @IBAction func goToSiteButtonTapped(_ sender: UIButton) {
