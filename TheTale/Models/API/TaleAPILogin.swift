@@ -41,7 +41,7 @@ extension TaleAPI {
     
     httpParams.removeAll()
     httpParams["application_name"]        = "The Tale iOS Client"
-    httpParams["application_info"]        = "\(UIDevice.current.model) \(UIDevice.current.name)"
+    httpParams["application_info"]        = "\(UIDevice.current.name)"
     httpParams["application_description"] = "iOS client for The Tale."
     
     let request = URLRequest(baseURL: baseURL, path: APIPath.requestAuth.rawValue, pathComponents: pathComponents, method: .post, httpParams: httpParams)
