@@ -8,6 +8,10 @@
 
 import UIKit
 
+extension Notification.Name {
+  static let TaleAPINonblockingOperationRecivedAlarm = NSNotification.Name("TaleAPINonblockingOperationRecivedAlarm")
+}
+
 class TaleAPI: NSObject, NetworkClient {
   
   // MARK: Singleton
@@ -71,6 +75,10 @@ class TaleAPI: NSObject, NetworkClient {
   var authorisationState = AuthorisationState()
   var isSigned           = false
   
+  // MARK: User info
+  enum UserInfoKey {
+    static let nonblockingOperation = "TaleAPINonblockingOperation"
+  }
 }
 
 enum TimerState {
