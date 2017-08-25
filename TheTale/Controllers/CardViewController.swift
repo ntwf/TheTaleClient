@@ -77,7 +77,7 @@ class CardViewController: UIViewController {
     }
     
     let alertController = UIAlertController(title: "Ошибка!", message: message)
-    present(alertController, animated: true, completion: nil)
+    self.present(alertController, animated: true, completion: nil)
   }
   
   func refreshData(sender: UIRefreshControl) {
@@ -123,7 +123,7 @@ class CardViewController: UIViewController {
 
     if newCard.count == 1, let cardName = newCard.first?.nameRepresentation {
       let alertController = UIAlertController(title: "Получена новая карта.", message: cardName)
-      present(alertController, animated: true, completion: nil)
+      self.present(alertController, animated: true, completion: nil)
     }
     
     oldValueCards = cards
