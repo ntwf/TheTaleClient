@@ -1,5 +1,5 @@
 //
-//  TaleAPIStatusOperation.swift
+//  TaleAPINonblockingOperation
 //  the-tale
 //
 //  Created by Mikhail Vospennikov on 11/07/2017.
@@ -10,6 +10,7 @@ import Foundation
 
 extension TaleAPI {
 
+  // MARK: - Public method. Request data.
   func tryActionHelp(completionHandler: @escaping (APIResult<NonblockingOperationStatus>) -> Void) {
     pathComponents.removeAll()
     pathComponents["api_client"]  = APIConfiguration.client.rawValue
@@ -101,9 +102,12 @@ extension TaleAPI {
     }, completionHandler: completionHandler)
   }
   
+  // MARK: - Public method. Check status operation
   func checkStatusOperation(operation: NonblockingOperationStatus) {
     if let error = operation.error {
-      NotificationCenter.default.post(name: .nonblockingOperationAlarm, object: nil, userInfo: ["alarm": error])
+      NotificationCenter.default.post(name: .TaleAPINonblockingOperationRecivedAlarm,
+                                      object: nil,
+                                      userInfo: [TaleAPI.UserInfoKey.nonblockingOperation: error])
     }
     
     guard let pathURL = operation.statusURL else {
@@ -139,9 +143,10 @@ extension TaleAPI {
     }
   }
   
+  // MARK: - Internal method. Fetch data.
   private func fetchStatusOperation(url: String, completionHandler: @escaping (APIResult<NonblockingOperationStatus>) -> Void) {
     pathComponents.removeAll()
-    pathComponents["api_client"]  = APIConfiguration.client.rawValue
+    pathComponents["api_client"] = APIConfiguration.client.rawValue
     
     httpParams.removeAll()
     
