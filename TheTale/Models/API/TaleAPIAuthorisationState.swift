@@ -11,13 +11,9 @@ import Foundation
 extension TaleAPI {
 
   func getAuthorisationState(completionHandler: @escaping (APIResult<AuthorisationState>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"]  = APIConfiguration.client.rawValue
-    pathComponents["api_version"] = APIPath.authState.version
-    
-    httpParams.removeAll()
-    
-    let request = URLRequest(baseURL: baseURL, path: APIPath.authState.rawValue, pathComponents: pathComponents, method: .get, httpParams: httpParams)
+    guard let request = networkManager.createRequest(fromAPI: .authState) else {
+      return
+    }
     
     fetch(request: request, parse: { (json) -> AuthorisationState? in
       if let dictionary = json["data"] as? JSON {

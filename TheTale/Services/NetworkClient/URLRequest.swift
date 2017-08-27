@@ -9,10 +9,10 @@
 import Foundation
 
 extension URLRequest {
-  init(baseURL: String, path: String, pathComponents: JSON, method: RequestMethod, httpParams: JSON) {
-    let url = URL(baseURL: baseURL, path: path, pathComponents: pathComponents, method: method)
+  
+  init(_ url: URL, method: RequestMethod, httpParams: [String: String]) {
     self.init(url: url)
-    
+
     httpMethod = method.rawValue
     
     var csrftoken: String!
@@ -27,7 +27,7 @@ extension URLRequest {
     
     let postString = httpParams.map { (key, value) -> String in
       return "\(key)=\(value)"
-      }.joined(separator: "&")
+    }.joined(separator: "&")
     
     switch method {
     case .post:
@@ -35,6 +35,6 @@ extension URLRequest {
     default:
       break
     }
-    
   }
+  
 }

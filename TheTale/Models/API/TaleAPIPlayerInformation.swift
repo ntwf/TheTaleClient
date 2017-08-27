@@ -50,15 +50,13 @@ extension TaleAPI {
   }
 
   private func fetchPlayerInformation(turn: String, completionHandler: @escaping (APIResult<PlayerInformation>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"]   = APIConfiguration.client.rawValue
-    pathComponents["api_version"]  = APIPath.gameInfo.version
-    pathComponents["client_turns"] = turn
+    var components: [String: String] = [:]
+    components["client_turns"] = turn
     
-    httpParams.removeAll()
-    
-    let request = URLRequest(baseURL: baseURL, path: APIPath.gameInfo.rawValue, pathComponents: pathComponents, method: .get, httpParams: httpParams)
-    
+    guard let request = networkManager.createRequest(fromAPI: .gameInfo, urlParameters: components) else {
+      return
+    }
+
     fetch(request: request, parse: { (json) -> PlayerInformation? in
       if let dictionary = json["data"] as? JSON {
         return PlayerInformation(jsonObject: dictionary)

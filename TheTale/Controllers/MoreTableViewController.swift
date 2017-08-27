@@ -25,15 +25,15 @@ class MoreTableViewController: UITableViewController {
     
     navigationController?.isNavigationBarHidden = true
   }
-
+  
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     switch (indexPath.section, indexPath.row) {
     case (0, 0):
-      UIApplication.shared.open(URL(string: TaleAPI.shared.baseURL)!)
+      UIApplication.shared.open(TaleAPI.shared.networkManager.createURL(fromSite: .main))
     case (0, 1):
-      UIApplication.shared.open(URL(string: TaleAPI.shared.gameGuideURL)!)
+      UIApplication.shared.open(TaleAPI.shared.networkManager.createURL(fromSite: .guide))
     case (0, 2):
-      UIApplication.shared.open(URL(string: TaleAPI.shared.gameForumURL)!)
+      UIApplication.shared.open(TaleAPI.shared.networkManager.createURL(fromSite: .forum))
     case (1, 0):
       performSegue(withIdentifier: Constants.segueAbout, sender: nil)
     case (2, 0):

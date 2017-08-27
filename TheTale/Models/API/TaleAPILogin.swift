@@ -7,22 +7,19 @@
 //
 
 import Foundation
-import UIKit
 
 extension TaleAPI {
   
   func login(email: String, password: String, completionHandler: @escaping (APIResult<Login>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"]  = APIConfiguration.client.rawValue
-    pathComponents["api_version"] = APIPath.login.version
+    var components: [String: String] = [:]
+    components["next_url"] = ""
+    components["email"]    = email
+    components["password"] = password
+    components["remember"] = "on"
     
-    httpParams.removeAll()
-    httpParams["next_url"] = ""
-    httpParams["email"]    = email
-    httpParams["password"] = password
-    httpParams["remember"] = "on"
-    
-    let request = URLRequest(baseURL: baseURL, path: APIPath.login.rawValue, pathComponents: pathComponents, method: .post, httpParams: httpParams)
+    guard let request = networkManager.createRequest(fromAPI: .login, httpParameters: components) else {
+      return
+    }
     
     fetch(request: request, parse: { (json) -> Login? in
       if let dictionary = json["data"] as? JSON {
@@ -35,16 +32,14 @@ extension TaleAPI {
   }
   
   func requestURLPathTologinIntoSite(completionHandler: @escaping (APIResult<RequestAuthorisation>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"]  = APIConfiguration.client.rawValue
-    pathComponents["api_version"] = APIPath.requestAuth.version
+    var components: [String: String] = [:]
+    components["application_name"]        = Configuration.applicationName
+    components["application_info"]        = Configuration.applicationInfo
+    components["application_description"] = Configuration.applicationDescription
     
-    httpParams.removeAll()
-    httpParams["application_name"]        = "The Tale iOS Client"
-    httpParams["application_info"]        = "\(UIDevice.current.name)"
-    httpParams["application_description"] = "iOS client for The Tale."
-    
-    let request = URLRequest(baseURL: baseURL, path: APIPath.requestAuth.rawValue, pathComponents: pathComponents, method: .post, httpParams: httpParams)
+    guard let request = networkManager.createRequest(fromAPI: .requestAuth, httpParameters: components) else {
+      return
+    }
     
     fetch(request: request, parse: { (json) -> RequestAuthorisation? in
       if let dictionary = json["data"] as? JSON {

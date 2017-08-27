@@ -11,13 +11,9 @@ import Foundation
 extension TaleAPI {
  
   func logout(completionHandler: @escaping (APIResult<Logout>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"]  = APIConfiguration.client.rawValue
-    pathComponents["api_version"] = APIPath.logout.version
-    
-    httpParams.removeAll()
-    
-    let request = URLRequest(baseURL: baseURL, path: APIPath.logout.rawValue, pathComponents: pathComponents, method: .post, httpParams: httpParams)
+    guard let request = networkManager.createRequest(fromAPI: .logout) else {
+      return
+    }
     
     fetch(request: request, parse: { (json) -> Logout? in
       return Logout(jsonObject: json)

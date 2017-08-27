@@ -11,14 +11,12 @@ import Foundation
 extension TaleAPI {
 
   func getMap(turn: String, completionHandler: @escaping (APIResult<JSON>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"]  = APIConfiguration.client.rawValue
-    pathComponents["api_version"] = APIPath.map.version
-    pathComponents["turn"]        = turn
+    var components: [String: String] = [:]
+    components["turn"] = turn
     
-    httpParams.removeAll()
-    
-    let request = URLRequest(baseURL: baseURL, path: APIPath.map.rawValue, pathComponents: pathComponents, method: .get, httpParams: httpParams)
+    guard let request = networkManager.createRequest(fromAPI: .map, urlParameters: components) else {
+      return
+    }
     
     fetch(request: request, parse: { (json) -> JSON? in
       if let dictionary = json["data"] as? JSON {
