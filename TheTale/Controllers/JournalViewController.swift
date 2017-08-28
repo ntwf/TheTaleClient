@@ -13,9 +13,7 @@ class JournalViewController: UIViewController {
   enum Constatns {
     static let cellAction  = "ActionCell"
     static let cellMessage = "MessageCell"
-    
-    static let segueDiary = "toDiarySegue"
-    
+
     static let keyPathTurn               = #keyPath(TaleAPI.playerInformationManager.turn)
     static let keyPathAction             = #keyPath(TaleAPI.playerInformationManager.action)
     static let keyPathEnergy             = #keyPath(TaleAPI.playerInformationManager.energy)
@@ -161,7 +159,7 @@ class JournalViewController: UIViewController {
   }
   
   @IBAction func diaryButtonTapped(_ sender: UIButton) {
-    performSegue(withIdentifier: Constatns.segueDiary, sender: nil)
+    performSegue(withIdentifier: AppConfiguration.Segue.toDiary, sender: nil)
   }
   
   override func viewWillDisappear(_ animated: Bool) {

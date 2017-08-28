@@ -18,8 +18,6 @@ class HeroViewController: UIViewController {
     static let cellDropBagItem = "DropBagItemCell"
     static let cellBag         = "BagCell"
     
-    static let segueQuest = "toQuestSegue"
-    
     static let keyPathHeroBaseParameters      = #keyPath(TaleAPI.playerInformationManager.heroBaseParameters)
     static let keyPathHeroSecondaryParameters = #keyPath(TaleAPI.playerInformationManager.heroSecondaryParameters)
     static let keyPathEnergy                  = #keyPath(TaleAPI.playerInformationManager.energy)
@@ -166,7 +164,7 @@ class HeroViewController: UIViewController {
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.identifier == Constatns.segueQuest {
+    if segue.identifier == AppConfiguration.Segue.toQuest {
       if let indexPath                 = tableView.indexPathForSelectedRow,
          let destinationViewController = segue.destination as? QuestViewController {
         destinationViewController.questIndex = indexPath.row

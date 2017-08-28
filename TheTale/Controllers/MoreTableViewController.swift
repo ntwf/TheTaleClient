@@ -9,13 +9,7 @@
 import UIKit
 
 class MoreTableViewController: UITableViewController {
-  
-  enum Constants {
-    static let segueAbout = "toAboutSegue"
-    
-    static let storyboardLoginID = "loginScreen"
-  }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
   }
@@ -35,7 +29,7 @@ class MoreTableViewController: UITableViewController {
     case (0, 2):
       UIApplication.shared.open(TaleAPI.shared.networkManager.createURL(fromSite: .forum))
     case (1, 0):
-      performSegue(withIdentifier: Constants.segueAbout, sender: nil)
+      performSegue(withIdentifier: AppConfiguration.Segue.toAbout, sender: nil)
     case (2, 0):
       logout()
     default:
@@ -55,7 +49,6 @@ class MoreTableViewController: UITableViewController {
       case .success:
         TaleAPI.shared.playerInformationAutorefresh = .stop
         TaleAPI.shared.authorisationState           = AuthorisationState()
-        TaleAPI.shared.isSigned                     = false
         
         strongSelf.presentLoginScreen()
       case .failure(let error as NSError):
@@ -66,7 +59,7 @@ class MoreTableViewController: UITableViewController {
   }
   
   func presentLoginScreen() {
-    let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: Constants.storyboardLoginID)
+    let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: AppConfiguration.StoryboardID.loginScreen)
     present(loginViewController, animated: true, completion: nil)
   }
   
