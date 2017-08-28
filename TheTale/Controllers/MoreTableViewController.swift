@@ -9,17 +9,11 @@
 import UIKit
 
 class MoreTableViewController: UITableViewController {
-
+  // MARK: - Load controller
   override func viewDidLoad() {
     super.viewDidLoad()
   }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    
-    navigationController?.isNavigationBarHidden = true
-  }
-  
+
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     switch (indexPath.section, indexPath.row) {
     case (0, 0):
@@ -39,6 +33,25 @@ class MoreTableViewController: UITableViewController {
     tableView.deselectRow(at: indexPath, animated: true)
   }
   
+  // MARK: - View lifecycle
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    navigationController?.isNavigationBarHidden = true
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    navigationController?.isNavigationBarHidden = false
+  }
+
+  // MARK: - Work with interface
+  func presentLoginScreen() {
+    self.dismiss(animated: true, completion: nil)
+  }
+  
+  // MARK: - Request to API
   func logout() {
     TaleAPI.shared.logout { [weak self] (result) in
       guard let strongSelf = self else {
@@ -56,16 +69,5 @@ class MoreTableViewController: UITableViewController {
       default: break
       }
     }
-  }
-  
-  func presentLoginScreen() {
-    let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: AppConfiguration.StoryboardID.loginScreen)
-    present(loginViewController, animated: true, completion: nil)
-  }
-  
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    
-    navigationController?.isNavigationBarHidden = false
   }
 }

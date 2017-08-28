@@ -9,7 +9,7 @@
 import UIKit
 
 class HeroViewController: UIViewController {
-  
+  // MARK: - Internal constants
   enum Constatns {
     static let cellHero        = "HeroCell"
     static let cellQuest       = "QuestsCell"
@@ -27,32 +27,24 @@ class HeroViewController: UIViewController {
     static let keyPathBag                     = #keyPath(TaleAPI.playerInformationManager.bag)
   }
   
+  let refreshControl = UIRefreshControl()
+  
+  // MARK: - Outlets
   @IBOutlet weak var tableView: UITableView!
 
+  // MARK: - Internal variables
   var statusBarView: UIView?
   
-  let refreshControl = UIRefreshControl()
-
   var hiddenDropItemBag = true
 
+  // MARK: - Load controller
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    setupNotification()
+
     setupTableView()
     setupBackgroundStatusBar()
     
     updateHeroUI()
-  }
-  
-  func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroSecondaryParameters, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEnergy, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathQuests, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathCompanion, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEquipment, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathBag, options: [], context: nil)
   }
 
   func setupTableView() {
@@ -62,10 +54,65 @@ class HeroViewController: UIViewController {
     tableView.tableFooterView = UIView()
   }
   
+  func setupBackgroundStatusBar() {
+    statusBarView                  = UIView(frame: UIApplication.shared.statusBarFrame)
+    statusBarView?.backgroundColor = UIColor(red: 255, green: 255, blue: 255, transparency: 0.8)
+    view.addSubview(statusBarView!)
+  }
+  
+  // MARK: - View lifecycle
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    addNotification()
+    
+    navigationController?.isNavigationBarHidden = true
+  }
+
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    navigationController?.isNavigationBarHidden = false
+    
+    removeNotification()
+  }
+
+  override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    switch UIDevice.current.orientation {
+    case UIDeviceOrientation.portrait, UIDeviceOrientation.portraitUpsideDown:
+      statusBarView?.isHidden = false
+    case UIDeviceOrientation.landscapeLeft, UIDeviceOrientation.landscapeRight:
+      statusBarView?.isHidden = true
+    default:
+      break
+    }
+  }
+  
+  // MARK: - Notification
+  func addNotification() {
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroSecondaryParameters, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEnergy, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathQuests, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathCompanion, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEquipment, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathBag, options: [], context: nil)
+  }
+  
+  func removeNotification() {
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathHeroSecondaryParameters)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathEnergy)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathQuests)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathCompanion)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathEquipment)
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathBag)
+  }
+  
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
     if keyPath == Constatns.keyPathHeroBaseParameters ||
-       keyPath == Constatns.keyPathHeroSecondaryParameters ||
-       keyPath == Constatns.keyPathEnergy {
+      keyPath == Constatns.keyPathHeroSecondaryParameters ||
+      keyPath == Constatns.keyPathEnergy {
       updateHeroUI()
     }
     
@@ -86,34 +133,7 @@ class HeroViewController: UIViewController {
     }
   }
 
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    
-    navigationController?.isNavigationBarHidden = true
-  }
-
-  func setupBackgroundStatusBar() {
-    statusBarView                  = UIView(frame: UIApplication.shared.statusBarFrame)
-    statusBarView?.backgroundColor = UIColor(red: 255, green: 255, blue: 255, transparency: 0.8)
-    view.addSubview(statusBarView!)
-  }
-
-  override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-    switch UIDevice.current.orientation {
-    case UIDeviceOrientation.portrait, UIDeviceOrientation.portraitUpsideDown:
-      statusBarView?.isHidden = false
-    case UIDeviceOrientation.landscapeLeft, UIDeviceOrientation.landscapeRight:
-      statusBarView?.isHidden = true
-    default:
-      break
-    }
-  }
-  
-  func refreshData(sender: UIRefreshControl) {
-    TaleAPI.shared.playerInformationAutorefresh = .start
-    refreshControl.endRefreshing()
-  }
-  
+  // MARK: - Work with interface
   func updateHeroUI() {
     UIView.performWithoutAnimation {
       tableView.reloadSections(IndexSet(integer: 0), with: .none)
@@ -147,6 +167,11 @@ class HeroViewController: UIViewController {
     }
   }
   
+  func refreshData(sender: UIRefreshControl) {
+    TaleAPI.shared.playerInformationAutorefresh = .start
+    refreshControl.endRefreshing()
+  }
+
   func checkAvalibleDropItemBagButton() {
     if TaleAPI.shared.playerInformationManager.heroSecondaryParameters?.lootItemsCount == 0 {
       hiddenDropItemBag = true
@@ -163,6 +188,7 @@ class HeroViewController: UIViewController {
     hiddenDropItemBag = true
   }
 
+  // MARK: - Prepare segue data
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == AppConfiguration.Segue.toQuest {
       if let indexPath                 = tableView.indexPathForSelectedRow,
@@ -172,6 +198,7 @@ class HeroViewController: UIViewController {
     }
   }
   
+  // MARK: - Outlets action
   @IBAction func dropItemBagTapped(_ sender: UIButton) {
     hiddenDropItemBag = false
     tableView.reloadSections(IndexSet(integer: 4), with: .none)
@@ -186,27 +213,10 @@ class HeroViewController: UIViewController {
       }
     }
   }
-  
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    
-    navigationController?.isNavigationBarHidden = false
-  }
-  
-  deinit {
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathHeroSecondaryParameters)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathEnergy)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathQuests)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathCompanion)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathEquipment)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathBag)
-  }
-  
 }
 
+// MARK: - UITableViewDataSource
 extension HeroViewController: UITableViewDataSource {
-
   func numberOfSections(in tableView: UITableView) -> Int {
     return 6
   }
@@ -323,13 +333,11 @@ extension HeroViewController: UITableViewDataSource {
       fatalError("Wrong number of sections")
     }
   }
-  
 }
 
+// MARK: - UITableViewDelegate
 extension HeroViewController: UITableViewDelegate {
-  
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
   }
-  
 }

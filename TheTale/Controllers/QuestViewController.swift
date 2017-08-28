@@ -9,7 +9,7 @@
 import UIKit
 
 class QuestViewController: UIViewController {
-
+  // MARK: - Internal constants
   enum Constants {
     static let cellQuest      = "QuestCell"
     static let cellActor      = "ActorsCell"
@@ -19,22 +19,20 @@ class QuestViewController: UIViewController {
     static let keyPathQuests = #keyPath(TaleAPI.playerInformationManager.quests)
   }
   
+  // MARK: - Outlets
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
+  // MARK: - Internal variables
   var questIndex: Int!
 
+  // MARK: - Load controller
   override func viewDidLoad() {
     super.viewDidLoad()
     
     activityIndicator.stopAnimating()
     
-    setupNotification()
     setupTableView()
-  }
-
-  func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathQuests, options: [], context: nil)
   }
   
   func setupTableView() {
@@ -43,25 +41,43 @@ class QuestViewController: UIViewController {
     tableView.tableFooterView    = UIView()
   }
   
+  // MARK: - View lifecycle
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    navigationController?.isNavigationBarHidden = true
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    removeNotification()
+  }
+  
+  // MARK: - Notification
+  func setupNotification() {
+    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathQuests, options: [], context: nil)
+  }
+  
+  func removeNotification() {
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constants.keyPathQuests)
+  }
+  
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
     if keyPath == Constants.keyPathQuests {
       updateUI()
     }
   }
 
+  // MARK: - Work with interface
   func updateUI() {
     activityIndicator.stopAnimating()
     tableView.reloadData()
   }
-  
-  deinit {
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constants.keyPathQuests)
-  }
-  
 }
 
+// MARK: - UITableViewDataSource
 extension QuestViewController: UITableViewDataSource {
-  
   func numberOfSections(in tableView: UITableView) -> Int {
     return 4
   }
@@ -135,11 +151,10 @@ extension QuestViewController: UITableViewDataSource {
       fatalError("Wrong number of sections")
     }
   }
-  
 }
 
+// MARK: - UITableViewDelegate
 extension QuestViewController: UITableViewDelegate {
-  
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard indexPath.section == 3 else {
       return
@@ -157,7 +172,5 @@ extension QuestViewController: UITableViewDelegate {
       default: break
       }
     }
-    
   }
-  
 }

@@ -12,7 +12,7 @@ typealias PListData = [String: AnyObject]
 typealias JSON      = [String: Any]
 
 struct AppConfiguration {
-  struct Segue {
+  enum Segue {
     static let toJournal = "toJournalSegue"
     static let toWeb     = "toWebSegue"
     static let toQuest   = "toQuestSegue"
@@ -20,10 +20,7 @@ struct AppConfiguration {
     static let toAbout   = "toAboutSegue"
   }
   
-  
-  
-  struct StoryboardID {
-    static let waitScreen  = "waitScreen"
+  enum StoryboardID {
     static let loginScreen = "loginScreen"
   }
 }

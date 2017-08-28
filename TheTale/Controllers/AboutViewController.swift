@@ -9,9 +9,10 @@
 import UIKit
 
 class AboutViewController: UIViewController {
-  
+  // MARK: - Outlets
   @IBOutlet weak var textView: UITextView!
   
+  // MARK: - Load controller
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -29,11 +30,10 @@ class AboutViewController: UIViewController {
     }
   }
   
+  // MARK: - Work with interface
   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-    
     // Fix text view bug. See http://www.openradar.me/24435091
     textView.isScrollEnabled = false
     textView.isScrollEnabled = true
   }
-  
 }

@@ -9,7 +9,6 @@
 import UIKit
 
 class CardViewController: UIViewController {
-  
   // MARK: - Internal constants
   enum Constants {
     static let cellHelp = "HelpBarrierCell"
@@ -35,23 +34,13 @@ class CardViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
-  // MARK: - Load and setup view controller
+  // MARK: - Load controller
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    setupNotification()
     setupTableView()
   }
   
-  func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathCardsInfo, options: [.new, .initial], context: nil)
-    
-    NotificationCenter.default.addObserver(self,
-                                           selector: #selector(catchNotification(notification:)),
-                                           name: .TaleAPINonblockingOperationRecivedAlarm,
-                                           object: nil)
-  }
-
   func setupTableView() {
     refreshControl.addTarget(self, action: #selector(CardViewController.refreshData(sender:)), for: .valueChanged)
     
@@ -59,6 +48,33 @@ class CardViewController: UIViewController {
     tableView.estimatedRowHeight = 46
     tableView.rowHeight          = UITableViewAutomaticDimension
     tableView.tableFooterView    = UIView()
+  }
+  
+  // MARK: - View lifecycle
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    addNotification()
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    removeNotification()
+  }
+  
+  // MARK: - Notification
+  func addNotification() {
+    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathCardsInfo, options: [.new, .initial], context: nil)
+    
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(catchNotification(notification:)),
+                                           name: .TaleAPINonblockingOperationRecivedAlarm,
+                                           object: nil)
+  }
+  
+  func removeNotification() {
+    TaleAPI.shared.removeObserver(self, forKeyPath: Constants.keyPathCardsInfo)
   }
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -79,12 +95,7 @@ class CardViewController: UIViewController {
     let alertController = UIAlertController(title: "Ошибка!", message: message)
     self.present(alertController, animated: true, completion: nil)
   }
-  
-  func refreshData(sender: UIRefreshControl) {
-    TaleAPI.shared.playerInformationAutorefresh = .start
-    refreshControl.endRefreshing()
-  }
-  
+
   // MARK: - Work with interface
   func updateUI() {
     activityIndicator.stopAnimating()
@@ -97,6 +108,11 @@ class CardViewController: UIViewController {
     checkAvalibleGetCardButton()
     
     tableView.reloadData()
+  }
+
+  func refreshData(sender: UIRefreshControl) {
+    TaleAPI.shared.playerInformationAutorefresh = .start
+    refreshControl.endRefreshing()
   }
   
   func checkAvalibleGetCardButton() {
@@ -166,12 +182,6 @@ class CardViewController: UIViewController {
     
     updateUI()
   }
-  
-  // MARK: - Unload controller
-  deinit {
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constants.keyPathCardsInfo)
-  }
-  
 }
 
 // MARK: - UITableViewDataSource
@@ -222,7 +232,6 @@ extension CardViewController: UITableViewDataSource {
       fatalError("Wrong number of sections")
     }
   }
-
 }
 
 // MARK: - UITableViewDelegate
@@ -271,5 +280,4 @@ extension CardViewController: UITableViewDelegate {
     
     return [useCard]
   }
-  
 }
