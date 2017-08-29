@@ -27,6 +27,10 @@ class HeroViewController: UIViewController {
   // MARK: - Internal variables
   var statusBarView: UIView?
   
+  var quests: [Quest] = []
+  var equipment: [Artifact] = []
+  var bag: [[Artifact : Int]] = [[:]]
+  
   var hiddenDropItemBag = true
 
   // MARK: - Load controller
@@ -64,9 +68,9 @@ class HeroViewController: UIViewController {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     
-    navigationController?.isNavigationBarHidden = false
-    
     removeNotification()
+    
+    navigationController?.isNavigationBarHidden = false
   }
 
   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -82,13 +86,15 @@ class HeroViewController: UIViewController {
   
   // MARK: - Notification
   func addNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroBaseParameters, options: [.initial, .new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroSecondaryParameters, options: [.initial, .new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.energy, options: [.initial, .new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.quests, options: [.initial, .new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.companion, options: [.initial, .new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.equipment, options: [.initial, .new], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.bag, options: [.initial, .new], context: nil)
+    DispatchQueue.main.async {
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroBaseParameters, options: [.initial, .new], context: nil)
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroSecondaryParameters, options: [.initial, .new], context: nil)
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.energy, options: [.initial, .new], context: nil)
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.quests, options: [.initial, .new], context: nil)
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.companion, options: [.initial, .new], context: nil)
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.equipment, options: [.initial, .new], context: nil)
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.bag, options: [.initial, .new], context: nil)
+    }
   }
   
   func removeNotification() {
@@ -108,7 +114,8 @@ class HeroViewController: UIViewController {
       updateHeroUI()
     }
     
-    if keyPath == TaleAPI.NotificationKeyPath.quests {
+    if keyPath == TaleAPI.NotificationKeyPath.quests, let newQuests = change?[.newKey] as? [Quest] {
+      quests = newQuests
       updateQuestsUI()
     }
     
@@ -116,11 +123,13 @@ class HeroViewController: UIViewController {
       updateCompanionUI()
     }
     
-    if keyPath == TaleAPI.NotificationKeyPath.equipment {
+    if keyPath == TaleAPI.NotificationKeyPath.equipment, let newEquipment = change?[.newKey] as? [Artifact] {
+      equipment = newEquipment
       updateEquipmentUI()
     }
     
-    if keyPath == TaleAPI.NotificationKeyPath.bag {
+    if keyPath == TaleAPI.NotificationKeyPath.bag, let newBag = change?[.newKey] as? [[Artifact: Int]] {
+      bag = newBag
       updateBagUI()
     }
   }
@@ -223,16 +232,16 @@ extension HeroViewController: UITableViewDataSource {
       }
       return 0
     case 2:
-      return TaleAPI.shared.playerInformationManager.quests.count
+      return quests.count
     case 3:
-      return TaleAPI.shared.playerInformationManager.equipment.count
+      return equipment.count
     case 4:
       if hiddenDropItemBag {
         return 0
       }
       return 1
     case 5:
-      return TaleAPI.shared.playerInformationManager.bag.count
+      return bag.count
     default:
       return 0
     }
@@ -286,10 +295,10 @@ extension HeroViewController: UITableViewDataSource {
       return cell
     case 2:
       let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellQuest)
-      cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[indexPath.row].nameRepresentation
+      cell?.textLabel?.text = quests[indexPath.row].nameRepresentation
       cell?.textLabel?.adjustsFontSizeToFitWidth = true
  
-      if TaleAPI.shared.playerInformationManager.quests[indexPath.row].choiceAlternatives.count >= 1 {
+      if quests[indexPath.row].choiceAlternatives.count >= 1 {
         cell?.textLabel?.isHighlighted = true
       }
       
@@ -297,7 +306,7 @@ extension HeroViewController: UITableViewDataSource {
     case 3:
       // swiftlint:disable:next force_cast
       let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellEquipment) as! EquipmentTableViewCell
-      cell.configuredEquipment(info: TaleAPI.shared.playerInformationManager.equipment[indexPath.row])
+      cell.configuredEquipment(info: equipment[indexPath.row])
 
       return cell
     case 4:
@@ -309,8 +318,8 @@ extension HeroViewController: UITableViewDataSource {
     case 5:
       let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellBag)
       
-      guard let artifact = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.key.nameRepresentation,
-            let counter  = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.value else {
+      guard let artifact = bag[indexPath.row].first?.key.nameRepresentation,
+            let counter  = bag[indexPath.row].first?.value else {
         return cell!
       }
       

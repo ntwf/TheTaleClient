@@ -43,13 +43,17 @@ class QuestViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    navigationController?.isNavigationBarHidden = true
+    setupNotification()
+    
+    navigationController?.isNavigationBarHidden = false
   }
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     
     removeNotification()
+    
+    navigationController?.isNavigationBarHidden = true
   }
   
   // MARK: - Notification

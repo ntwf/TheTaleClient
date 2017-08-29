@@ -27,7 +27,7 @@ class JournalViewController: UIViewController {
   var actionText          = ""
   var actionProgress      = 0.0
   var isEnabledHelpButton = false
-
+  
   // MARK: - Load controller
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -35,6 +35,7 @@ class JournalViewController: UIViewController {
     activityIndicator.startAnimating()
 
     setupTableView()
+    addNotification()
     
     TaleAPI.shared.playerInformationAutorefresh = .start
   }
@@ -51,16 +52,12 @@ class JournalViewController: UIViewController {
   // MARK: - View lifecycle
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    
-    addNotification()
-    
+
     navigationController?.isNavigationBarHidden = true
   }
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    
-    removeNotification()
     
     navigationController?.isNavigationBarHidden = false
   }
@@ -179,6 +176,11 @@ class JournalViewController: UIViewController {
   
   @IBAction func diaryButtonTapped(_ sender: UIButton) {
     performSegue(withIdentifier: AppConfiguration.Segue.toDiary, sender: nil)
+  }
+  
+  // MARK: - Deinitialize
+  deinit {
+    removeNotification()
   }
 }
 
