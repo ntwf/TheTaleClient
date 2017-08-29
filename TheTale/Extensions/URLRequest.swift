@@ -16,12 +16,13 @@ extension URLRequest {
     httpMethod = method.rawValue
     
     var csrftoken: String!
-    let cookies = HTTPCookieStorage.shared.cookies(for: url)
     
-    for cookie in cookies! where cookie.name == "csrftoken" {
+    let readCookies = HTTPCookieStorage.shared.cookies(for: url)
+
+    for cookie in readCookies! where cookie.name == "csrftoken" {
       csrftoken = cookie.value
     }
-    
+
     setValue(csrftoken, forHTTPHeaderField: "X-CSRFToken")
     setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
     

@@ -9,15 +9,36 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-  
-  enum Constants {
-    static let segueJournal = "toJournalSegue"
+  // MARK: - Internal constants
+  enum Constatns {
+    static let borderColorTextFieldOK    = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
+    static let borderColorTextFieldError = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
   }
   
+  // MARK: - Internal variables
+  var authPath: String?
+  var isCheckedAuthorisation: Bool = false
+  
+  // MARK: - Outlets
+  @IBOutlet weak var loginView: UIView!
   @IBOutlet weak var loginTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
+  @IBOutlet weak var loginButton: UIButton!
+  
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
+  // MARK: - Load controller
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    loginView.isHidden = true
+    
+    configured(loginButton: loginButton)
+    
+    setupGesture()
+    setupTextField()
+  }
+
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
     return UIInterfaceOrientationMask.portrait
   }
@@ -26,24 +47,78 @@ class LoginViewController: UIViewController {
     return false
   }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    loginTextField.delegate    = self
-    passwordTextField.delegate = self
-    
-    gestureSetup()
-
-    activityIndicator.stopAnimating()
-  }
-  
-  func gestureSetup() {
+  func setupGesture() {
     let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
     tap.cancelsTouchesInView = false
     view.addGestureRecognizer(tap)
   }
 
-  func checkLogin(email: String, password: String) {
+  func setupTextField() {
+    loginTextField.delegate    = self
+    passwordTextField.delegate = self
+    
+    loginTextField.addTarget(self, action: #selector(checkLogin(_:)), for: .editingChanged)
+    passwordTextField.addTarget(self, action: #selector(checkPassword(_:)), for: .editingChanged)
+  }
+  
+  func configured(textField: UITextField, border color: UIColor) {
+    textField.layer.masksToBounds = true
+    textField.layer.cornerRadius = 5.0
+    textField.layer.borderColor = color.cgColor
+    textField.layer.borderWidth = 0.5
+  }
+  
+  func configured(loginButton: UIButton) {
+    if loginTextField.isEmail && !passwordTextField.isEmpty {
+      loginButton.isEnabled = true
+      loginButton.alpha = 1
+    } else {
+      loginButton.isEnabled = false
+      loginButton.alpha = 0.5
+    }
+  }
+  
+  // MARK: - Check text field
+  func checkLogin(_ textField: UITextField) {
+    var color = Constatns.borderColorTextFieldOK
+    
+    if !loginTextField.isEmail {
+      color = Constatns.borderColorTextFieldError
+    }
+    
+    configured(loginButton: loginButton)
+    configured(textField: loginTextField, border: color)
+  }
+  
+  func checkPassword(_ textField: UITextField) {
+    var color = Constatns.borderColorTextFieldOK
+    
+    if passwordTextField.isEmpty {
+      color = Constatns.borderColorTextFieldError
+    }
+    
+    configured(loginButton: loginButton)
+    configured(textField: passwordTextField, border: color)
+  }
+  
+  // MARK: - View lifecycle
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    if !isCheckedAuthorisation {
+      checkAuthorisation()
+    }
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    loginTextField.clear()
+    passwordTextField.clear()
+  }
+  
+  // MARK: - Request to API
+  func tryLogin(email: String, password: String) {
     TaleAPI.shared.login(email: email, password: password) { [weak self] (result) in
       guard let strongSelf = self else {
         return
@@ -51,45 +126,93 @@ class LoginViewController: UIViewController {
       
       switch result {
       case .success:
-        strongSelf.activityIndicator.stopAnimating()
-        TaleAPI.shared.isSigned = true
-        strongSelf.performSegue(withIdentifier: Constants.segueJournal, sender: self)
+        strongSelf.isCheckedAuthorisation = false
+        strongSelf.activityIndicator.startAnimating()
+        strongSelf.loginView.isHidden = true
+        
+        strongSelf.performSegue(withIdentifier: AppConfiguration.Segue.toJournal, sender: self)
       
       case .failure(let error as NSError):
+        strongSelf.isCheckedAuthorisation = false
         strongSelf.activityIndicator.stopAnimating()
+        strongSelf.loginView.isHidden = false
+        
         let alert = UIAlertController(title: "Ошибка авторизации.", message: "Неправильный логин или пароль.")
         strongSelf.present(alert, animated: true, completion: nil)
+        
+        strongSelf.passwordTextField.clear()
+        
         debugPrint("login \(error)")
         
       default: break
       }
     }
   }
+  
+  func checkAuthorisation() {
+    TaleAPI.shared.getAuthorisationState { [weak self] (result) in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      switch result {
+      case .success(let data):
+        TaleAPI.shared.authorisationState = data
+        
+        strongSelf.isCheckedAuthorisation = false
+        strongSelf.activityIndicator.startAnimating()
+        strongSelf.loginView.isHidden = true
+        
+        strongSelf.performSegue(withIdentifier: AppConfiguration.Segue.toJournal, sender: self)
+      case .failure(let error as NSError):
+        debugPrint("checkAuthorisation", error)
+        
+        strongSelf.isCheckedAuthorisation = true
+        strongSelf.activityIndicator.stopAnimating()
+        strongSelf.loginView.isHidden = false
+      default: break
+      }
+    }
+  }
+  
+  // MARK: - Prepare segue data
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == AppConfiguration.Segue.toWeb {
+      if let navigationViewController = segue.destination as? UINavigationController,
+         let webViewController        = navigationViewController.topViewController as? WebViewController,
+        let authPath = authPath {
+        webViewController.authPath = authPath
+      }
+    }
+  }
 
+  // MARK: - Outlets action
   @IBAction func loginButtonTapped(_ sender: UIButton) {
     activityIndicator.startAnimating()
     
-    guard let email    = loginTextField.text, email != "",
-          let password = passwordTextField.text, password != "" else {
-        let alert = UIAlertController(title: "Ошибка авторизации.", message: "Поле логина или пароля пустое.")
-        present(alert, animated: true, completion: nil)
-        
-        activityIndicator.stopAnimating()
+    guard let email    = loginTextField.text,
+          let password = passwordTextField.text else {
         return
     }
     
-    checkLogin(email: email, password: password)
+    tryLogin(email: email, password: password)
   }
   
   @IBAction func loginOnSiteButtonTapped(_ sender: UIButton) {
-    TaleAPI.shared.requestURLPathTologinIntoSite { (result) in
+    isCheckedAuthorisation = false
+    
+    TaleAPI.shared.requestURLPathTologinIntoSite { [weak self] (result) in
+      guard let strongSelf = self else {
+        return
+      }
+      
       switch result {
       case .success(let data):
-        guard let baseURL = URL(string: TaleAPI.shared.baseURL),
-              let url     = URL(string: data.urlPath, relativeTo: baseURL) else {
-            return
-        }
-        UIApplication.shared.open(url)
+        strongSelf.loginView.isHidden = true
+        strongSelf.activityIndicator.startAnimating()
+        
+        strongSelf.authPath = data.urlPath
+        strongSelf.performSegue(withIdentifier: AppConfiguration.Segue.toWeb, sender: nil)
       case .failure(let error as NSError):
         debugPrint("loginOnTheSite \(error)")
       default: break
@@ -98,19 +221,15 @@ class LoginViewController: UIViewController {
   }
   
   @IBAction func goToSiteButtonTapped(_ sender: UIButton) {
-    if let baseURL = URL(string: TaleAPI.shared.baseURL) {
-      UIApplication.shared.open(baseURL)
-    }
+    UIApplication.shared.open(TaleAPI.shared.networkManager.createURL(fromSite: .main))
   }
-  
 }
 
+// MARK: - UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
-  
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     loginTextField.resignFirstResponder()
     passwordTextField.resignFirstResponder()
     return true
   }
-  
 }
