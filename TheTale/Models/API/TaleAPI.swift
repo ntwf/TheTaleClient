@@ -12,6 +12,11 @@ extension Notification.Name {
   static let TaleAPINonblockingOperationRecivedAlarm = NSNotification.Name("TaleAPINonblockingOperationRecivedAlarm")
 }
 
+enum TimerState {
+  case start
+  case stop
+}
+
 class TaleAPI: NSObject, NetworkClient {
   
   // MARK: Singleton
@@ -20,30 +25,35 @@ class TaleAPI: NSObject, NetworkClient {
   // MARK: Network variable
   var sessionConfiguration: URLSessionConfiguration
   var session: URLSession
-  
-  let baseURL      = "http://the-tale.org"
-  let gameGuideURL = "http://the-tale.org/guide/game"
-  let gameForumURL = "http://the-tale.org/forum"
-  
-  var httpParams: JSON
-  var pathComponents: JSON
 
   // MARK: Managers
   var playerInformationManager: PlayerInformationManager
   var gameInformationManager: GameInformationManager
   var diaryManager: DiaryManager
+  var networkManager: NetworkManager
+  
+  // MARK: Configuration
+  enum Configuration {
+    static let networkClient      = "the-tale"
+    static let networkInfo        = "the-tale-ios-client"
+    static let networkDescription = "ios-client"
+    
+    static let applicationName        = "The Tale iOS Client"
+    static let applicationInfo        = "\(UIDevice.current.name)"
+    static let applicationDescription = "iOS client for The Tale."
+  }
   
   // MARK: Initializer
   private override init() {
     self.sessionConfiguration = URLSessionConfiguration.default
     self.session              = URLSession(configuration: sessionConfiguration)
-    
-    httpParams     = [:]
-    pathComponents = [:]
 
     playerInformationManager = PlayerInformationManager()
     gameInformationManager   = GameInformationManager()
     diaryManager             = DiaryManager()
+    networkManager           = NetworkManager(client: Configuration.networkClient,
+                                              info: Configuration.networkInfo,
+                                              description: Configuration.networkDescription)
   }
   
   // MARK: Internal variables
@@ -73,15 +83,25 @@ class TaleAPI: NSObject, NetworkClient {
   
   // MARK: External variables
   var authorisationState = AuthorisationState()
-  var isSigned           = false
   
   // MARK: User info
   enum UserInfoKey {
     static let nonblockingOperation = "TaleAPINonblockingOperation"
   }
-}
-
-enum TimerState {
-  case start
-  case stop
+  
+  // MARK: Key path
+  enum NotificationKeyPath {
+    static let action                  = #keyPath(TaleAPI.playerInformationManager.action)
+    static let bag                     = #keyPath(TaleAPI.playerInformationManager.bag)
+    static let cardsInfo               = #keyPath(TaleAPI.playerInformationManager.cardsInfo)
+    static let companion               = #keyPath(TaleAPI.playerInformationManager.companion)
+    static let diary                   = #keyPath(TaleAPI.diaryManager.diary)
+    static let energy                  = #keyPath(TaleAPI.playerInformationManager.energy)
+    static let equipment               = #keyPath(TaleAPI.playerInformationManager.equipment)
+    static let heroBaseParameters      = #keyPath(TaleAPI.playerInformationManager.heroBaseParameters)
+    static let heroSecondaryParameters = #keyPath(TaleAPI.playerInformationManager.heroSecondaryParameters)
+    static let journal                 = #keyPath(TaleAPI.playerInformationManager.journal)
+    static let quests                  = #keyPath(TaleAPI.playerInformationManager.quests)
+    static let turn                    = #keyPath(TaleAPI.playerInformationManager.turn)
+  }
 }

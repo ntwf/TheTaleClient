@@ -9,19 +9,22 @@
 import UIKit
 
 class MapViewController: UIViewController {
-  
+  // MARK: - Internal constants
   enum Constants {
     static let cellMap = "Cell"
   }
   
+  // MARK: - Outlets
   @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet weak var mapActivityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var compassButton: UIButton!
   
+  // MARK: - Internal variables
   var statusBarView: UIView?
-  
+
   var map = Map()
   
+  // MARK: - Load controller
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -41,6 +44,7 @@ class MapViewController: UIViewController {
     compassButton.layer.opacity       = 0.7
   }
   
+  // MARK: - View lifecycle
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
@@ -65,6 +69,7 @@ class MapViewController: UIViewController {
     }
   }
   
+  // MARK: - Work with interface
   func reloadMap() {
     DispatchQueue.main.async { [weak self] in
       guard let strongSelf = self else {
@@ -76,7 +81,24 @@ class MapViewController: UIViewController {
       strongSelf.scrollingToHero()
     }
   }
+
+  func scrollingToHero() {
+    guard let xCoordinate = TaleAPI.shared.playerInformationManager.heroPosition?.xCoordinate,
+      let yCoordinate = TaleAPI.shared.playerInformationManager.heroPosition?.yCoordinate,
+      let widthMap    = map?.width,
+      let heighMap    = map?.height else {
+        return
+    }
+    
+    if xCoordinate <= widthMap && yCoordinate <= heighMap {
+      collectionView.scrollToItem(at: IndexPath(item: xCoordinate, section: yCoordinate),
+                                  at: .centeredVertically, animated: false)
+      collectionView.scrollToItem(at: IndexPath(item: xCoordinate, section: yCoordinate),
+                                  at: .centeredHorizontally, animated: false)
+    }
+  }
   
+  // MARK: - Request to API
   func fetchMap() {
     // Blanket. Used to get old maps.
     let turn = ""
@@ -100,31 +122,15 @@ class MapViewController: UIViewController {
     }
     
   }
-  
-  func scrollingToHero() {
-    guard let xCoordinate = TaleAPI.shared.playerInformationManager.heroPosition?.xCoordinate,
-          let yCoordinate = TaleAPI.shared.playerInformationManager.heroPosition?.yCoordinate,
-          let widthMap    = map?.width,
-          let heighMap    = map?.height else {
-        return
-    }
-    
-    if xCoordinate <= widthMap && yCoordinate <= heighMap {
-      collectionView.scrollToItem(at: IndexPath(item: xCoordinate, section: yCoordinate),
-                                  at: .centeredVertically, animated: false)
-      collectionView.scrollToItem(at: IndexPath(item: xCoordinate, section: yCoordinate),
-                                  at: .centeredHorizontally, animated: false)
-    }
-  }
-  
+
+  // MARK: - Outlets action
   @IBAction func compassButtonTapped(_ sender: UIButton) {
     scrollingToHero()
   }
-  
 }
 
+// MARK: - UICollectionViewDataSource
 extension MapViewController: UICollectionViewDataSource {
-  
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return map?.width ?? 1
   }
@@ -154,9 +160,9 @@ extension MapViewController: UICollectionViewDataSource {
     
     return cell
   }
-
 }
 
+// MARK: - UICollectionViewDelegate
 extension MapViewController: UICollectionViewDelegate {
   
 }

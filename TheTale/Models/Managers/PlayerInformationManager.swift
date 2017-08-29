@@ -30,7 +30,7 @@ class PlayerInformationManager: NSObject {
   private var heroJSON: JSON                    = [:]
   private var recivedMessages: [JournalMessage] = []
   
-  // MARK: Player information
+  // MARK: - Player information
   func getPlayerInformation(from player: PlayerInformation) {
     // Order is important! This is structure of JSON
     
@@ -65,7 +65,7 @@ class PlayerInformationManager: NSObject {
     turn = recivedTurn
   }
   
-  // MARK: Account information
+  // MARK: - Account information
   private func getAccountInformation() {
     guard let recivedAccountJSON = playerInformation?.account,
           let recivedAccount     = AccountInformation(jsonObject: recivedAccountJSON) else {
@@ -88,7 +88,7 @@ class PlayerInformationManager: NSObject {
     hero     = recivedHero
   }
   
-  // MARK: Hero information
+  // MARK: - Hero information
   private func getMessages() {
     var messages: [JournalMessage] = []
 

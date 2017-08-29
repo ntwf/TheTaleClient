@@ -9,30 +9,26 @@
 import UIKit
 
 class DiaryViewController: UIViewController {
-  
+  // MARK: - Internal constants
   enum Constants {
     static let cellDiary = "Cell"
-    
-    static let keyPathDiary = #keyPath(TaleAPI.diaryManager.diary)
   }
   
+  // MARK: - Outlets
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
+  // MARK: - Internal variables
   var allMessages    = [DiaryMessage]()
   let refreshControl = UIRefreshControl()
 
+  // MARK: - Load controller
   override func viewDidLoad() {
     super.viewDidLoad()
     
     activityIndicator.startAnimating()
     
-    setupNotification()
     setupTableView()
-  }
-  
-  func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathDiary, options: [], context: nil)
   }
   
   func setupTableView() {
@@ -43,25 +39,41 @@ class DiaryViewController: UIViewController {
     tableView.rowHeight          = UITableViewAutomaticDimension
     tableView.tableFooterView    = UIView()
   }
-  
-  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == Constants.keyPathDiary {
-      updateUI()
-    }
-  }
 
+  // MARK: - View lifecycle
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    
+    addNotification()
     
     allMessages = TaleAPI.shared.diaryManager.oldDiary
     fetchDiary()
   }
 
-  func refreshData(sender: UIRefreshControl) {
-    fetchDiary()
-    refreshControl.endRefreshing()
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+
+    removeNotification()
+    
+    TaleAPI.shared.diaryManager.oldDiary = allMessages
   }
   
+  // MARK: - Notification
+  func addNotification() {
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.diary, options: [], context: nil)
+  }
+  
+  func removeNotification() {
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.diary)
+  }
+  
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if keyPath == TaleAPI.NotificationKeyPath.diary {
+      updateUI()
+    }
+  }
+  
+  // MARK: - Request to API
   func fetchDiary() {
     TaleAPI.shared.getDiary { (result) in
       switch result {
@@ -74,6 +86,7 @@ class DiaryViewController: UIViewController {
     }
   }
   
+  // MARK: - Work with interface
   func updateUI() {
     activityIndicator.stopAnimating()
     
@@ -92,6 +105,12 @@ class DiaryViewController: UIViewController {
     }
   }
   
+  func refreshData(sender: UIRefreshControl) {
+    fetchDiary()
+    refreshControl.endRefreshing()
+  }
+  
+  // MARK: - Action sheet
   func showActionSheet(save text: String) {
     let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
     
@@ -108,21 +127,10 @@ class DiaryViewController: UIViewController {
     
     present(alertController, animated: true, completion: nil)
   }
-  
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    
-    TaleAPI.shared.diaryManager.oldDiary = allMessages
-  }
-  
-  deinit {
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constants.keyPathDiary)
-  }
-  
 }
 
+// MARK: - UITableViewDataSource
 extension DiaryViewController: UITableViewDataSource {
-  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return allMessages.count
   }
@@ -135,11 +143,10 @@ extension DiaryViewController: UITableViewDataSource {
     
     return cell
   }
-  
 }
 
+// MARK: - UITableViewDelegate
 extension DiaryViewController: UITableViewDelegate {
-  
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if indexPath.section == 0 {
        let messageData = allMessages[indexPath.row]
@@ -150,5 +157,4 @@ extension DiaryViewController: UITableViewDelegate {
     
     tableView.deselectRow(at: indexPath, animated: true)
   }
-  
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 class HeroViewController: UIViewController {
-  
+  // MARK: - Internal constants
   enum Constatns {
     static let cellHero        = "HeroCell"
     static let cellQuest       = "QuestsCell"
@@ -17,44 +17,30 @@ class HeroViewController: UIViewController {
     static let cellEquipment   = "EquipmentCell"
     static let cellDropBagItem = "DropBagItemCell"
     static let cellBag         = "BagCell"
-    
-    static let segueQuest = "toQuestSegue"
-    
-    static let keyPathHeroBaseParameters      = #keyPath(TaleAPI.playerInformationManager.heroBaseParameters)
-    static let keyPathHeroSecondaryParameters = #keyPath(TaleAPI.playerInformationManager.heroSecondaryParameters)
-    static let keyPathEnergy                  = #keyPath(TaleAPI.playerInformationManager.energy)
-    static let keyPathQuests                  = #keyPath(TaleAPI.playerInformationManager.quests)
-    static let keyPathCompanion               = #keyPath(TaleAPI.playerInformationManager.companion)
-    static let keyPathEquipment               = #keyPath(TaleAPI.playerInformationManager.equipment)
-    static let keyPathBag                     = #keyPath(TaleAPI.playerInformationManager.bag)
   }
   
+  let refreshControl = UIRefreshControl()
+  
+  // MARK: - Outlets
   @IBOutlet weak var tableView: UITableView!
 
+  // MARK: - Internal variables
   var statusBarView: UIView?
   
-  let refreshControl = UIRefreshControl()
-
+  var quests: [Quest] = []
+  var equipment: [Artifact] = []
+  var bag: [[Artifact : Int]] = [[:]]
+  
   var hiddenDropItemBag = true
 
+  // MARK: - Load controller
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    setupNotification()
+
     setupTableView()
     setupBackgroundStatusBar()
     
     updateHeroUI()
-  }
-  
-  func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroSecondaryParameters, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEnergy, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathQuests, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathCompanion, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEquipment, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathBag, options: [], context: nil)
   }
 
   func setupTableView() {
@@ -64,40 +50,27 @@ class HeroViewController: UIViewController {
     tableView.tableFooterView = UIView()
   }
   
-  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == Constatns.keyPathHeroBaseParameters ||
-       keyPath == Constatns.keyPathHeroSecondaryParameters ||
-       keyPath == Constatns.keyPathEnergy {
-      updateHeroUI()
-    }
-    
-    if keyPath == Constatns.keyPathQuests {
-      updateQuestsUI()
-    }
-    
-    if keyPath == Constatns.keyPathCompanion {
-      updateCompanionUI()
-    }
-    
-    if keyPath == Constatns.keyPathEquipment {
-      updateEquipmentUI()
-    }
-    
-    if keyPath == Constatns.keyPathBag {
-      updateBagUI()
-    }
-  }
-
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    
-    navigationController?.isNavigationBarHidden = true
-  }
-
   func setupBackgroundStatusBar() {
     statusBarView                  = UIView(frame: UIApplication.shared.statusBarFrame)
     statusBarView?.backgroundColor = UIColor(red: 255, green: 255, blue: 255, transparency: 0.8)
     view.addSubview(statusBarView!)
+  }
+  
+  // MARK: - View lifecycle
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    addNotification()
+    
+    navigationController?.isNavigationBarHidden = true
+  }
+
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    removeNotification()
+    
+    navigationController?.isNavigationBarHidden = false
   }
 
   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -111,11 +84,57 @@ class HeroViewController: UIViewController {
     }
   }
   
-  func refreshData(sender: UIRefreshControl) {
-    TaleAPI.shared.playerInformationAutorefresh = .start
-    refreshControl.endRefreshing()
+  // MARK: - Notification
+  func addNotification() {
+    DispatchQueue.main.async {
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroBaseParameters, options: [.initial, .new], context: nil)
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroSecondaryParameters, options: [.initial, .new], context: nil)
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.energy, options: [.initial, .new], context: nil)
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.quests, options: [.initial, .new], context: nil)
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.companion, options: [.initial, .new], context: nil)
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.equipment, options: [.initial, .new], context: nil)
+      TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.bag, options: [.initial, .new], context: nil)
+    }
   }
   
+  func removeNotification() {
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroBaseParameters)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroSecondaryParameters)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.energy)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.quests)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.companion)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.equipment)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.bag)
+  }
+  
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if keyPath == TaleAPI.NotificationKeyPath.heroBaseParameters ||
+       keyPath == TaleAPI.NotificationKeyPath.heroSecondaryParameters ||
+       keyPath == TaleAPI.NotificationKeyPath.energy {
+      updateHeroUI()
+    }
+    
+    if keyPath == TaleAPI.NotificationKeyPath.quests, let newQuests = change?[.newKey] as? [Quest] {
+      quests = newQuests
+      updateQuestsUI()
+    }
+    
+    if keyPath == TaleAPI.NotificationKeyPath.companion {
+      updateCompanionUI()
+    }
+    
+    if keyPath == TaleAPI.NotificationKeyPath.equipment, let newEquipment = change?[.newKey] as? [Artifact] {
+      equipment = newEquipment
+      updateEquipmentUI()
+    }
+    
+    if keyPath == TaleAPI.NotificationKeyPath.bag, let newBag = change?[.newKey] as? [[Artifact: Int]] {
+      bag = newBag
+      updateBagUI()
+    }
+  }
+
+  // MARK: - Work with interface
   func updateHeroUI() {
     UIView.performWithoutAnimation {
       tableView.reloadSections(IndexSet(integer: 0), with: .none)
@@ -149,6 +168,11 @@ class HeroViewController: UIViewController {
     }
   }
   
+  func refreshData(sender: UIRefreshControl) {
+    TaleAPI.shared.playerInformationAutorefresh = .start
+    refreshControl.endRefreshing()
+  }
+
   func checkAvalibleDropItemBagButton() {
     if TaleAPI.shared.playerInformationManager.heroSecondaryParameters?.lootItemsCount == 0 {
       hiddenDropItemBag = true
@@ -165,8 +189,9 @@ class HeroViewController: UIViewController {
     hiddenDropItemBag = true
   }
 
+  // MARK: - Prepare segue data
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.identifier == Constatns.segueQuest {
+    if segue.identifier == AppConfiguration.Segue.toQuest {
       if let indexPath                 = tableView.indexPathForSelectedRow,
          let destinationViewController = segue.destination as? QuestViewController {
         destinationViewController.questIndex = indexPath.row
@@ -174,6 +199,7 @@ class HeroViewController: UIViewController {
     }
   }
   
+  // MARK: - Outlets action
   @IBAction func dropItemBagTapped(_ sender: UIButton) {
     hiddenDropItemBag = false
     tableView.reloadSections(IndexSet(integer: 4), with: .none)
@@ -188,27 +214,10 @@ class HeroViewController: UIViewController {
       }
     }
   }
-  
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    
-    navigationController?.isNavigationBarHidden = false
-  }
-  
-  deinit {
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathHeroSecondaryParameters)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathEnergy)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathQuests)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathCompanion)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathEquipment)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathBag)
-  }
-  
 }
 
+// MARK: - UITableViewDataSource
 extension HeroViewController: UITableViewDataSource {
-
   func numberOfSections(in tableView: UITableView) -> Int {
     return 6
   }
@@ -223,16 +232,16 @@ extension HeroViewController: UITableViewDataSource {
       }
       return 0
     case 2:
-      return TaleAPI.shared.playerInformationManager.quests.count
+      return quests.count
     case 3:
-      return TaleAPI.shared.playerInformationManager.equipment.count
+      return equipment.count
     case 4:
       if hiddenDropItemBag {
         return 0
       }
       return 1
     case 5:
-      return TaleAPI.shared.playerInformationManager.bag.count
+      return bag.count
     default:
       return 0
     }
@@ -286,10 +295,10 @@ extension HeroViewController: UITableViewDataSource {
       return cell
     case 2:
       let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellQuest)
-      cell?.textLabel?.text = TaleAPI.shared.playerInformationManager.quests[indexPath.row].nameRepresentation
+      cell?.textLabel?.text = quests[indexPath.row].nameRepresentation
       cell?.textLabel?.adjustsFontSizeToFitWidth = true
  
-      if TaleAPI.shared.playerInformationManager.quests[indexPath.row].choiceAlternatives.count >= 1 {
+      if quests[indexPath.row].choiceAlternatives.count >= 1 {
         cell?.textLabel?.isHighlighted = true
       }
       
@@ -297,7 +306,7 @@ extension HeroViewController: UITableViewDataSource {
     case 3:
       // swiftlint:disable:next force_cast
       let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellEquipment) as! EquipmentTableViewCell
-      cell.configuredEquipment(info: TaleAPI.shared.playerInformationManager.equipment[indexPath.row])
+      cell.configuredEquipment(info: equipment[indexPath.row])
 
       return cell
     case 4:
@@ -309,8 +318,8 @@ extension HeroViewController: UITableViewDataSource {
     case 5:
       let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellBag)
       
-      guard let artifact = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.key.nameRepresentation,
-            let counter  = TaleAPI.shared.playerInformationManager.bag[indexPath.row].first?.value else {
+      guard let artifact = bag[indexPath.row].first?.key.nameRepresentation,
+            let counter  = bag[indexPath.row].first?.value else {
         return cell!
       }
       
@@ -325,13 +334,11 @@ extension HeroViewController: UITableViewDataSource {
       fatalError("Wrong number of sections")
     }
   }
-  
 }
 
+// MARK: - UITableViewDelegate
 extension HeroViewController: UITableViewDelegate {
-  
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
   }
-  
 }

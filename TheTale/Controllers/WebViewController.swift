@@ -10,25 +10,24 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController, WKUIDelegate {
-
-  @IBOutlet weak var backButton: UIBarButtonItem!
-  @IBOutlet weak var forwardButton: UIBarButtonItem!
-  @IBOutlet weak var stopButton: UIBarButtonItem!
-  @IBOutlet weak var refreshButton: UIBarButtonItem!
-  @IBOutlet weak var progressView: UIProgressView!
+  // MARK: - Internal constants
+  enum Constants {
+    static let keyPathLoading           = "loading"
+    static let ketPathEstimatedProgress = "estimatedProgress"
+  }
   
+  // MARK: - Internal variables
   var webView: WKWebView!
+  var authPath: String!
   
-  var myURL: URL!
-  
+  // MARK: - Outlets
+  @IBOutlet weak var progressView: UIProgressView!
+
+  // MARK: - Load controller
   override func viewDidLoad() {
     super.viewDidLoad()
   
     setupWebView()
-    setupButton()
-    
-    let myRequest = URLRequest(url: myURL)
-    webView.load(myRequest)
   }
   
   func setupWebView() {
@@ -38,75 +37,75 @@ class WebViewController: UIViewController, WKUIDelegate {
     webView.navigationDelegate = self
     
     view.insertSubview(webView, belowSubview: progressView)
-    
+
     webView.translatesAutoresizingMaskIntoConstraints = false
-    let height = NSLayoutConstraint(item: webView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1, constant: 0)
-    let width  = NSLayoutConstraint(item: webView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0)
-    view.addConstraints([height, width])
     
-    webView.addObserver(self, forKeyPath: "loading", options: .new, context: nil)
-    webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+    let top      = NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal,
+                                      toItem: view, attribute: .top,
+                                      multiplier: 1, constant: 0)
+
+    let bottom   = NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal,
+                                      toItem: view, attribute: .bottom,
+                                      multiplier: 1, constant: 0)
+
+    let leading  = NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal,
+                                      toItem: view, attribute: .leading,
+                                      multiplier: 1, constant: 0)
+
+    let trailing = NSLayoutConstraint(item: webView, attribute: .trailing, relatedBy: .equal,
+                                      toItem: view, attribute: .trailing,
+                                      multiplier: 1, constant: 0)
+    
+    view.addConstraints([top, bottom, leading, trailing])
   }
   
-  func setupButton() {
-    backButton.isEnabled    = false
-    forwardButton.isEnabled = false
-    stopButton.isEnabled    = false
-  }
-  
+  // MARK: - View lifecycle
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    tabBarController?.tabBar.isHidden = true
+    addNotification()
+    
+    requestToWeb()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     
-    tabBarController?.tabBar.isHidden = false
+    removeNotification()
+  }
+  
+  // MARK: - Notification
+  func addNotification() {
+    webView.addObserver(self, forKeyPath: Constants.ketPathEstimatedProgress, options: .new, context: nil)
+  }
+  
+  func removeNotification() {
+    webView.removeObserver(self, forKeyPath: Constants.ketPathEstimatedProgress)
   }
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == "loading" {
-      backButton.isEnabled    = webView.canGoBack
-      forwardButton.isEnabled = webView.canGoForward
-    }
-    
-    if keyPath == "estimatedProgress" {
-      stopButton.isEnabled  = webView.estimatedProgress != 1
+    if keyPath == Constants.ketPathEstimatedProgress {
       progressView.isHidden = webView.estimatedProgress == 1
       progressView.setProgress(Float(webView.estimatedProgress), animated: true)
     }
   }
-  
-  deinit {
-    webView.removeObserver(self, forKeyPath: "loading")
-    webView.removeObserver(self, forKeyPath: "estimatedProgress")
+
+  // MARK: - Request to web
+  func requestToWeb() {
+    let request = TaleAPI.shared.networkManager.createRequest(fromString: authPath, method: .get)
+    webView.load(request!)
   }
   
-  @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
-    webView.goBack()
-  }
-  
-  @IBAction func forwardButtonTapped(_ sender: UIBarButtonItem) {
-    webView.goForward()
-  }
-  
-  @IBAction func stopButtonTapped(_ sender: UIBarButtonItem) {
+  // MARK: - Outlets action
+  @IBAction func doneButtonTapped(_ sender: Any) {
     webView.stopLoading()
+    self.dismiss(animated: true, completion: nil)
   }
-  
-  @IBAction func refreshButtonTapped(_ sender: UIBarButtonItem) {
-    let request = URLRequest(url: webView.url!)
-    webView.load(request)
-  }
-  
 }
 
+// MARK: - WKNavigationDelegate
 extension WebViewController: WKNavigationDelegate {
-  
   func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
     progressView.setProgress(0.0, animated: false)
   }
-  
 }

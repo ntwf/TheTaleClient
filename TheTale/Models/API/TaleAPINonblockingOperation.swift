@@ -12,13 +12,9 @@ extension TaleAPI {
 
   // MARK: - Public method. Request data.
   func tryActionHelp(completionHandler: @escaping (APIResult<NonblockingOperationStatus>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"]  = APIConfiguration.client.rawValue
-    pathComponents["api_version"] = APIPath.actionHelp.version
-    
-    httpParams.removeAll()
-    
-    let request = URLRequest(baseURL: baseURL, path: APIPath.actionHelp.rawValue, pathComponents: pathComponents, method: .post, httpParams: httpParams)
+    guard let request = networkManager.createRequest(fromAPI: .actionHelp) else {
+      return
+    }
     
     fetch(request: request, parse: { (json) -> NonblockingOperationStatus? in
       return NonblockingOperationStatus(jsonObject: json)
@@ -26,13 +22,9 @@ extension TaleAPI {
   }
 
   func tryGetCard(completionHandler: @escaping (APIResult<NonblockingOperationStatus>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"]  = APIConfiguration.client.rawValue
-    pathComponents["api_version"] = APIPath.getCard.version
-    
-    httpParams.removeAll()
-    
-    let request = URLRequest(baseURL: baseURL, path: APIPath.getCard.rawValue, pathComponents: pathComponents, method: .post, httpParams: httpParams)
+    guard let request = networkManager.createRequest(fromAPI: .getCard) else {
+      return
+    }
     
     fetch(request: request, parse: { (json) -> NonblockingOperationStatus? in
       return NonblockingOperationStatus(jsonObject: json)
@@ -40,14 +32,9 @@ extension TaleAPI {
   }
 
   func tryMergeCard(uidCards: String, completionHandler: @escaping (APIResult<NonblockingOperationStatus>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"]  = APIConfiguration.client.rawValue
-    pathComponents["api_version"] = APIPath.mergeCard.version
-    pathComponents["cards"]       = uidCards
-    
-    httpParams.removeAll()
-    
-    let request = URLRequest(baseURL: baseURL, path: APIPath.mergeCard.rawValue, pathComponents: pathComponents, method: .post, httpParams: httpParams)
+    guard let request = networkManager.createRequest(fromAPI: .mergeCard) else {
+      return
+    }
     
     fetch(request: request, parse: { (json) -> NonblockingOperationStatus? in
       return NonblockingOperationStatus(jsonObject: json)
@@ -55,18 +42,12 @@ extension TaleAPI {
   }
 
   func tryUseCard(uidCard: String, completionHandler: @escaping (APIResult<NonblockingOperationStatus>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"]  = APIConfiguration.client.rawValue
-    pathComponents["api_version"] = APIPath.useCard.version
-    pathComponents["card"]        = uidCard
+    var components: [String: String] = [:]
+    components["card"]        = uidCard
     
-    httpParams.removeAll()
-    // Blank for future opportunities.
-    // httpParams["person"]   = ""
-    // httpParams["place"]    = ""
-    // httpParams["building"] = ""
-    
-    let request = URLRequest(baseURL: baseURL, path: APIPath.useCard.rawValue, pathComponents: pathComponents, method: .post, httpParams: httpParams)
+    guard let request = networkManager.createRequest(fromAPI: .useCard, urlParameters: components) else {
+      return
+    }
     
     fetch(request: request, parse: { (json) -> NonblockingOperationStatus? in
       return NonblockingOperationStatus(jsonObject: json)
@@ -74,13 +55,9 @@ extension TaleAPI {
   }
   
   func tryDropItem(completionHandler: @escaping (APIResult<NonblockingOperationStatus>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"]  = APIConfiguration.client.rawValue
-    pathComponents["api_version"] = APIPath.dropItem.version
-    
-    httpParams.removeAll()
-    
-    let request = URLRequest(baseURL: baseURL, path: APIPath.dropItem.rawValue, pathComponents: pathComponents, method: .post, httpParams: httpParams)
+    guard let request = networkManager.createRequest(fromAPI: .dropItem) else {
+      return
+    }
     
     fetch(request: request, parse: { (json) -> NonblockingOperationStatus? in
       return NonblockingOperationStatus(jsonObject: json)
@@ -88,14 +65,12 @@ extension TaleAPI {
   }
 
   func tryChooseQuest(uidChoose: String, completionHandler: @escaping (APIResult<NonblockingOperationStatus>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"]  = APIConfiguration.client.rawValue
-    pathComponents["api_version"] = APIPath.chooseQuest.version
-    pathComponents["option_uid"]  = uidChoose
+    var components: [String: String] = [:]
+    components["option_uid"]  = uidChoose
     
-    httpParams.removeAll()
-    
-    let request = URLRequest(baseURL: baseURL, path: APIPath.chooseQuest.rawValue, pathComponents: pathComponents, method: .post, httpParams: httpParams)
+    guard let request = networkManager.createRequest(fromAPI: .chooseQuest, urlParameters: components) else {
+      return
+    }
     
     fetch(request: request, parse: { (json) -> NonblockingOperationStatus? in
       return NonblockingOperationStatus(jsonObject: json)
@@ -145,13 +120,10 @@ extension TaleAPI {
   
   // MARK: - Internal method. Fetch data.
   private func fetchStatusOperation(url: String, completionHandler: @escaping (APIResult<NonblockingOperationStatus>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"] = APIConfiguration.client.rawValue
-    
-    httpParams.removeAll()
-    
-    let request = URLRequest(baseURL: baseURL, path: url, pathComponents: pathComponents, method: .get, httpParams: httpParams)
-    
+    guard let request = networkManager.createRequest(fromString: url, method: .get) else {
+      return
+    }
+
     fetch(request: request, parse: { (json) -> NonblockingOperationStatus? in
       return NonblockingOperationStatus(jsonObject: json)
     }, completionHandler: completionHandler)

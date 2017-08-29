@@ -11,13 +11,9 @@ import Foundation
 extension TaleAPI {
 
   func getDiary(completionHandler: @escaping (APIResult<JSON>) -> Void) {
-    pathComponents.removeAll()
-    pathComponents["api_client"]  = APIConfiguration.client.rawValue
-    pathComponents["api_version"] = APIPath.diary.version
-    
-    httpParams.removeAll()
-    
-    let request = URLRequest(baseURL: baseURL, path: APIPath.diary.rawValue, pathComponents: pathComponents, method: .get, httpParams: httpParams)
+    guard let request = networkManager.createRequest(fromAPI: .diary) else {
+      return
+    }
     
     fetch(request: request, parse: { (json) -> JSON? in
       if let dictionary = json["data"] as? JSON {

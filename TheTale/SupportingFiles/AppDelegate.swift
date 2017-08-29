@@ -33,16 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       case .success(let data):
         TaleAPI.shared.authorisationState = data
         TaleAPI.shared.playerInformationAutorefresh = .start
-        
-        if !TaleAPI.shared.isSigned {
-          TaleAPI.shared.isSigned = true
-          
-          let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-          let initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "TabbarScreen") as UIViewController
-          self.window?.rootViewController = initialViewController
-          self.window?.makeKeyAndVisible()
-        }
-        
       case .failure(let error as NSError):
         debugPrint("checkAuthorisation", error)
       default: break
