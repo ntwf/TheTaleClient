@@ -89,4 +89,20 @@ class TaleAPI: NSObject, NetworkClient {
   enum UserInfoKey {
     static let nonblockingOperation = "TaleAPINonblockingOperation"
   }
+  
+  // MARK: Key path
+  enum NotificationKeyPath {
+    static let action                  = #keyPath(TaleAPI.playerInformationManager.action)
+    static let bag                     = #keyPath(TaleAPI.playerInformationManager.bag)
+    static let cardsInfo               = #keyPath(TaleAPI.playerInformationManager.cardsInfo)
+    static let companion               = #keyPath(TaleAPI.playerInformationManager.companion)
+    static let diary                   = #keyPath(TaleAPI.diaryManager.diary)
+    static let energy                  = #keyPath(TaleAPI.playerInformationManager.energy)
+    static let equipment               = #keyPath(TaleAPI.playerInformationManager.equipment)
+    static let heroBaseParameters      = #keyPath(TaleAPI.playerInformationManager.heroBaseParameters)
+    static let heroSecondaryParameters = #keyPath(TaleAPI.playerInformationManager.heroSecondaryParameters)
+    static let journal                 = #keyPath(TaleAPI.playerInformationManager.journal)
+    static let quests                  = #keyPath(TaleAPI.playerInformationManager.quests)
+    static let turn                    = #keyPath(TaleAPI.playerInformationManager.turn)
+  }
 }

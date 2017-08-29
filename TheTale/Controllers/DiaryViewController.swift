@@ -12,8 +12,6 @@ class DiaryViewController: UIViewController {
   // MARK: - Internal constants
   enum Constants {
     static let cellDiary = "Cell"
-    
-    static let keyPathDiary = #keyPath(TaleAPI.diaryManager.diary)
   }
   
   // MARK: - Outlets
@@ -62,15 +60,15 @@ class DiaryViewController: UIViewController {
   
   // MARK: - Notification
   func addNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathDiary, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.diary, options: [], context: nil)
   }
   
   func removeNotification() {
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constants.keyPathDiary)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.diary)
   }
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == Constants.keyPathDiary {
+    if keyPath == TaleAPI.NotificationKeyPath.diary {
       updateUI()
     }
   }

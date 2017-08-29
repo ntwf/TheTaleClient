@@ -15,8 +15,6 @@ class QuestViewController: UIViewController {
     static let cellActor      = "ActorsCell"
     static let cellMadeChoice = "MadeСhoiceCell"
     static let cellChoices    = "ChoicesCell"
-    
-    static let keyPathQuests = #keyPath(TaleAPI.playerInformationManager.quests)
   }
   
   // MARK: - Outlets
@@ -56,15 +54,15 @@ class QuestViewController: UIViewController {
   
   // MARK: - Notification
   func setupNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathQuests, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.quests, options: [], context: nil)
   }
   
   func removeNotification() {
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constants.keyPathQuests)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.quests)
   }
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == Constants.keyPathQuests {
+    if keyPath == TaleAPI.NotificationKeyPath.quests {
       updateUI()
     }
   }

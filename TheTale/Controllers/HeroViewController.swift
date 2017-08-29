@@ -17,14 +17,6 @@ class HeroViewController: UIViewController {
     static let cellEquipment   = "EquipmentCell"
     static let cellDropBagItem = "DropBagItemCell"
     static let cellBag         = "BagCell"
-    
-    static let keyPathHeroBaseParameters      = #keyPath(TaleAPI.playerInformationManager.heroBaseParameters)
-    static let keyPathHeroSecondaryParameters = #keyPath(TaleAPI.playerInformationManager.heroSecondaryParameters)
-    static let keyPathEnergy                  = #keyPath(TaleAPI.playerInformationManager.energy)
-    static let keyPathQuests                  = #keyPath(TaleAPI.playerInformationManager.quests)
-    static let keyPathCompanion               = #keyPath(TaleAPI.playerInformationManager.companion)
-    static let keyPathEquipment               = #keyPath(TaleAPI.playerInformationManager.equipment)
-    static let keyPathBag                     = #keyPath(TaleAPI.playerInformationManager.bag)
   }
   
   let refreshControl = UIRefreshControl()
@@ -90,45 +82,45 @@ class HeroViewController: UIViewController {
   
   // MARK: - Notification
   func addNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroSecondaryParameters, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEnergy, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathQuests, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathCompanion, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEquipment, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathBag, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroBaseParameters, options: [.initial, .new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroSecondaryParameters, options: [.initial, .new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.energy, options: [.initial, .new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.quests, options: [.initial, .new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.companion, options: [.initial, .new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.equipment, options: [.initial, .new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.bag, options: [.initial, .new], context: nil)
   }
   
   func removeNotification() {
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathHeroSecondaryParameters)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathEnergy)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathQuests)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathCompanion)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathEquipment)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathBag)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroBaseParameters)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroSecondaryParameters)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.energy)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.quests)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.companion)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.equipment)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.bag)
   }
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == Constatns.keyPathHeroBaseParameters ||
-      keyPath == Constatns.keyPathHeroSecondaryParameters ||
-      keyPath == Constatns.keyPathEnergy {
+    if keyPath == TaleAPI.NotificationKeyPath.heroBaseParameters ||
+       keyPath == TaleAPI.NotificationKeyPath.heroSecondaryParameters ||
+       keyPath == TaleAPI.NotificationKeyPath.energy {
       updateHeroUI()
     }
     
-    if keyPath == Constatns.keyPathQuests {
+    if keyPath == TaleAPI.NotificationKeyPath.quests {
       updateQuestsUI()
     }
     
-    if keyPath == Constatns.keyPathCompanion {
+    if keyPath == TaleAPI.NotificationKeyPath.companion {
       updateCompanionUI()
     }
     
-    if keyPath == Constatns.keyPathEquipment {
+    if keyPath == TaleAPI.NotificationKeyPath.equipment {
       updateEquipmentUI()
     }
     
-    if keyPath == Constatns.keyPathBag {
+    if keyPath == TaleAPI.NotificationKeyPath.bag {
       updateBagUI()
     }
   }

@@ -13,8 +13,6 @@ class CardViewController: UIViewController {
   enum Constants {
     static let cellHelp = "HelpBarrierCell"
     static let cellCard = "CardCell"
-    
-    static let keyPathCardsInfo = #keyPath(TaleAPI.playerInformationManager.cardsInfo)
   }
 
   let refreshControl = UIRefreshControl()
@@ -65,7 +63,7 @@ class CardViewController: UIViewController {
   
   // MARK: - Notification
   func addNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constants.keyPathCardsInfo, options: [.new, .initial], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.cardsInfo, options: [.new, .initial], context: nil)
     
     NotificationCenter.default.addObserver(self,
                                            selector: #selector(catchNotification(notification:)),
@@ -74,11 +72,11 @@ class CardViewController: UIViewController {
   }
   
   func removeNotification() {
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constants.keyPathCardsInfo)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.cardsInfo)
   }
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == Constants.keyPathCardsInfo, let newCardsInfo = change?[.newKey] as? CardsInfo {
+    if keyPath == TaleAPI.NotificationKeyPath.cardsInfo, let newCardsInfo = change?[.newKey] as? CardsInfo {
       cardsInfo    = newCardsInfo
       currentCards = newCardsInfo.cards
       

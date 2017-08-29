@@ -13,12 +13,6 @@ class JournalViewController: UIViewController {
   enum Constatns {
     static let cellAction  = "ActionCell"
     static let cellMessage = "MessageCell"
-
-    static let keyPathTurn               = #keyPath(TaleAPI.playerInformationManager.turn)
-    static let keyPathAction             = #keyPath(TaleAPI.playerInformationManager.action)
-    static let keyPathEnergy             = #keyPath(TaleAPI.playerInformationManager.energy)
-    static let keyPathHeroBaseParameters = #keyPath(TaleAPI.playerInformationManager.heroBaseParameters)
-    static let keyPathJournal            = #keyPath(TaleAPI.playerInformationManager.journal)
   }
   
   let refreshControl = UIRefreshControl()
@@ -73,32 +67,32 @@ class JournalViewController: UIViewController {
   
   // MARK: - Notification
   func addNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathTurn, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathAction, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathEnergy, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: Constatns.keyPathJournal, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.turn, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.action, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.energy, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroBaseParameters, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.journal, options: [], context: nil)
   }
   
   func removeNotification() {
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathTurn)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathAction)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathEnergy)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathHeroBaseParameters)
-    TaleAPI.shared.removeObserver(self, forKeyPath: Constatns.keyPathJournal)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.turn)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.action)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.energy)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroBaseParameters)
+    TaleAPI.shared.removeObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.journal)
   }
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == Constatns.keyPathTurn {
+    if keyPath == TaleAPI.NotificationKeyPath.turn {
       updateDateUI()
     }
     // I don't know how and when the API is updated. Necessary to update the cell several times over the course of the game turn.
-    if keyPath == Constatns.keyPathAction ||
-       keyPath == Constatns.keyPathEnergy ||
-       keyPath == Constatns.keyPathHeroBaseParameters {
+    if keyPath == TaleAPI.NotificationKeyPath.action ||
+       keyPath == TaleAPI.NotificationKeyPath.energy ||
+       keyPath == TaleAPI.NotificationKeyPath.heroBaseParameters {
       updateActionUI()
     }
-    if keyPath == Constatns.keyPathJournal {
+    if keyPath ==  TaleAPI.NotificationKeyPath.journal {
       updateMessages()
     }
   }
