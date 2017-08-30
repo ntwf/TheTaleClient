@@ -86,7 +86,7 @@ class CardViewController: UIViewController {
 
   func catchNotification(notification: Notification) {
     guard let userInfo = notification.userInfo,
-          let message  = userInfo[TaleAPI.UserInfoKey.nonblockingOperation] as? String else {
+          let message  = userInfo[TaleAPI.UserInfoKey.nonblockingOperationAlarm] as? String else {
         return
     }
     

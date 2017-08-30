@@ -77,16 +77,32 @@ extension TaleAPI {
     }, completionHandler: completionHandler)
   }
   
+  func fastRegistration(completionHandler: @escaping (APIResult<NonblockingOperationStatus>) -> Void) {
+    guard let request = TaleAPI.shared.networkManager.createRequest(fromString: "accounts/registration/fast", method: .post) else {
+      return
+    }
+    
+    fetch(request: request, parse: { (json) -> NonblockingOperationStatus? in
+      return NonblockingOperationStatus(jsonObject: json)
+    }, completionHandler: completionHandler)
+  }
+  
   // MARK: - Public method. Check status operation
+  enum StatusOperation {
+    case ok, processing, error
+  }
+  
   func checkStatusOperation(operation: NonblockingOperationStatus) {
+
     if let error = operation.error {
+      debugPrint("checkStatusOperation error \(error)")
       NotificationCenter.default.post(name: .TaleAPINonblockingOperationRecivedAlarm,
                                       object: nil,
-                                      userInfo: [TaleAPI.UserInfoKey.nonblockingOperation: error])
+                                      userInfo: [TaleAPI.UserInfoKey.nonblockingOperationAlarm: error])
     }
     
     guard let pathURL = operation.statusURL else {
-      // debugPrint("API didn't return a link to check the status operation. It's ok.", operation)
+       debugPrint("API didn't return a link to check the status operation. It's ok.", operation)
       return
     }
 
@@ -111,8 +127,16 @@ extension TaleAPI {
       }
     case "ok":
       playerInformationAutorefresh = .start
+      
+      NotificationCenter.default.post(name: .TaleAPINonblockingOperationStatusChanged,
+                                      object: nil,
+                                      userInfo: [TaleAPI.UserInfoKey.nonblockingOperationStatus: StatusOperation.ok])
     case "error":
       debugPrint("State of the nonblocking operation is an error.", operation)
+      
+      NotificationCenter.default.post(name: .TaleAPINonblockingOperationStatusChanged,
+                                      object: nil,
+                                      userInfo: [TaleAPI.UserInfoKey.nonblockingOperationStatus: StatusOperation.error])
     default:
       return
     }

@@ -35,6 +35,7 @@ class LoginViewController: UIViewController {
     
     configured(loginButton: loginButton)
     
+    addNotification()
     setupGesture()
     setupTextField()
   }
@@ -75,6 +76,26 @@ class LoginViewController: UIViewController {
     } else {
       loginButton.isEnabled = false
       loginButton.alpha = 0.5
+    }
+  }
+  
+  // MARK: - Notification
+  func addNotification() {
+    NotificationCenter.default.addObserver(self, selector: #selector(catchNotification(notification:)), name: .TaleAPINonblockingOperationStatusChanged, object: nil)
+  }
+  
+  func catchNotification(notification: Notification) {
+    guard let userInfo = notification.userInfo,
+          let status   = userInfo[TaleAPI.UserInfoKey.nonblockingOperationStatus] as? TaleAPI.StatusOperation else {
+        return
+    }
+    
+    switch status {
+    case .ok:
+      checkAuthorisation()
+    case .error:
+      print("error")
+    default: break
     }
   }
   
@@ -222,6 +243,18 @@ class LoginViewController: UIViewController {
   
   @IBAction func goToSiteButtonTapped(_ sender: UIButton) {
     UIApplication.shared.open(TaleAPI.shared.networkManager.createURL(fromSite: .main))
+  }
+  
+  @IBAction func registrationButtonTapped(_ sender: UIButton) {
+    TaleAPI.shared.fastRegistration { (result) in
+      switch result {
+      case .success(let data):
+        TaleAPI.shared.checkStatusOperation(operation: data)
+      case .failure(let error as NSError):
+        debugPrint("fastRegistration \(error)")
+      default: break
+      }
+    }
   }
 }
 
