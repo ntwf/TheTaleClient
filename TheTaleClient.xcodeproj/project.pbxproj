@@ -1,0 +1,1064 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		05C90A9980CD1569D998279B /* Pods_TheTaleClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD564ABC0FD317F231468EA /* Pods_TheTaleClient.framework */; };
+		B50ADF0C1F34C9DA00F80A30 /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50ADF0B1F34C9DA00F80A30 /* DiaryManager.swift */; };
+		B50ADF2E1F35E17700F80A30 /* GameInformationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50ADF2D1F35E17700F80A30 /* GameInformationManager.swift */; };
+		B50ADF321F36041F00F80A30 /* TaleAPIGameInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50ADF311F36041F00F80A30 /* TaleAPIGameInformation.swift */; };
+		B510BBB91EC8731E000F7674 /* GameInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B510BBB81EC8731E000F7674 /* GameInformation.swift */; };
+		B52A342B1F03E79900171815 /* PlayerInformationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52A342A1F03E79900171815 /* PlayerInformationManager.swift */; };
+		B52B2BE61F2F62F4008059FB /* debugPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52B2BE51F2F62F4008059FB /* debugPrint.swift */; };
+		B540852D1F0013BF00562B39 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540852C1F0013BF00562B39 /* NetworkClient.swift */; };
+		B540852F1F001B6900562B39 /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540852E1F001B6900562B39 /* ErrorManager.swift */; };
+		B54085311F00243300562B39 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54085301F00243300562B39 /* NetworkManager.swift */; };
+		B54085331F01159000562B39 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54085321F01159000562B39 /* URL.swift */; };
+		B54085351F0115AA00562B39 /* URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54085341F0115AA00562B39 /* URLRequest.swift */; };
+		B540D2801F0D276200229F6C /* MapCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540D27F1F0D276200229F6C /* MapCollectionViewLayout.swift */; };
+		B5498F2C1F5457F90018B056 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5498F2B1F5457F90018B056 /* AppConfiguration.swift */; };
+		B5498F321F550A320018B056 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5498F311F550A320018B056 /* UITextField.swift */; };
+		B54A02A31F30BB01002EADE9 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B54A02A21F30BB01002EADE9 /* .gitignore */; };
+		B554F7E41F02ADD600DAC8BA /* JournalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554F7E31F02ADD600DAC8BA /* JournalMessage.swift */; };
+		B576AA401ED48CDE00DA3488 /* DiaryMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576AA3F1ED48CDE00DA3488 /* DiaryMessage.swift */; };
+		B576AA421ED6EA3B00DA3488 /* DiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576AA411ED6EA3B00DA3488 /* DiaryTableViewCell.swift */; };
+		B57BD1071F03007E0028C2B8 /* AccountInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57BD1061F03007E0028C2B8 /* AccountInformation.swift */; };
+		B57CD1911EFFE1DE009FFC58 /* PlayerInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD1901EFFE1DE009FFC58 /* PlayerInformation.swift */; };
+		B57CD1951EFFE3B3009FFC58 /* AuthorisationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD1941EFFE3B3009FFC58 /* AuthorisationState.swift */; };
+		B57CD1991EFFE703009FFC58 /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD1981EFFE703009FFC58 /* Turn.swift */; };
+		B57CD19B1EFFE73A009FFC58 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD19A1EFFE73A009FFC58 /* Action.swift */; };
+		B57CD19D1EFFE758009FFC58 /* Artifact.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD19C1EFFE758009FFC58 /* Artifact.swift */; };
+		B57CD19F1EFFE7B1009FFC58 /* HeroBaseParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD19E1EFFE7B1009FFC58 /* HeroBaseParameters.swift */; };
+		B57CD1A11EFFE7E1009FFC58 /* Companion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD1A01EFFE7E1009FFC58 /* Companion.swift */; };
+		B57CD1A31EFFE809009FFC58 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD1A21EFFE809009FFC58 /* Energy.swift */; };
+		B57CD1A51EFFE82C009FFC58 /* Might.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD1A41EFFE82C009FFC58 /* Might.swift */; };
+		B57CD1A71EFFE864009FFC58 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD1A61EFFE864009FFC58 /* Actor.swift */; };
+		B57CD1A91EFFE8B6009FFC58 /* HeroSecondaryParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD1A81EFFE8B6009FFC58 /* HeroSecondaryParameters.swift */; };
+		B57CD1AB1EFFE8DE009FFC58 /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD1AA1EFFE8DE009FFC58 /* Quest.swift */; };
+		B5847AFD1EBC9CFE00062F89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5847AFC1EBC9CFE00062F89 /* AppDelegate.swift */; };
+		B5847AFF1EBC9CFE00062F89 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5847AFE1EBC9CFE00062F89 /* LoginViewController.swift */; };
+		B5847B021EBC9CFE00062F89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5847B001EBC9CFE00062F89 /* Main.storyboard */; };
+		B5847B041EBC9CFE00062F89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5847B031EBC9CFE00062F89 /* Assets.xcassets */; };
+		B5847B071EBC9CFE00062F89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5847B051EBC9CFE00062F89 /* LaunchScreen.storyboard */; };
+		B59323DD1ED881F8003AFDE1 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B59323DC1ED881F8003AFDE1 /* .swiftlint.yml */; };
+		B59323DF1EDB7E71003AFDE1 /* JournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59323DE1EDB7E71003AFDE1 /* JournalViewController.swift */; };
+		B594801D1F0EE07A003F957C /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594801C1F0EE07A003F957C /* Position.swift */; };
+		B594801F1F0FC471003F957C /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594801E1F0FC471003F957C /* Hero.swift */; };
+		B5A2CBD51EFC1A7F002872D9 /* Types.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5A2CBD41EFC1A7F002872D9 /* Types.plist */; };
+		B5A2CBD71EFC28CE002872D9 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A2CBD61EFC28CE002872D9 /* Types.swift */; };
+		B5A2CBFF1EFE793F002872D9 /* TaleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A2CBFE1EFE793F002872D9 /* TaleAPI.swift */; };
+		B5A2CC041EFFCBEA002872D9 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A2CC031EFFCBEA002872D9 /* CardViewController.swift */; };
+		B5A852701EDF564F00EBAB75 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8526F1EDF564F00EBAB75 /* TabBarViewController.swift */; };
+		B5A852721EE0A16500EBAB75 /* HeroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A852711EE0A16500EBAB75 /* HeroViewController.swift */; };
+		B5A852741EE0A19D00EBAB75 /* QuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A852731EE0A19D00EBAB75 /* QuestViewController.swift */; };
+		B5B635961EE1A03700686B5C /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B635951EE1A03700686B5C /* MoreTableViewController.swift */; };
+		B5B635981EE3415600686B5C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B635971EE3415600686B5C /* MapViewController.swift */; };
+		B5BACD8B1EEC4F470022DD58 /* JournalTableViewActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BACD8A1EEC4F470022DD58 /* JournalTableViewActionCell.swift */; };
+		B5BACDAE1EEF16CA0022DD58 /* HeroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BACDAD1EEF16CA0022DD58 /* HeroTableViewCell.swift */; };
+		B5BACDB01EEF16D80022DD58 /* CompanionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BACDAF1EEF16D80022DD58 /* CompanionTableViewCell.swift */; };
+		B5BACDB21EEF16E70022DD58 /* EquipmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BACDB11EEF16E70022DD58 /* EquipmentTableViewCell.swift */; };
+		B5D002731F07A10100427A94 /* ChoiceAlternatives.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D002721F07A10100427A94 /* ChoiceAlternatives.swift */; };
+		B5D002991F0A5B8200427A94 /* QuestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D002981F0A5B8200427A94 /* QuestTableViewCell.swift */; };
+		B5D002A01F0A921900427A94 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D0029F1F0A921900427A94 /* String.swift */; };
+		B5D002A31F0A98D600427A94 /* CardsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D002A21F0A98D600427A94 /* CardsInfo.swift */; };
+		B5D002A51F0A98E500427A94 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D002A41F0A98E400427A94 /* Card.swift */; };
+		B5D002A81F0A9FCF00427A94 /* HelpBarrierTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D002A71F0A9FCF00427A94 /* HelpBarrierTableViewCell.swift */; };
+		B5D002AA1F0A9FEE00427A94 /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D002A91F0A9FEE00427A94 /* CardTableViewCell.swift */; };
+		B5D002AD1F0BB66300427A94 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D002AC1F0BB66300427A94 /* Map.swift */; };
+		B5D002AF1F0BB66D00427A94 /* MapVersions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D002AE1F0BB66D00427A94 /* MapVersions.swift */; };
+		B5D002B21F0BE3EF00427A94 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D002B11F0BE3EF00427A94 /* PlaceInfo.swift */; };
+		B5D002B41F0BE3FE00427A94 /* DrawBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D002B31F0BE3FE00427A94 /* DrawBlock.swift */; };
+		B5D5D8A71F48FB3E004D7403 /* RequestAuthorisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D5D8A61F48FB3E004D7403 /* RequestAuthorisation.swift */; };
+		B5D6F0DC1F1F9C3C0012F2CE /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D6F0DB1F1F9C3C0012F2CE /* AboutViewController.swift */; };
+		B5D6F0DE1F1F9E890012F2CE /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D6F0DD1F1F9E890012F2CE /* WebViewController.swift */; };
+		B5D88E491F0C08DE003D8409 /* MapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D88E481F0C08DE003D8409 /* MapCollectionViewCell.swift */; };
+		B5EEFA5C1ED1D3F6009C1807 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EEFA5B1ED1D3F6009C1807 /* DiaryViewController.swift */; };
+		B5EEFA601ED1D886009C1807 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EEFA5F1ED1D886009C1807 /* Login.swift */; };
+		B5EEFA621ED1DE54009C1807 /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EEFA611ED1DE54009C1807 /* Logout.swift */; };
+		B5F16D341F1632EE008971D0 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F16D331F1632EE008971D0 /* UIColor.swift */; };
+		B5F5E5631F1130F500B69E01 /* NonblockingOperationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F5E5621F1130F500B69E01 /* NonblockingOperationStatus.swift */; };
+		B5F5E58C1F14D18400B69E01 /* TaleAPIMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F5E58B1F14D18400B69E01 /* TaleAPIMap.swift */; };
+		B5F5E58E1F14D22100B69E01 /* TaleAPILogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F5E58D1F14D22100B69E01 /* TaleAPILogin.swift */; };
+		B5F5E5901F14D25B00B69E01 /* TaleAPILogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F5E58F1F14D25B00B69E01 /* TaleAPILogout.swift */; };
+		B5F5E5921F14D29200B69E01 /* TaleAPIAuthorisationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F5E5911F14D29200B69E01 /* TaleAPIAuthorisationState.swift */; };
+		B5F5E5941F14D2C300B69E01 /* TaleAPIDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F5E5931F14D2C300B69E01 /* TaleAPIDiary.swift */; };
+		B5F5E5961F14DB2D00B69E01 /* TaleAPINonblockingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F5E5951F14DB2D00B69E01 /* TaleAPINonblockingOperation.swift */; };
+		B5F5E59A1F14DBA400B69E01 /* TaleAPIPlayerInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F5E5991F14DBA400B69E01 /* TaleAPIPlayerInformation.swift */; };
+		B5F5E59E1F14EAE000B69E01 /* DropBagItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F5E59D1F14EAE000B69E01 /* DropBagItemTableViewCell.swift */; };
+		B5F7E5381F0EB7B600B1B5B7 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7E5371F0EB7B600B1B5B7 /* UIImage.swift */; };
+		B5F7EF0E1F1D3FAD0016BF67 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7EF0D1F1D3FAD0016BF67 /* AlertController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		41A0989EE32E2FA777E6A4A6 /* Pods-TheTaleClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheTaleClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheTaleClient/Pods-TheTaleClient.release.xcconfig"; sourceTree = "<group>"; };
+		8FD564ABC0FD317F231468EA /* Pods_TheTaleClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheTaleClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50ADF0B1F34C9DA00F80A30 /* DiaryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
+		B50ADF2D1F35E17700F80A30 /* GameInformationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInformationManager.swift; sourceTree = "<group>"; };
+		B50ADF311F36041F00F80A30 /* TaleAPIGameInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaleAPIGameInformation.swift; sourceTree = "<group>"; };
+		B510BBB81EC8731E000F7674 /* GameInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInformation.swift; sourceTree = "<group>"; };
+		B51237781F30C5420094C0BE /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		B52A342A1F03E79900171815 /* PlayerInformationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInformationManager.swift; sourceTree = "<group>"; };
+		B52B2BE51F2F62F4008059FB /* debugPrint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = debugPrint.swift; sourceTree = "<group>"; };
+		B540852C1F0013BF00562B39 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		B540852E1F001B6900562B39 /* ErrorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
+		B54085301F00243300562B39 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		B54085321F01159000562B39 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		B54085341F0115AA00562B39 /* URLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequest.swift; sourceTree = "<group>"; };
+		B540D27F1F0D276200229F6C /* MapCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCollectionViewLayout.swift; sourceTree = "<group>"; };
+		B5498F2B1F5457F90018B056 /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		B5498F311F550A320018B056 /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
+		B54A02A21F30BB01002EADE9 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		B554F7E31F02ADD600DAC8BA /* JournalMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalMessage.swift; sourceTree = "<group>"; };
+		B576AA3F1ED48CDE00DA3488 /* DiaryMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryMessage.swift; sourceTree = "<group>"; };
+		B576AA411ED6EA3B00DA3488 /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
+		B57BD1061F03007E0028C2B8 /* AccountInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountInformation.swift; sourceTree = "<group>"; };
+		B57CD1901EFFE1DE009FFC58 /* PlayerInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInformation.swift; sourceTree = "<group>"; };
+		B57CD1941EFFE3B3009FFC58 /* AuthorisationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorisationState.swift; sourceTree = "<group>"; };
+		B57CD1981EFFE703009FFC58 /* Turn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
+		B57CD19A1EFFE73A009FFC58 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		B57CD19C1EFFE758009FFC58 /* Artifact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artifact.swift; sourceTree = "<group>"; };
+		B57CD19E1EFFE7B1009FFC58 /* HeroBaseParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroBaseParameters.swift; sourceTree = "<group>"; };
+		B57CD1A01EFFE7E1009FFC58 /* Companion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Companion.swift; sourceTree = "<group>"; };
+		B57CD1A21EFFE809009FFC58 /* Energy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
+		B57CD1A41EFFE82C009FFC58 /* Might.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Might.swift; sourceTree = "<group>"; };
+		B57CD1A61EFFE864009FFC58 /* Actor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
+		B57CD1A81EFFE8B6009FFC58 /* HeroSecondaryParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroSecondaryParameters.swift; sourceTree = "<group>"; };
+		B57CD1AA1EFFE8DE009FFC58 /* Quest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
+		B5847AF91EBC9CFE00062F89 /* TheTaleClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheTaleClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5847AFC1EBC9CFE00062F89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B5847AFE1EBC9CFE00062F89 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B5847B011EBC9CFE00062F89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B5847B031EBC9CFE00062F89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B5847B061EBC9CFE00062F89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B5847B081EBC9CFE00062F89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B59323DC1ED881F8003AFDE1 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		B59323DE1EDB7E71003AFDE1 /* JournalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalViewController.swift; sourceTree = "<group>"; };
+		B594801C1F0EE07A003F957C /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
+		B594801E1F0FC471003F957C /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
+		B5A2CBD41EFC1A7F002872D9 /* Types.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Types.plist; sourceTree = "<group>"; };
+		B5A2CBD61EFC28CE002872D9 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		B5A2CBFE1EFE793F002872D9 /* TaleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaleAPI.swift; sourceTree = "<group>"; };
+		B5A2CC031EFFCBEA002872D9 /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
+		B5A8526F1EDF564F00EBAB75 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		B5A852711EE0A16500EBAB75 /* HeroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroViewController.swift; sourceTree = "<group>"; };
+		B5A852731EE0A19D00EBAB75 /* QuestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestViewController.swift; sourceTree = "<group>"; };
+		B5B635951EE1A03700686B5C /* MoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreTableViewController.swift; sourceTree = "<group>"; };
+		B5B635971EE3415600686B5C /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		B5BACD8A1EEC4F470022DD58 /* JournalTableViewActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalTableViewActionCell.swift; sourceTree = "<group>"; };
+		B5BACDAD1EEF16CA0022DD58 /* HeroTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroTableViewCell.swift; sourceTree = "<group>"; };
+		B5BACDAF1EEF16D80022DD58 /* CompanionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanionTableViewCell.swift; sourceTree = "<group>"; };
+		B5BACDB11EEF16E70022DD58 /* EquipmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquipmentTableViewCell.swift; sourceTree = "<group>"; };
+		B5D002721F07A10100427A94 /* ChoiceAlternatives.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceAlternatives.swift; sourceTree = "<group>"; };
+		B5D002981F0A5B8200427A94 /* QuestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestTableViewCell.swift; sourceTree = "<group>"; };
+		B5D0029F1F0A921900427A94 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		B5D002A21F0A98D600427A94 /* CardsInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardsInfo.swift; sourceTree = "<group>"; };
+		B5D002A41F0A98E400427A94 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		B5D002A71F0A9FCF00427A94 /* HelpBarrierTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpBarrierTableViewCell.swift; sourceTree = "<group>"; };
+		B5D002A91F0A9FEE00427A94 /* CardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
+		B5D002AC1F0BB66300427A94 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		B5D002AE1F0BB66D00427A94 /* MapVersions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVersions.swift; sourceTree = "<group>"; };
+		B5D002B11F0BE3EF00427A94 /* PlaceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
+		B5D002B31F0BE3FE00427A94 /* DrawBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawBlock.swift; sourceTree = "<group>"; };
+		B5D5D8A61F48FB3E004D7403 /* RequestAuthorisation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestAuthorisation.swift; sourceTree = "<group>"; };
+		B5D6F0DB1F1F9C3C0012F2CE /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		B5D6F0DD1F1F9E890012F2CE /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		B5D88E481F0C08DE003D8409 /* MapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCell.swift; sourceTree = "<group>"; };
+		B5EEFA5B1ED1D3F6009C1807 /* DiaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
+		B5EEFA5F1ED1D886009C1807 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		B5EEFA611ED1DE54009C1807 /* Logout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
+		B5F16D331F1632EE008971D0 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		B5F5E5621F1130F500B69E01 /* NonblockingOperationStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonblockingOperationStatus.swift; sourceTree = "<group>"; };
+		B5F5E58B1F14D18400B69E01 /* TaleAPIMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaleAPIMap.swift; sourceTree = "<group>"; };
+		B5F5E58D1F14D22100B69E01 /* TaleAPILogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaleAPILogin.swift; sourceTree = "<group>"; };
+		B5F5E58F1F14D25B00B69E01 /* TaleAPILogout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaleAPILogout.swift; sourceTree = "<group>"; };
+		B5F5E5911F14D29200B69E01 /* TaleAPIAuthorisationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaleAPIAuthorisationState.swift; sourceTree = "<group>"; };
+		B5F5E5931F14D2C300B69E01 /* TaleAPIDiary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaleAPIDiary.swift; sourceTree = "<group>"; };
+		B5F5E5951F14DB2D00B69E01 /* TaleAPINonblockingOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaleAPINonblockingOperation.swift; sourceTree = "<group>"; };
+		B5F5E5991F14DBA400B69E01 /* TaleAPIPlayerInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaleAPIPlayerInformation.swift; sourceTree = "<group>"; };
+		B5F5E59D1F14EAE000B69E01 /* DropBagItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropBagItemTableViewCell.swift; sourceTree = "<group>"; };
+		B5F7E5371F0EB7B600B1B5B7 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		B5F7EF0D1F1D3FAD0016BF67 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		FC2CDA625AD88A73DF78AFFD /* Pods-TheTaleClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheTaleClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheTaleClient/Pods-TheTaleClient.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B5847AF61EBC9CFE00062F89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05C90A9980CD1569D998279B /* Pods_TheTaleClient.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3087C44B5894956278E15723 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8FD564ABC0FD317F231468EA /* Pods_TheTaleClient.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B50ADF351F374E7C00F80A30 /* PlayerInformation */ = {
+			isa = PBXGroup;
+			children = (
+				B57CD1901EFFE1DE009FFC58 /* PlayerInformation.swift */,
+			);
+			path = PlayerInformation;
+			sourceTree = "<group>";
+		};
+		B50ADF361F37526B00F80A30 /* Action */ = {
+			isa = PBXGroup;
+			children = (
+				B57CD19A1EFFE73A009FFC58 /* Action.swift */,
+			);
+			path = Action;
+			sourceTree = "<group>";
+		};
+		B50ADF371F37527100F80A30 /* JournalMessage */ = {
+			isa = PBXGroup;
+			children = (
+				B554F7E31F02ADD600DAC8BA /* JournalMessage.swift */,
+			);
+			path = JournalMessage;
+			sourceTree = "<group>";
+		};
+		B50ADF381F37528500F80A30 /* Artifact */ = {
+			isa = PBXGroup;
+			children = (
+				B57CD19C1EFFE758009FFC58 /* Artifact.swift */,
+			);
+			path = Artifact;
+			sourceTree = "<group>";
+		};
+		B50ADF391F37528C00F80A30 /* Companion */ = {
+			isa = PBXGroup;
+			children = (
+				B57CD1A01EFFE7E1009FFC58 /* Companion.swift */,
+			);
+			path = Companion;
+			sourceTree = "<group>";
+		};
+		B50ADF3A1F37529100F80A30 /* Energy */ = {
+			isa = PBXGroup;
+			children = (
+				B57CD1A21EFFE809009FFC58 /* Energy.swift */,
+			);
+			path = Energy;
+			sourceTree = "<group>";
+		};
+		B50ADF3B1F37529B00F80A30 /* HeroBaseParameters */ = {
+			isa = PBXGroup;
+			children = (
+				B57CD19E1EFFE7B1009FFC58 /* HeroBaseParameters.swift */,
+			);
+			path = HeroBaseParameters;
+			sourceTree = "<group>";
+		};
+		B50ADF3C1F3752A000F80A30 /* HeroSecondaryParameters */ = {
+			isa = PBXGroup;
+			children = (
+				B57CD1A81EFFE8B6009FFC58 /* HeroSecondaryParameters.swift */,
+			);
+			path = HeroSecondaryParameters;
+			sourceTree = "<group>";
+		};
+		B50ADF3D1F3752A400F80A30 /* Might */ = {
+			isa = PBXGroup;
+			children = (
+				B57CD1A41EFFE82C009FFC58 /* Might.swift */,
+			);
+			path = Might;
+			sourceTree = "<group>";
+		};
+		B50ADF3E1F3752AB00F80A30 /* Position */ = {
+			isa = PBXGroup;
+			children = (
+				B594801C1F0EE07A003F957C /* Position.swift */,
+			);
+			path = Position;
+			sourceTree = "<group>";
+		};
+		B510BBB51EC76D1F000F7674 /* NetworkClient */ = {
+			isa = PBXGroup;
+			children = (
+				B540852E1F001B6900562B39 /* ErrorManager.swift */,
+				B540852C1F0013BF00562B39 /* NetworkClient.swift */,
+			);
+			path = NetworkClient;
+			sourceTree = "<group>";
+		};
+		B510BBBC1ECA1198000F7674 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				B50ADF0B1F34C9DA00F80A30 /* DiaryManager.swift */,
+				B50ADF2D1F35E17700F80A30 /* GameInformationManager.swift */,
+				B54085301F00243300562B39 /* NetworkManager.swift */,
+				B52A342A1F03E79900171815 /* PlayerInformationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		B52111981EF41040008D469C /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				B5A2CBD41EFC1A7F002872D9 /* Types.plist */,
+				B5A2CBD61EFC28CE002872D9 /* Types.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		B57EC6B61F031CC700D9A799 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				B5EEFA5F1ED1D886009C1807 /* Login.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		B57EC6B71F031CCE00D9A799 /* Logout */ = {
+			isa = PBXGroup;
+			children = (
+				B5EEFA611ED1DE54009C1807 /* Logout.swift */,
+			);
+			path = Logout;
+			sourceTree = "<group>";
+		};
+		B58417731F05364B000E7D78 /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				B576AA3F1ED48CDE00DA3488 /* DiaryMessage.swift */,
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
+		B58417761F0553D8000E7D78 /* HeroCell */ = {
+			isa = PBXGroup;
+			children = (
+				B5BACDAF1EEF16D80022DD58 /* CompanionTableViewCell.swift */,
+				B5F5E59D1F14EAE000B69E01 /* DropBagItemTableViewCell.swift */,
+				B5BACDB11EEF16E70022DD58 /* EquipmentTableViewCell.swift */,
+				B5BACDAD1EEF16CA0022DD58 /* HeroTableViewCell.swift */,
+			);
+			path = HeroCell;
+			sourceTree = "<group>";
+		};
+		B58417771F0553E0000E7D78 /* DiaryCell */ = {
+			isa = PBXGroup;
+			children = (
+				B576AA411ED6EA3B00DA3488 /* DiaryTableViewCell.swift */,
+			);
+			path = DiaryCell;
+			sourceTree = "<group>";
+		};
+		B58417781F0553E7000E7D78 /* JournalCell */ = {
+			isa = PBXGroup;
+			children = (
+				B5BACD8A1EEC4F470022DD58 /* JournalTableViewActionCell.swift */,
+			);
+			path = JournalCell;
+			sourceTree = "<group>";
+		};
+		B584177A1F0557F5000E7D78 /* Hero */ = {
+			isa = PBXGroup;
+			children = (
+				B50ADF361F37526B00F80A30 /* Action */,
+				B50ADF381F37528500F80A30 /* Artifact */,
+				B5D002A61F0A98E900427A94 /* Card */,
+				B50ADF391F37528C00F80A30 /* Companion */,
+				B50ADF3A1F37529100F80A30 /* Energy */,
+				B50ADF3B1F37529B00F80A30 /* HeroBaseParameters */,
+				B50ADF3C1F3752A000F80A30 /* HeroSecondaryParameters */,
+				B50ADF371F37527100F80A30 /* JournalMessage */,
+				B50ADF3D1F3752A400F80A30 /* Might */,
+				B50ADF3E1F3752AB00F80A30 /* Position */,
+				B584177B1F05580A000E7D78 /* Quest */,
+				B594801E1F0FC471003F957C /* Hero.swift */,
+			);
+			path = Hero;
+			sourceTree = "<group>";
+		};
+		B584177B1F05580A000E7D78 /* Quest */ = {
+			isa = PBXGroup;
+			children = (
+				B57CD1A61EFFE864009FFC58 /* Actor.swift */,
+				B5D002721F07A10100427A94 /* ChoiceAlternatives.swift */,
+				B57CD1AA1EFFE8DE009FFC58 /* Quest.swift */,
+			);
+			path = Quest;
+			sourceTree = "<group>";
+		};
+		B5847AF01EBC9CFE00062F89 = {
+			isa = PBXGroup;
+			children = (
+				3087C44B5894956278E15723 /* Frameworks */,
+				EEB3A58EF452520641342592 /* Pods */,
+				B5847AFA1EBC9CFE00062F89 /* Products */,
+				B5847AFB1EBC9CFE00062F89 /* TheTale */,
+				B54A02A21F30BB01002EADE9 /* .gitignore */,
+				B59323DC1ED881F8003AFDE1 /* .swiftlint.yml */,
+				B51237781F30C5420094C0BE /* LICENSE.md */,
+			);
+			sourceTree = "<group>";
+		};
+		B5847AFA1EBC9CFE00062F89 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B5847AF91EBC9CFE00062F89 /* TheTaleClient.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B5847AFB1EBC9CFE00062F89 /* TheTale */ = {
+			isa = PBXGroup;
+			children = (
+				B5A1A20E1EBF849200D3B25E /* Controllers */,
+				B5D002A11F0A921F00427A94 /* Extensions */,
+				B5A1A20D1EBF848700D3B25E /* Models */,
+				B5AAB8E91F30B76900848A9E /* Services */,
+				B5AAB8E21F30B64200848A9E /* Stores */,
+				B5A1A20F1EBF84A400D3B25E /* SupportingFiles */,
+				B5A2CC001EFEAA88002872D9 /* Views */,
+			);
+			path = TheTale;
+			sourceTree = "<group>";
+		};
+		B5A1A20D1EBF848700D3B25E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B5F5E58A1F14D12800B69E01 /* API */,
+				B510BBBC1ECA1198000F7674 /* Managers */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B5A1A20E1EBF849200D3B25E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B5D6F0DB1F1F9C3C0012F2CE /* AboutViewController.swift */,
+				B5A2CC031EFFCBEA002872D9 /* CardViewController.swift */,
+				B5EEFA5B1ED1D3F6009C1807 /* DiaryViewController.swift */,
+				B5A852711EE0A16500EBAB75 /* HeroViewController.swift */,
+				B59323DE1EDB7E71003AFDE1 /* JournalViewController.swift */,
+				B5847AFE1EBC9CFE00062F89 /* LoginViewController.swift */,
+				B5B635971EE3415600686B5C /* MapViewController.swift */,
+				B5B635951EE1A03700686B5C /* MoreTableViewController.swift */,
+				B5A852731EE0A19D00EBAB75 /* QuestViewController.swift */,
+				B5A8526F1EDF564F00EBAB75 /* TabBarViewController.swift */,
+				B5D6F0DD1F1F9E890012F2CE /* WebViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B5A1A20F1EBF84A400D3B25E /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				B5498F2B1F5457F90018B056 /* AppConfiguration.swift */,
+				B5847AFC1EBC9CFE00062F89 /* AppDelegate.swift */,
+				B5847B031EBC9CFE00062F89 /* Assets.xcassets */,
+				B5847B081EBC9CFE00062F89 /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		B5A1A2101EBF84B100D3B25E /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				B5847B051EBC9CFE00062F89 /* LaunchScreen.storyboard */,
+				B5847B001EBC9CFE00062F89 /* Main.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		B5A2CC001EFEAA88002872D9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B5D002AB1F0A9FF200427A94 /* CardCell */,
+				B58417771F0553E0000E7D78 /* DiaryCell */,
+				B58417761F0553D8000E7D78 /* HeroCell */,
+				B58417781F0553E7000E7D78 /* JournalCell */,
+				B5D88E4A1F0C08E2003D8409 /* Map */,
+				B5D0029E1F0A5BA000427A94 /* QuestCell */,
+				B5A1A2101EBF84B100D3B25E /* Storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B5AAB8E21F30B64200848A9E /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				B5AAB8E41F30B6B200848A9E /* AuthorisationState */,
+				B58417731F05364B000E7D78 /* Diary */,
+				B5AAB8E51F30B6C000848A9E /* GameInformation */,
+				B57EC6B61F031CC700D9A799 /* Login */,
+				B57EC6B71F031CCE00D9A799 /* Logout */,
+				B5D002B01F0BB67500427A94 /* Map */,
+				B5AAB8E71F30B6DA00848A9E /* NonblockingOperationStatus */,
+				B5AAB8E61F30B6CB00848A9E /* PlayerInformation */,
+				B5D5D8A51F48FB10004D7403 /* RequestAuthorisation */,
+				B52111981EF41040008D469C /* Types */,
+			);
+			path = Stores;
+			sourceTree = "<group>";
+		};
+		B5AAB8E31F30B6A000848A9E /* AccountInformation */ = {
+			isa = PBXGroup;
+			children = (
+				B584177A1F0557F5000E7D78 /* Hero */,
+				B57BD1061F03007E0028C2B8 /* AccountInformation.swift */,
+			);
+			path = AccountInformation;
+			sourceTree = "<group>";
+		};
+		B5AAB8E41F30B6B200848A9E /* AuthorisationState */ = {
+			isa = PBXGroup;
+			children = (
+				B57CD1941EFFE3B3009FFC58 /* AuthorisationState.swift */,
+			);
+			path = AuthorisationState;
+			sourceTree = "<group>";
+		};
+		B5AAB8E51F30B6C000848A9E /* GameInformation */ = {
+			isa = PBXGroup;
+			children = (
+				B510BBB81EC8731E000F7674 /* GameInformation.swift */,
+			);
+			path = GameInformation;
+			sourceTree = "<group>";
+		};
+		B5AAB8E61F30B6CB00848A9E /* PlayerInformation */ = {
+			isa = PBXGroup;
+			children = (
+				B5AAB8E31F30B6A000848A9E /* AccountInformation */,
+				B50ADF351F374E7C00F80A30 /* PlayerInformation */,
+				B5AAB8E81F30B6E400848A9E /* Turn */,
+			);
+			path = PlayerInformation;
+			sourceTree = "<group>";
+		};
+		B5AAB8E71F30B6DA00848A9E /* NonblockingOperationStatus */ = {
+			isa = PBXGroup;
+			children = (
+				B5F5E5621F1130F500B69E01 /* NonblockingOperationStatus.swift */,
+			);
+			path = NonblockingOperationStatus;
+			sourceTree = "<group>";
+		};
+		B5AAB8E81F30B6E400848A9E /* Turn */ = {
+			isa = PBXGroup;
+			children = (
+				B57CD1981EFFE703009FFC58 /* Turn.swift */,
+			);
+			path = Turn;
+			sourceTree = "<group>";
+		};
+		B5AAB8E91F30B76900848A9E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B510BBB51EC76D1F000F7674 /* NetworkClient */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		B5D0029E1F0A5BA000427A94 /* QuestCell */ = {
+			isa = PBXGroup;
+			children = (
+				B5D002981F0A5B8200427A94 /* QuestTableViewCell.swift */,
+			);
+			path = QuestCell;
+			sourceTree = "<group>";
+		};
+		B5D002A11F0A921F00427A94 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B5F7EF0D1F1D3FAD0016BF67 /* AlertController.swift */,
+				B5D0029F1F0A921900427A94 /* String.swift */,
+				B5F16D331F1632EE008971D0 /* UIColor.swift */,
+				B5F7E5371F0EB7B600B1B5B7 /* UIImage.swift */,
+				B5498F311F550A320018B056 /* UITextField.swift */,
+				B54085321F01159000562B39 /* URL.swift */,
+				B54085341F0115AA00562B39 /* URLRequest.swift */,
+				B52B2BE51F2F62F4008059FB /* debugPrint.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B5D002A61F0A98E900427A94 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				B5D002A41F0A98E400427A94 /* Card.swift */,
+				B5D002A21F0A98D600427A94 /* CardsInfo.swift */,
+			);
+			path = Card;
+			sourceTree = "<group>";
+		};
+		B5D002AB1F0A9FF200427A94 /* CardCell */ = {
+			isa = PBXGroup;
+			children = (
+				B5D002A91F0A9FEE00427A94 /* CardTableViewCell.swift */,
+				B5D002A71F0A9FCF00427A94 /* HelpBarrierTableViewCell.swift */,
+			);
+			path = CardCell;
+			sourceTree = "<group>";
+		};
+		B5D002B01F0BB67500427A94 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				B5D002B31F0BE3FE00427A94 /* DrawBlock.swift */,
+				B5D002AC1F0BB66300427A94 /* Map.swift */,
+				B5D002AE1F0BB66D00427A94 /* MapVersions.swift */,
+				B5D002B11F0BE3EF00427A94 /* PlaceInfo.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		B5D5D8A51F48FB10004D7403 /* RequestAuthorisation */ = {
+			isa = PBXGroup;
+			children = (
+				B5D5D8A61F48FB3E004D7403 /* RequestAuthorisation.swift */,
+			);
+			path = RequestAuthorisation;
+			sourceTree = "<group>";
+		};
+		B5D88E4A1F0C08E2003D8409 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				B5D88E481F0C08DE003D8409 /* MapCollectionViewCell.swift */,
+				B540D27F1F0D276200229F6C /* MapCollectionViewLayout.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		B5F5E58A1F14D12800B69E01 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				B5A2CBFE1EFE793F002872D9 /* TaleAPI.swift */,
+				B5F5E5911F14D29200B69E01 /* TaleAPIAuthorisationState.swift */,
+				B5F5E5931F14D2C300B69E01 /* TaleAPIDiary.swift */,
+				B50ADF311F36041F00F80A30 /* TaleAPIGameInformation.swift */,
+				B5F5E58D1F14D22100B69E01 /* TaleAPILogin.swift */,
+				B5F5E58F1F14D25B00B69E01 /* TaleAPILogout.swift */,
+				B5F5E58B1F14D18400B69E01 /* TaleAPIMap.swift */,
+				B5F5E5951F14DB2D00B69E01 /* TaleAPINonblockingOperation.swift */,
+				B5F5E5991F14DBA400B69E01 /* TaleAPIPlayerInformation.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		EEB3A58EF452520641342592 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FC2CDA625AD88A73DF78AFFD /* Pods-TheTaleClient.debug.xcconfig */,
+				41A0989EE32E2FA777E6A4A6 /* Pods-TheTaleClient.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B5847AF81EBC9CFE00062F89 /* TheTaleClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B5847B0B1EBC9CFE00062F89 /* Build configuration list for PBXNativeTarget "TheTaleClient" */;
+			buildPhases = (
+				354A7FE3F7C9B3A50CC1986A /* [CP] Check Pods Manifest.lock */,
+				B5847AF51EBC9CFE00062F89 /* Sources */,
+				B5847AF61EBC9CFE00062F89 /* Frameworks */,
+				B5847AF71EBC9CFE00062F89 /* Resources */,
+				6CB07C9264E73756144CC156 /* [CP] Embed Pods Frameworks */,
+				370DDA5EB28BBB44373066D3 /* [CP] Copy Pods Resources */,
+				B59F025D1ED87EA4009517C7 /* Swift lint */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TheTaleClient;
+			productName = "the-tale";
+			productReference = B5847AF91EBC9CFE00062F89 /* TheTaleClient.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B5847AF11EBC9CFE00062F89 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Mikhail Vospennikov";
+				TargetAttributes = {
+					B5847AF81EBC9CFE00062F89 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = 35J7AXFYQT;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = B5847AF41EBC9CFE00062F89 /* Build configuration list for PBXProject "TheTaleClient" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B5847AF01EBC9CFE00062F89;
+			productRefGroup = B5847AFA1EBC9CFE00062F89 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B5847AF81EBC9CFE00062F89 /* TheTaleClient */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B5847AF71EBC9CFE00062F89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5A2CBD51EFC1A7F002872D9 /* Types.plist in Resources */,
+				B59323DD1ED881F8003AFDE1 /* .swiftlint.yml in Resources */,
+				B5847B071EBC9CFE00062F89 /* LaunchScreen.storyboard in Resources */,
+				B5847B041EBC9CFE00062F89 /* Assets.xcassets in Resources */,
+				B54A02A31F30BB01002EADE9 /* .gitignore in Resources */,
+				B5847B021EBC9CFE00062F89 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		354A7FE3F7C9B3A50CC1986A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		370DDA5EB28BBB44373066D3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TheTaleClient/Pods-TheTaleClient-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6CB07C9264E73756144CC156 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TheTaleClient/Pods-TheTaleClient-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B59F025D1ED87EA4009517C7 /* Swift lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Swift lint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B5847AF51EBC9CFE00062F89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5F5E5901F14D25B00B69E01 /* TaleAPILogout.swift in Sources */,
+				B5A2CBD71EFC28CE002872D9 /* Types.swift in Sources */,
+				B57CD19F1EFFE7B1009FFC58 /* HeroBaseParameters.swift in Sources */,
+				B5F5E59A1F14DBA400B69E01 /* TaleAPIPlayerInformation.swift in Sources */,
+				B5D002AD1F0BB66300427A94 /* Map.swift in Sources */,
+				B5F5E5921F14D29200B69E01 /* TaleAPIAuthorisationState.swift in Sources */,
+				B5F5E5631F1130F500B69E01 /* NonblockingOperationStatus.swift in Sources */,
+				B5D002991F0A5B8200427A94 /* QuestTableViewCell.swift in Sources */,
+				B576AA421ED6EA3B00DA3488 /* DiaryTableViewCell.swift in Sources */,
+				B5F5E58C1F14D18400B69E01 /* TaleAPIMap.swift in Sources */,
+				B5F5E58E1F14D22100B69E01 /* TaleAPILogin.swift in Sources */,
+				B5D002A31F0A98D600427A94 /* CardsInfo.swift in Sources */,
+				B5F5E59E1F14EAE000B69E01 /* DropBagItemTableViewCell.swift in Sources */,
+				B59323DF1EDB7E71003AFDE1 /* JournalViewController.swift in Sources */,
+				B5D6F0DE1F1F9E890012F2CE /* WebViewController.swift in Sources */,
+				B57CD1AB1EFFE8DE009FFC58 /* Quest.swift in Sources */,
+				B5F7E5381F0EB7B600B1B5B7 /* UIImage.swift in Sources */,
+				B5D002B21F0BE3EF00427A94 /* PlaceInfo.swift in Sources */,
+				B5EEFA601ED1D886009C1807 /* Login.swift in Sources */,
+				B57BD1071F03007E0028C2B8 /* AccountInformation.swift in Sources */,
+				B576AA401ED48CDE00DA3488 /* DiaryMessage.swift in Sources */,
+				B5D6F0DC1F1F9C3C0012F2CE /* AboutViewController.swift in Sources */,
+				B5B635961EE1A03700686B5C /* MoreTableViewController.swift in Sources */,
+				B5BACDB01EEF16D80022DD58 /* CompanionTableViewCell.swift in Sources */,
+				B54085351F0115AA00562B39 /* URLRequest.swift in Sources */,
+				B54085331F01159000562B39 /* URL.swift in Sources */,
+				B5F16D341F1632EE008971D0 /* UIColor.swift in Sources */,
+				B5D002A81F0A9FCF00427A94 /* HelpBarrierTableViewCell.swift in Sources */,
+				B510BBB91EC8731E000F7674 /* GameInformation.swift in Sources */,
+				B57CD1A11EFFE7E1009FFC58 /* Companion.swift in Sources */,
+				B5D002731F07A10100427A94 /* ChoiceAlternatives.swift in Sources */,
+				B5EEFA621ED1DE54009C1807 /* Logout.swift in Sources */,
+				B554F7E41F02ADD600DAC8BA /* JournalMessage.swift in Sources */,
+				B57CD1A91EFFE8B6009FFC58 /* HeroSecondaryParameters.swift in Sources */,
+				B50ADF321F36041F00F80A30 /* TaleAPIGameInformation.swift in Sources */,
+				B5A852741EE0A19D00EBAB75 /* QuestViewController.swift in Sources */,
+				B54085311F00243300562B39 /* NetworkManager.swift in Sources */,
+				B5A852701EDF564F00EBAB75 /* TabBarViewController.swift in Sources */,
+				B5A2CBFF1EFE793F002872D9 /* TaleAPI.swift in Sources */,
+				B50ADF2E1F35E17700F80A30 /* GameInformationManager.swift in Sources */,
+				B5D002A01F0A921900427A94 /* String.swift in Sources */,
+				B57CD19D1EFFE758009FFC58 /* Artifact.swift in Sources */,
+				B5D002AF1F0BB66D00427A94 /* MapVersions.swift in Sources */,
+				B5A852721EE0A16500EBAB75 /* HeroViewController.swift in Sources */,
+				B57CD1991EFFE703009FFC58 /* Turn.swift in Sources */,
+				B5EEFA5C1ED1D3F6009C1807 /* DiaryViewController.swift in Sources */,
+				B594801F1F0FC471003F957C /* Hero.swift in Sources */,
+				B5D5D8A71F48FB3E004D7403 /* RequestAuthorisation.swift in Sources */,
+				B5D002B41F0BE3FE00427A94 /* DrawBlock.swift in Sources */,
+				B5F7EF0E1F1D3FAD0016BF67 /* AlertController.swift in Sources */,
+				B5BACDB21EEF16E70022DD58 /* EquipmentTableViewCell.swift in Sources */,
+				B594801D1F0EE07A003F957C /* Position.swift in Sources */,
+				B57CD1A51EFFE82C009FFC58 /* Might.swift in Sources */,
+				B5F5E5961F14DB2D00B69E01 /* TaleAPINonblockingOperation.swift in Sources */,
+				B52B2BE61F2F62F4008059FB /* debugPrint.swift in Sources */,
+				B5BACD8B1EEC4F470022DD58 /* JournalTableViewActionCell.swift in Sources */,
+				B5A2CC041EFFCBEA002872D9 /* CardViewController.swift in Sources */,
+				B5BACDAE1EEF16CA0022DD58 /* HeroTableViewCell.swift in Sources */,
+				B5498F321F550A320018B056 /* UITextField.swift in Sources */,
+				B5F5E5941F14D2C300B69E01 /* TaleAPIDiary.swift in Sources */,
+				B5D002AA1F0A9FEE00427A94 /* CardTableViewCell.swift in Sources */,
+				B5D88E491F0C08DE003D8409 /* MapCollectionViewCell.swift in Sources */,
+				B540852D1F0013BF00562B39 /* NetworkClient.swift in Sources */,
+				B540852F1F001B6900562B39 /* ErrorManager.swift in Sources */,
+				B57CD1911EFFE1DE009FFC58 /* PlayerInformation.swift in Sources */,
+				B5847AFF1EBC9CFE00062F89 /* LoginViewController.swift in Sources */,
+				B5847AFD1EBC9CFE00062F89 /* AppDelegate.swift in Sources */,
+				B50ADF0C1F34C9DA00F80A30 /* DiaryManager.swift in Sources */,
+				B57CD19B1EFFE73A009FFC58 /* Action.swift in Sources */,
+				B5B635981EE3415600686B5C /* MapViewController.swift in Sources */,
+				B57CD1951EFFE3B3009FFC58 /* AuthorisationState.swift in Sources */,
+				B57CD1A31EFFE809009FFC58 /* Energy.swift in Sources */,
+				B540D2801F0D276200229F6C /* MapCollectionViewLayout.swift in Sources */,
+				B52A342B1F03E79900171815 /* PlayerInformationManager.swift in Sources */,
+				B57CD1A71EFFE864009FFC58 /* Actor.swift in Sources */,
+				B5D002A51F0A98E500427A94 /* Card.swift in Sources */,
+				B5498F2C1F5457F90018B056 /* AppConfiguration.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B5847B001EBC9CFE00062F89 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B5847B011EBC9CFE00062F89 /* Base */,
+			);
+			name = Main.storyboard;
+			path = .;
+			sourceTree = "<group>";
+		};
+		B5847B051EBC9CFE00062F89 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B5847B061EBC9CFE00062F89 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			path = .;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B5847B091EBC9CFE00062F89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "-D DEBUG";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B5847B0A1EBC9CFE00062F89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				"OTHER_SWIFT_FLAGS[arch=*]" = "-D RELEASE";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B5847B0C1EBC9CFE00062F89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC2CDA625AD88A73DF78AFFD /* Pods-TheTaleClient.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 35J7AXFYQT;
+				INFOPLIST_FILE = TheTale/SupportingFiles/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ru.vospennikov.the-tale";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		B5847B0D1EBC9CFE00062F89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41A0989EE32E2FA777E6A4A6 /* Pods-TheTaleClient.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 35J7AXFYQT;
+				INFOPLIST_FILE = TheTale/SupportingFiles/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ru.vospennikov.the-tale";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B5847AF41EBC9CFE00062F89 /* Build configuration list for PBXProject "TheTaleClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B5847B091EBC9CFE00062F89 /* Debug */,
+				B5847B0A1EBC9CFE00062F89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B5847B0B1EBC9CFE00062F89 /* Build configuration list for PBXNativeTarget "TheTaleClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B5847B0C1EBC9CFE00062F89 /* Debug */,
+				B5847B0D1EBC9CFE00062F89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B5847AF11EBC9CFE00062F89 /* Project object */;
+}
