@@ -21,6 +21,6 @@ struct AppConfiguration {
   }
   
   enum StoryboardID {
-    static let loginScreen = "loginScreen"
+    static let loginScreen = "startScreen"
   }
 }

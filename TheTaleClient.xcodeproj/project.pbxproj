@@ -22,6 +22,8 @@
 		B540D2801F0D276200229F6C /* MapCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540D27F1F0D276200229F6C /* MapCollectionViewLayout.swift */; };
 		B5498F2C1F5457F90018B056 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5498F2B1F5457F90018B056 /* AppConfiguration.swift */; };
 		B5498F321F550A320018B056 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5498F311F550A320018B056 /* UITextField.swift */; };
+		B5498F861F5859E20018B056 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5498F851F5859E20018B056 /* LoginViewController.swift */; };
+		B5498F881F585A000018B056 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5498F871F585A000018B056 /* RegistrationViewController.swift */; };
 		B54A02A31F30BB01002EADE9 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B54A02A21F30BB01002EADE9 /* .gitignore */; };
 		B554F7E41F02ADD600DAC8BA /* JournalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554F7E31F02ADD600DAC8BA /* JournalMessage.swift */; };
 		B576AA401ED48CDE00DA3488 /* DiaryMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576AA3F1ED48CDE00DA3488 /* DiaryMessage.swift */; };
@@ -40,7 +42,7 @@
 		B57CD1A91EFFE8B6009FFC58 /* HeroSecondaryParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD1A81EFFE8B6009FFC58 /* HeroSecondaryParameters.swift */; };
 		B57CD1AB1EFFE8DE009FFC58 /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57CD1AA1EFFE8DE009FFC58 /* Quest.swift */; };
 		B5847AFD1EBC9CFE00062F89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5847AFC1EBC9CFE00062F89 /* AppDelegate.swift */; };
-		B5847AFF1EBC9CFE00062F89 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5847AFE1EBC9CFE00062F89 /* LoginViewController.swift */; };
+		B5847AFF1EBC9CFE00062F89 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5847AFE1EBC9CFE00062F89 /* StartViewController.swift */; };
 		B5847B021EBC9CFE00062F89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5847B001EBC9CFE00062F89 /* Main.storyboard */; };
 		B5847B041EBC9CFE00062F89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5847B031EBC9CFE00062F89 /* Assets.xcassets */; };
 		B5847B071EBC9CFE00062F89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5847B051EBC9CFE00062F89 /* LaunchScreen.storyboard */; };
@@ -111,6 +113,8 @@
 		B540D27F1F0D276200229F6C /* MapCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCollectionViewLayout.swift; sourceTree = "<group>"; };
 		B5498F2B1F5457F90018B056 /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		B5498F311F550A320018B056 /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
+		B5498F851F5859E20018B056 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B5498F871F585A000018B056 /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		B54A02A21F30BB01002EADE9 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B554F7E31F02ADD600DAC8BA /* JournalMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalMessage.swift; sourceTree = "<group>"; };
 		B576AA3F1ED48CDE00DA3488 /* DiaryMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryMessage.swift; sourceTree = "<group>"; };
@@ -130,7 +134,7 @@
 		B57CD1AA1EFFE8DE009FFC58 /* Quest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
 		B5847AF91EBC9CFE00062F89 /* TheTaleClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheTaleClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5847AFC1EBC9CFE00062F89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B5847AFE1EBC9CFE00062F89 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B5847AFE1EBC9CFE00062F89 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		B5847B011EBC9CFE00062F89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B5847B031EBC9CFE00062F89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5847B061EBC9CFE00062F89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -314,6 +318,73 @@
 			path = Types;
 			sourceTree = "<group>";
 		};
+		B5498F7C1F5858350018B056 /* CardScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B5A2CC031EFFCBEA002872D9 /* CardViewController.swift */,
+			);
+			name = CardScreen;
+			sourceTree = "<group>";
+		};
+		B5498F7E1F58584B0018B056 /* HeroScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B5A852731EE0A19D00EBAB75 /* QuestViewController.swift */,
+				B5A852711EE0A16500EBAB75 /* HeroViewController.swift */,
+			);
+			name = HeroScreen;
+			sourceTree = "<group>";
+		};
+		B5498F7F1F5858550018B056 /* JournalScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B5EEFA5B1ED1D3F6009C1807 /* DiaryViewController.swift */,
+				B59323DE1EDB7E71003AFDE1 /* JournalViewController.swift */,
+			);
+			name = JournalScreen;
+			sourceTree = "<group>";
+		};
+		B5498F801F58585F0018B056 /* StartScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B5D6F0DD1F1F9E890012F2CE /* WebViewController.swift */,
+				B5847AFE1EBC9CFE00062F89 /* StartViewController.swift */,
+				B5498F851F5859E20018B056 /* LoginViewController.swift */,
+				B5498F871F585A000018B056 /* RegistrationViewController.swift */,
+			);
+			name = StartScreen;
+			sourceTree = "<group>";
+		};
+		B5498F811F5858710018B056 /* MapScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B5B635971EE3415600686B5C /* MapViewController.swift */,
+			);
+			name = MapScreen;
+			sourceTree = "<group>";
+		};
+		B5498F831F5858A70018B056 /* MoreScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B5D6F0DB1F1F9C3C0012F2CE /* AboutViewController.swift */,
+				B5B635951EE1A03700686B5C /* MoreTableViewController.swift */,
+			);
+			name = MoreScreen;
+			sourceTree = "<group>";
+		};
+		B5498F841F5859060018B056 /* TabBarScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B5498F7C1F5858350018B056 /* CardScreen */,
+				B5498F7E1F58584B0018B056 /* HeroScreen */,
+				B5498F7F1F5858550018B056 /* JournalScreen */,
+				B5498F811F5858710018B056 /* MapScreen */,
+				B5498F831F5858A70018B056 /* MoreScreen */,
+				B5A8526F1EDF564F00EBAB75 /* TabBarViewController.swift */,
+			);
+			name = TabBarScreen;
+			sourceTree = "<group>";
+		};
 		B57EC6B61F031CC700D9A799 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,17 +512,8 @@
 		B5A1A20E1EBF849200D3B25E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B5D6F0DB1F1F9C3C0012F2CE /* AboutViewController.swift */,
-				B5A2CC031EFFCBEA002872D9 /* CardViewController.swift */,
-				B5EEFA5B1ED1D3F6009C1807 /* DiaryViewController.swift */,
-				B5A852711EE0A16500EBAB75 /* HeroViewController.swift */,
-				B59323DE1EDB7E71003AFDE1 /* JournalViewController.swift */,
-				B5847AFE1EBC9CFE00062F89 /* LoginViewController.swift */,
-				B5B635971EE3415600686B5C /* MapViewController.swift */,
-				B5B635951EE1A03700686B5C /* MoreTableViewController.swift */,
-				B5A852731EE0A19D00EBAB75 /* QuestViewController.swift */,
-				B5A8526F1EDF564F00EBAB75 /* TabBarViewController.swift */,
-				B5D6F0DD1F1F9E890012F2CE /* WebViewController.swift */,
+				B5498F801F58585F0018B056 /* StartScreen */,
+				B5498F841F5859060018B056 /* TabBarScreen */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -831,6 +893,7 @@
 				B5D6F0DC1F1F9C3C0012F2CE /* AboutViewController.swift in Sources */,
 				B5B635961EE1A03700686B5C /* MoreTableViewController.swift in Sources */,
 				B5BACDB01EEF16D80022DD58 /* CompanionTableViewCell.swift in Sources */,
+				B5498F861F5859E20018B056 /* LoginViewController.swift in Sources */,
 				B54085351F0115AA00562B39 /* URLRequest.swift in Sources */,
 				B54085331F01159000562B39 /* URL.swift in Sources */,
 				B5F16D341F1632EE008971D0 /* UIColor.swift in Sources */,
@@ -847,6 +910,7 @@
 				B5A852701EDF564F00EBAB75 /* TabBarViewController.swift in Sources */,
 				B5A2CBFF1EFE793F002872D9 /* TaleAPI.swift in Sources */,
 				B50ADF2E1F35E17700F80A30 /* GameInformationManager.swift in Sources */,
+				B5498F881F585A000018B056 /* RegistrationViewController.swift in Sources */,
 				B5D002A01F0A921900427A94 /* String.swift in Sources */,
 				B57CD19D1EFFE758009FFC58 /* Artifact.swift in Sources */,
 				B5D002AF1F0BB66D00427A94 /* MapVersions.swift in Sources */,
@@ -872,7 +936,7 @@
 				B540852D1F0013BF00562B39 /* NetworkClient.swift in Sources */,
 				B540852F1F001B6900562B39 /* ErrorManager.swift in Sources */,
 				B57CD1911EFFE1DE009FFC58 /* PlayerInformation.swift in Sources */,
-				B5847AFF1EBC9CFE00062F89 /* LoginViewController.swift in Sources */,
+				B5847AFF1EBC9CFE00062F89 /* StartViewController.swift in Sources */,
 				B5847AFD1EBC9CFE00062F89 /* AppDelegate.swift in Sources */,
 				B50ADF0C1F34C9DA00F80A30 /* DiaryManager.swift in Sources */,
 				B57CD19B1EFFE73A009FFC58 /* Action.swift in Sources */,
