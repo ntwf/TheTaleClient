@@ -324,15 +324,17 @@
 				B5A2CC031EFFCBEA002872D9 /* CardViewController.swift */,
 			);
 			name = CardScreen;
+			path = CardScreen;
 			sourceTree = "<group>";
 		};
 		B5498F7E1F58584B0018B056 /* HeroScreen */ = {
 			isa = PBXGroup;
 			children = (
-				B5A852731EE0A19D00EBAB75 /* QuestViewController.swift */,
 				B5A852711EE0A16500EBAB75 /* HeroViewController.swift */,
+				B5A852731EE0A19D00EBAB75 /* QuestViewController.swift */,
 			);
 			name = HeroScreen;
+			path = HeroScreen;
 			sourceTree = "<group>";
 		};
 		B5498F7F1F5858550018B056 /* JournalScreen */ = {
@@ -342,17 +344,19 @@
 				B59323DE1EDB7E71003AFDE1 /* JournalViewController.swift */,
 			);
 			name = JournalScreen;
+			path = JournalScreen;
 			sourceTree = "<group>";
 		};
 		B5498F801F58585F0018B056 /* StartScreen */ = {
 			isa = PBXGroup;
 			children = (
-				B5D6F0DD1F1F9E890012F2CE /* WebViewController.swift */,
-				B5847AFE1EBC9CFE00062F89 /* StartViewController.swift */,
 				B5498F851F5859E20018B056 /* LoginViewController.swift */,
 				B5498F871F585A000018B056 /* RegistrationViewController.swift */,
+				B5847AFE1EBC9CFE00062F89 /* StartViewController.swift */,
+				B5D6F0DD1F1F9E890012F2CE /* WebViewController.swift */,
 			);
 			name = StartScreen;
+			path = StartScreen;
 			sourceTree = "<group>";
 		};
 		B5498F811F5858710018B056 /* MapScreen */ = {
@@ -361,6 +365,7 @@
 				B5B635971EE3415600686B5C /* MapViewController.swift */,
 			);
 			name = MapScreen;
+			path = MapScreen;
 			sourceTree = "<group>";
 		};
 		B5498F831F5858A70018B056 /* MoreScreen */ = {
@@ -370,6 +375,7 @@
 				B5B635951EE1A03700686B5C /* MoreTableViewController.swift */,
 			);
 			name = MoreScreen;
+			path = MoreScreen;
 			sourceTree = "<group>";
 		};
 		B5498F841F5859060018B056 /* TabBarScreen */ = {
@@ -383,6 +389,7 @@
 				B5A8526F1EDF564F00EBAB75 /* TabBarViewController.swift */,
 			);
 			name = TabBarScreen;
+			path = TabBarScreen;
 			sourceTree = "<group>";
 		};
 		B57EC6B61F031CC700D9A799 /* Login */ = {

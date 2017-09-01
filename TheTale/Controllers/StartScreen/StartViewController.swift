@@ -8,8 +8,16 @@
 
 import UIKit
 
-final class StartViewController: UIViewController {
-  // MARK: - Internal variables
+protocol SegueHandlerDelegate: class {
+  func segueHandler(identifier: String)
+}
+
+protocol AuthPathDelegate: class {
+  var authPath: String? { get set }
+}
+
+final class StartViewController: UIViewController, AuthPathDelegate {
+  // MARK: - AuthPathDelegate
   var authPath: String?
   
   // MARK: - Outlets
@@ -26,6 +34,7 @@ final class StartViewController: UIViewController {
     loginContainer.isHidden = true
     registrationContainer.isHidden = false
     
+    setupGesture()
     addNotification()
   }
 
@@ -37,14 +46,29 @@ final class StartViewController: UIViewController {
     return false
   }
 
-  // MARK: - Notification
-  func addNotification() {
-    NotificationCenter.default.addObserver(self, selector: #selector(catchNotification(notification:)), name: .TaleAPINonblockingOperationStatusChanged, object: nil)
+  func setupGesture() {
+    let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+    tap.cancelsTouchesInView = false
+    view.addGestureRecognizer(tap)
   }
   
-  func catchNotification(notification: Notification) {
-    guard let userInfo = notification.userInfo,
-      let status   = userInfo[TaleAPI.UserInfoKey.nonblockingOperationStatus] as? TaleAPI.StatusOperation else {
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    checkAuthorisation()
+  }
+  
+  // MARK: - Notification
+  func addNotification() {
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(catchNotification(sender:)),
+                                           name: .TaleAPINonblockingOperationStatusChanged,
+                                           object: nil)
+  }
+  
+  func catchNotification(sender: Notification) {
+    guard let userInfo = sender.userInfo,
+          let status   = userInfo[TaleAPI.UserInfoKey.nonblockingOperationStatus] as? TaleAPI.StatusOperation else {
         return
     }
     
@@ -86,10 +110,15 @@ final class StartViewController: UIViewController {
     if segue.identifier == AppConfiguration.Segue.toWeb {
       if let navigationViewController = segue.destination as? UINavigationController,
          let webViewController        = navigationViewController.topViewController as? WebViewController,
-        let authPath = authPath {
+         let authPath = authPath {
         webViewController.authPath = authPath
       }
+    } else if segue.identifier == AppConfiguration.Segue.toLogin,
+              let loginViewController = segue.destination as? LoginViewController {
+      loginViewController.segueHandlerDelegate = self
+      loginViewController.authPathDelegate     = self
     }
+    
   }
 
   // MARK: - Outlets action
@@ -101,6 +130,15 @@ final class StartViewController: UIViewController {
       loginContainer.isHidden = false
       registrationContainer.isHidden = true
     }
+  }
+
+}
+
+// MARK: - SegueHandlerDelegate
+extension StartViewController: SegueHandlerDelegate {
+
+  func segueHandler(identifier: String) {
+    performSegue(withIdentifier: identifier, sender: nil)
   }
 
 }

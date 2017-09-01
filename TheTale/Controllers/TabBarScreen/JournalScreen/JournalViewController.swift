@@ -27,15 +27,20 @@ class JournalViewController: UIViewController {
   var actionText          = ""
   var actionProgress      = 0.0
   var isEnabledHelpButton = false
-  
+
   // MARK: - Load controller
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    
+    addNotification()
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 
     activityIndicator.startAnimating()
 
     setupTableView()
-    addNotification()
     
     TaleAPI.shared.playerInformationAutorefresh = .start
   }
@@ -64,11 +69,11 @@ class JournalViewController: UIViewController {
   
   // MARK: - Notification
   func addNotification() {
-    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.turn, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.action, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.energy, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroBaseParameters, options: [], context: nil)
-    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.journal, options: [], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.turn, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.action, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.energy, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.heroBaseParameters, options: [.new], context: nil)
+    TaleAPI.shared.addObserver(self, forKeyPath: TaleAPI.NotificationKeyPath.journal, options: [.new], context: nil)
   }
   
   func removeNotification() {

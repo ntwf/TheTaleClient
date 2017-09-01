@@ -102,6 +102,10 @@ enum SitePath: String {
   case main  = ""
   case guide = "/guide/game"
   case forum = "/forum"
+  
+  // MARK: Unapproved methods
+  case fastRegistration = "accounts/registration/fast"
+  case profile          = "accounts/profile"
 }
 
 // MARK: - APIPath

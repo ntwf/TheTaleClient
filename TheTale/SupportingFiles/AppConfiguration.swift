@@ -13,11 +13,13 @@ typealias JSON      = [String: Any]
 
 struct AppConfiguration {
   enum Segue {
-    static let toJournal = "toJournalSegue"
-    static let toWeb     = "toWebSegue"
-    static let toQuest   = "toQuestSegue"
-    static let toDiary   = "toDiarySegue"
-    static let toAbout   = "toAboutSegue"
+    static let toAbout        = "toAboutSegue"
+    static let toDiary        = "toDiarySegue"
+    static let toJournal      = "toJournalSegue"
+    static let toLogin        = "toLoginSegue"
+    static let toQuest        = "toQuestSegue"
+    static let toRegistration = "toRegistrationSegue"
+    static let toWeb          = "toWebSegue"
   }
   
   enum StoryboardID {

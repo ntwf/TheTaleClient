@@ -9,15 +9,14 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+  weak var segueHandlerDelegate: SegueHandlerDelegate?
+  weak var authPathDelegate: AuthPathDelegate?
+  
   // MARK: - Internal constants
   enum Constatns {
     static let borderColorTextFieldOK    = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
     static let borderColorTextFieldError = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
   }
-  
-  // MARK: - Internal variables
-  var authPath: String?
-  var isCheckedAuthorisation: Bool = false
   
   // MARK: - Outlets
   @IBOutlet weak var loginTextField: UITextField!
@@ -27,7 +26,7 @@ class LoginViewController: UIViewController {
   // MARK: - Load controller
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     configured(loginButton: loginButton)
     setupTextField()
   }
@@ -97,15 +96,10 @@ class LoginViewController: UIViewController {
       
       switch result {
       case .success:
-        strongSelf.isCheckedAuthorisation = false
-        //        strongSelf.loginView.isHidden = true
-        
-        strongSelf.performSegue(withIdentifier: AppConfiguration.Segue.toJournal, sender: self)
+        guard let delegate = strongSelf.segueHandlerDelegate else { return }
+        delegate.segueHandler(identifier: AppConfiguration.Segue.toJournal)
         
       case .failure(let error as NSError):
-        strongSelf.isCheckedAuthorisation = false
-        //        strongSelf.loginView.isHidden = false
-        
         let alert = UIAlertController(title: "Ошибка авторизации.", message: "Неправильный логин или пароль.")
         strongSelf.present(alert, animated: true, completion: nil)
         
@@ -121,7 +115,7 @@ class LoginViewController: UIViewController {
   // MARK: - Outlets action
   @IBAction func loginButtonTapped(_ sender: UIButton) {
     guard let email    = loginTextField.text,
-      let password = passwordTextField.text else {
+          let password = passwordTextField.text else {
         return
     }
     
@@ -129,8 +123,6 @@ class LoginViewController: UIViewController {
   }
   
   @IBAction func loginOnSiteButtonTapped(_ sender: UIButton) {
-    isCheckedAuthorisation = false
-    
     TaleAPI.shared.requestURLPathTologinIntoSite { [weak self] (result) in
       guard let strongSelf = self else {
         return
@@ -138,9 +130,11 @@ class LoginViewController: UIViewController {
       
       switch result {
       case .success(let data):
-        //        strongSelf.loginView.isHidden = true
-        strongSelf.authPath = data.urlPath
-        strongSelf.performSegue(withIdentifier: AppConfiguration.Segue.toWeb, sender: nil)
+        guard let segueHandlerDelegate = strongSelf.segueHandlerDelegate else { return }
+        guard let authPathDelegate = strongSelf.authPathDelegate else { return }
+        
+        authPathDelegate.authPath = data.urlPath
+        segueHandlerDelegate.segueHandler(identifier: AppConfiguration.Segue.toWeb)
       case .failure(let error as NSError):
         debugPrint("loginOnTheSite \(error)")
       default: break
