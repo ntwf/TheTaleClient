@@ -78,7 +78,7 @@ extension TaleAPI {
   }
   
   func fastRegistration(completionHandler: @escaping (APIResult<NonblockingOperationStatus>) -> Void) {
-    guard let request = TaleAPI.shared.networkManager.createRequest(fromString: "accounts/registration/fast", method: .post) else {
+    guard let request = TaleAPI.shared.networkManager.createRequest(fromString: SitePath.fastRegistration.rawValue, method: .post) else {
       return
     }
     

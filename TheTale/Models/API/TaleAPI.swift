@@ -84,6 +84,7 @@ class TaleAPI: NSObject, NetworkClient {
   
   // MARK: External variables
   var authorisationState = AuthorisationState()
+  var accountShow        = AccountShow()
   
   // MARK: User info
   enum UserInfoKey {

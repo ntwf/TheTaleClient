@@ -16,8 +16,23 @@ extension TaleAPI {
     }
     
     fetch(request: request, parse: { (json) -> AuthorisationState? in
+
       if let dictionary = json["data"] as? JSON {
-        return AuthorisationState(jsonObject: dictionary)
+        let authorisationState = AuthorisationState(jsonObject: dictionary)
+        
+        if let accountID = authorisationState?.accountID {
+          self.getAccountInfo(accountID: accountID) { (result) in
+            switch result {
+            case .success(let data):
+              TaleAPI.shared.accountShow = data
+            case .failure(let error as NSError):
+              debugPrint("showAccount", error)
+            default: break
+            }
+          }
+        }
+        
+        return authorisationState
       } else {
         return nil
       }

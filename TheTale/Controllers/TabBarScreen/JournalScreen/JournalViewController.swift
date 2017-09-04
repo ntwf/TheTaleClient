@@ -94,7 +94,7 @@ class JournalViewController: UIViewController {
        keyPath == TaleAPI.NotificationKeyPath.heroBaseParameters {
       updateActionUI()
     }
-    if keyPath ==  TaleAPI.NotificationKeyPath.journal {
+    if keyPath == TaleAPI.NotificationKeyPath.journal {
       updateMessages()
     }
   }
