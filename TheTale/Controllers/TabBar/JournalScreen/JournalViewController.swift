@@ -146,19 +146,28 @@ class JournalViewController: UIViewController {
   }
   
   // MARK: - Action sheet
-  func showActionSheet(save text: String) {
-    let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+  func showActionSheet(_ sender: UITableViewCell) {
+    // [Warning] <_UIPopoverBackgroundVisualEffectView>
+    // https://forums.developer.apple.com/thread/53677
+    
+    let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
     let saveButton = UIAlertAction(title: "Скопировать", style: .default) { _ in
       let pasteboard = UIPasteboard.general
       
-      pasteboard.string = text
+      pasteboard.string = sender.textLabel?.text
     }
     
-    let okButton = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+    let cancelButton = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
     
-    alertController.addAction(okButton)
+    alertController.addAction(cancelButton)
     alertController.addAction(saveButton)
+    
+    if let popoverController = alertController.popoverPresentationController {
+      popoverController.sourceView               = self.view
+      popoverController.sourceRect               = sender.frame
+      popoverController.permittedArrowDirections = []
+    }
     
     present(alertController, animated: true, completion: nil)
   }
@@ -238,8 +247,10 @@ extension JournalViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension JournalViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    if indexPath.section == 1 {
-      showActionSheet(save: allMessages[indexPath.row].text)
+    if indexPath.section == 1,
+       let cell = tableView.cellForRow(at: indexPath) {
+      
+      showActionSheet(cell)
     }
     
     tableView.deselectRow(at: indexPath, animated: true)

@@ -111,19 +111,28 @@ class DiaryViewController: UIViewController {
   }
   
   // MARK: - Action sheet
-  func showActionSheet(save text: String) {
-    let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+  func showActionSheet(_ sender: UITableViewCell, text: String) {
+    // [Warning] <_UIPopoverBackgroundVisualEffectView>
+    // https://forums.developer.apple.com/thread/53677
     
+    let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
     let saveButton = UIAlertAction(title: "Скопировать", style: .default) { _ in
       let pasteboard = UIPasteboard.general
       
       pasteboard.string = text
     }
     
-    let okButton = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+    let cancelButton = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
     
-    alertController.addAction(okButton)
+    alertController.addAction(cancelButton)
     alertController.addAction(saveButton)
+    
+    if let popoverController = alertController.popoverPresentationController {
+      popoverController.sourceView               = self.view
+      popoverController.sourceRect               = sender.frame
+      popoverController.permittedArrowDirections = []
+    }
     
     present(alertController, animated: true, completion: nil)
   }
@@ -148,11 +157,10 @@ extension DiaryViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension DiaryViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    if indexPath.section == 0 {
-       let messageData = allMessages[indexPath.row]
-       let text        = "\(messageData.positionRepresentation)\n\(messageData.messageRepresentation)\n\(messageData.gameDate)"
-      
-      showActionSheet(save: text)
+    if indexPath.section == 0, let cell = tableView.cellForRow(at: indexPath) {
+      let messageData = allMessages[indexPath.row]
+      let text        = "\(messageData.positionRepresentation)\n\(messageData.messageRepresentation)\n\(messageData.gameDate)"
+      showActionSheet(cell, text: text)
     }
     
     tableView.deselectRow(at: indexPath, animated: true)
