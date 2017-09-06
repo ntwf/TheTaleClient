@@ -11,6 +11,8 @@ import UIKit
 extension Notification.Name {
   static let TaleAPINonblockingOperationRecivedAlarm  = NSNotification.Name("TaleAPINonblockingOperationRecivedAlarm")
   static let TaleAPINonblockingOperationStatusChanged = NSNotification.Name("TaleAPINonblockingOperationStatusChanged")
+  
+  static let TaleAPIAuthorisationStatusChanged        = NSNotification.Name("TaleAPIAuthorisationStatusChanged")
 }
 
 enum TimerState {
@@ -82,14 +84,12 @@ class TaleAPI: NSObject, NetworkClient {
     }
   }
   
-  // MARK: External variables
-  var authorisationState = AuthorisationState()
-  var accountShow        = AccountShow()
-  
   // MARK: User info
   enum UserInfoKey {
     static let nonblockingOperationAlarm  = "TaleAPINonblockingOperationAlarm"
     static let nonblockingOperationStatus = "TaleAPINonblockingOperationStatus"
+    
+    static let authorisationStatus        = "TaleAPIAuthorisationStatus"
   }
   
   // MARK: Key path

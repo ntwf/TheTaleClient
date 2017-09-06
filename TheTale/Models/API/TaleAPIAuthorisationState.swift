@@ -20,16 +20,10 @@ extension TaleAPI {
       if let dictionary = json["data"] as? JSON {
         let authorisationState = AuthorisationState(jsonObject: dictionary)
         
-        if let accountID = authorisationState?.accountID {
-          self.getAccountInfo(accountID: accountID) { (result) in
-            switch result {
-            case .success(let data):
-              TaleAPI.shared.accountShow = data
-            case .failure(let error as NSError):
-              debugPrint("showAccount", error)
-            default: break
-            }
-          }
+        if let authorisationStatus = authorisationState?.state {
+          NotificationCenter.default.post(name: .TaleAPIAuthorisationStatusChanged,
+                                          object: nil,
+                                          userInfo: [TaleAPI.UserInfoKey.authorisationStatus: authorisationStatus])
         }
         
         return authorisationState

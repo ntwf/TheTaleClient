@@ -20,6 +20,8 @@ class MoreViewController: UIViewController {
   var emailTextField: UITextField?
   var passwordTextField: UITextField?
   
+  var accountShow        = AccountShow()
+  
   // MARK: - Outlets
   @IBOutlet weak var tableView: UITableView!
   
@@ -32,6 +34,7 @@ class MoreViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
+    checkAuthorisation()
     navigationController?.isNavigationBarHidden = true
   }
   
@@ -42,6 +45,10 @@ class MoreViewController: UIViewController {
   }
 
   // MARK: - Work with interface
+  func updateUITableSection(_ section: IndexSet) {
+    tableView.reloadSections(section, with: .automatic)
+  }
+  
   func presentLoginScreen() {
     self.dismiss(animated: true, completion: nil)
   }
@@ -139,8 +146,6 @@ class MoreViewController: UIViewController {
       switch result {
       case .success:
         TaleAPI.shared.playerInformationAutorefresh = .stop
-        TaleAPI.shared.authorisationState           = AuthorisationState()
-        
         strongSelf.presentLoginScreen()
       case .failure(let error as NSError):
         debugPrint("logout \(error)")
@@ -170,6 +175,41 @@ class MoreViewController: UIViewController {
       }
     }
   }
+  
+  func getAccountInfo(_ accountID: Int) {
+    TaleAPI.shared.getAccountInfo(accountID: accountID) { [weak self] (result) in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      switch result {
+      case .success(let data):
+        if strongSelf.accountShow?.registered != data.registered {
+           strongSelf.accountShow = data
+           strongSelf.updateUITableSection(IndexSet(integer: 0))
+        }
+      case .failure(let error as NSError):
+        debugPrint("showAccount", error)
+      default: break
+      }
+    }
+  }
+  
+  func checkAuthorisation() {
+    TaleAPI.shared.getAuthorisationState { [weak self] (result) in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      switch result {
+      case .success(let data):
+        strongSelf.getAccountInfo(data.accountID)
+      case .failure(let error as NSError):
+        debugPrint("checkAuthorisation", error)
+      default: break
+      }
+    }
+  }
 }
 
 // MARK: - UITableViewDataSource
@@ -182,7 +222,7 @@ extension MoreViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch section {
     case 0:
-      if let account = TaleAPI.shared.accountShow, account.registered == false {
+      if let accountShow = accountShow, accountShow.registered == false {
         return 1
       }
       return 0

@@ -8,18 +8,15 @@
 
 import Foundation
 
-enum AuthorisationCode: String {
-  case notRequested
-  case notDecision
-  case successful
-  case denied
+enum AuthorisationCode {
+  case notRequested, notDecision, successful, denied, unknown
 }
 
 struct AuthorisationState {
   var accountID: Int
   var accountName: String
   var sessionExpireAt: Double
-  var state: Int
+  var state: AuthorisationCode
 }
 
 extension AuthorisationState: JSONDecodable {
@@ -35,7 +32,19 @@ extension AuthorisationState: JSONDecodable {
     self.accountID       = accountID
     self.accountName     = accountName
     self.sessionExpireAt = sessionExpireAt
-    self.state           = state
+    
+    switch state {
+    case 0:
+      self.state = AuthorisationCode.notRequested
+    case 1:
+      self.state = AuthorisationCode.notDecision
+    case 2:
+      self.state = AuthorisationCode.successful
+    case 4:
+      self.state = AuthorisationCode.denied
+    default:
+      self.state = AuthorisationCode.unknown
+    }
     
   }
   

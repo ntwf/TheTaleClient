@@ -21,18 +21,19 @@ final class StartViewController: UIViewController, AuthPathDelegate {
   var authPath: String?
   
   // MARK: - Outlets
-  @IBOutlet weak var segmentedControl: UISegmentedControl!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
+  @IBOutlet weak var segmentedControl: UISegmentedControl!
   @IBOutlet weak var loginContainer: UIView!
   @IBOutlet weak var registrationContainer: UIView!
+  
+  @IBOutlet var startingViewsCollection: [UIView]!
   
   // MARK: - Load controller
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    loginContainer.isHidden = true
-    registrationContainer.isHidden = false
+
+    startingViewsCollection.forEach { $0.isHidden = true }
     
     setupGesture()
     addNotification()
@@ -88,18 +89,14 @@ final class StartViewController: UIViewController, AuthPathDelegate {
       }
       
       switch result {
-      case .success(let data):
-        TaleAPI.shared.authorisationState = data
-        
-        // strongSelf.isCheckedAuthorisation = false
-        // strongSelf.loginView.isHidden = true
-        
+      case .success:
         strongSelf.performSegue(withIdentifier: AppConfiguration.Segue.toJournal, sender: self)
       case .failure(let error as NSError):
         debugPrint("checkAuthorisation", error)
         
-        // strongSelf.isCheckedAuthorisation = true
-        // strongSelf.loginView.isHidden = false
+        strongSelf.segmentedControl.isHidden = false
+        strongSelf.loginContainer.isHidden = true
+        strongSelf.registrationContainer.isHidden = false
       default: break
       }
     }

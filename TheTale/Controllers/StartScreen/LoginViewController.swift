@@ -42,9 +42,9 @@ class LoginViewController: UIViewController {
   
   func configured(textField: UITextField, border color: UIColor) {
     textField.layer.masksToBounds = true
-    textField.layer.cornerRadius = 5.0
-    textField.layer.borderColor = color.cgColor
-    textField.layer.borderWidth = 0.5
+    textField.layer.cornerRadius  = 5.0
+    textField.layer.borderColor   = color.cgColor
+    textField.layer.borderWidth   = 0.5
   }
   
   func configured(loginButton: UIButton) {
@@ -115,6 +115,8 @@ class LoginViewController: UIViewController {
   
   // MARK: - Outlets action
   @IBAction func loginButtonTapped(_ sender: UIButton) {
+    loginButton.isEnabled = false
+    
     guard let email    = loginTextField.text,
           let password = passwordTextField.text else {
         return
