@@ -14,6 +14,12 @@ class MoreViewController: UIViewController {
     static let cellMenu = "Cell"
   }
   
+  // MARK: - Internal variables
+  var okActionButton: UIAlertAction?
+  var loginTextField: UITextField?
+  var emailTextField: UITextField?
+  var passwordTextField: UITextField?
+  
   // MARK: - Outlets
   @IBOutlet weak var tableView: UITableView!
   
@@ -39,6 +45,89 @@ class MoreViewController: UIViewController {
   func presentLoginScreen() {
     self.dismiss(animated: true, completion: nil)
   }
+
+  func checkRegistration(_ sender: UITextField) {
+    guard let loginTextField    = loginTextField,
+          let emailTextField    = emailTextField,
+          let passwordTextField = passwordTextField,
+          let okActionButton    = okActionButton else {
+      return
+    }
+    
+    if emailTextField.isEmail && !passwordTextField.isEmpty && !loginTextField.isEmpty {
+      okActionButton.isEnabled = true
+    }
+  }
+  
+  func presentAlertСompletionRegistration() {
+    let alertController = UIAlertController(title: "Завершение регистрации",
+                                            message: "Вы должны подтвердить указанный email. Для этого перейдите по ссылке в отправленном на него письме. Если письмо не придёт в течение часа, пожалуйста, обратитесь в службу поддержки: support@the-tale.org. Следующий вход в приложение будет осуществляться по паролю или авторизации через сайт.",
+                                            defaultActionButtonTitle: "Ok")
+    
+    present(alertController, animated: true, completion: nil)
+  }
+  
+  func presentAlertConfirmRegisteration() {
+    // Alert controller
+    let alertController = UIAlertController(title: "Регистрация",
+                                            message: "До завершения регистрации Ваш аккаунт имеет ограниченную функциональность. Для завершения регистрации укажите имя, email и пароль в форме ниже.",
+                                            preferredStyle: .alert)
+    
+    // Alert action
+    let okAction = UIAlertAction(title: "Зарегестрироваться", style: .default, handler: { [weak self] _ in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      strongSelf.confirmRegistration()
+    })
+    okAction.isEnabled = false
+    self.okActionButton = okAction
+    
+    let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+    
+    alertController.addAction(okAction)
+    alertController.addAction(cancelAction)
+    
+    // Alert text field
+    alertController.addTextField(configurationHandler: { [weak self] (textField) in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      textField.placeholder = "Логин"
+      
+      strongSelf.loginTextField = textField
+      textField.addTarget(self, action: #selector(strongSelf.checkRegistration(_:)), for: .editingChanged)
+    })
+    
+    alertController.addTextField(configurationHandler: { [weak self] (textField: UITextField) in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      textField.placeholder = "Email"
+      textField.keyboardType = .emailAddress
+      
+      strongSelf.emailTextField = textField
+      textField.addTarget(self, action: #selector(strongSelf.checkRegistration(_:)), for: .editingChanged)
+    })
+    
+    alertController.addTextField(configurationHandler: { [weak self] textField in
+      guard let strongSelf = self else {
+        return
+      }
+      
+      textField.placeholder = "Пароль"
+      textField.isSecureTextEntry = true
+      
+      strongSelf.passwordTextField = textField
+      textField.addTarget(self, action: #selector(strongSelf.checkRegistration(_:)), for: .editingChanged)
+    })
+    
+    // Alert controller present
+    present(alertController, animated: true, completion: nil)
+  }
   
   // MARK: - Request to API
   func logout() {
@@ -60,6 +149,27 @@ class MoreViewController: UIViewController {
     }
   }
   
+  func confirmRegistration() {
+    guard let login    = loginTextField?.text,
+          let email    = emailTextField?.text,
+          let password = passwordTextField?.text else {
+        return
+    }
+
+    TaleAPI.shared.confirmRegistration(nick: login, email: email, password: password) { [weak self] (result) in
+      guard let strongSelf = self else {
+        return
+      }
+
+      switch result {
+      case .success:
+        strongSelf.presentAlertConfirmRegisteration()
+      case .failure(let error as NSError):
+        debugPrint("confirmRegistration \(error)")
+      default: break
+      }
+    }
+  }
 }
 
 // MARK: - UITableViewDataSource
@@ -91,7 +201,7 @@ extension MoreViewController: UITableViewDataSource {
     switch (indexPath.section, indexPath.row) {
     case (0, 0):
       let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellMenu)
-      cell?.textLabel?.text = "Зарегестрироваться на сайте"
+      cell?.textLabel?.text = "Зарегестрироваться"
       return cell!
     case (1, 0):
       let cell = tableView.dequeueReusableCell(withIdentifier: Constatns.cellMenu)
@@ -117,7 +227,6 @@ extension MoreViewController: UITableViewDataSource {
       fatalError("Wrong number of sections")
     }
   }
-  
 }
 
 // MARK: - UITableViewDelegate
@@ -126,7 +235,7 @@ extension MoreViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     switch (indexPath.section, indexPath.row) {
     case (0, 0):
-      UIApplication.shared.open(TaleAPI.shared.networkManager.createURL(fromSite: .profile))
+      presentAlertConfirmRegisteration()
     case (1, 0):
       UIApplication.shared.open(TaleAPI.shared.networkManager.createURL(fromSite: .main))
     case (1, 1):

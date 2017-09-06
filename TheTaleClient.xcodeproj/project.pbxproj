@@ -32,6 +32,7 @@
 		B5613D021F5D72720077AE16 /* Clan.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5613D011F5D72720077AE16 /* Clan.swift */; };
 		B5613D041F5D730A0077AE16 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5613D031F5D730A0077AE16 /* Place.swift */; };
 		B5613D061F5D73570077AE16 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5613D051F5D73570077AE16 /* Rating.swift */; };
+		B5613D081F5DB12B0077AE16 /* TaleAPIConfirmRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5613D071F5DB12B0077AE16 /* TaleAPIConfirmRegistration.swift */; };
 		B576AA401ED48CDE00DA3488 /* DiaryMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576AA3F1ED48CDE00DA3488 /* DiaryMessage.swift */; };
 		B576AA421ED6EA3B00DA3488 /* DiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576AA411ED6EA3B00DA3488 /* DiaryTableViewCell.swift */; };
 		B57BD1071F03007E0028C2B8 /* AccountInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57BD1061F03007E0028C2B8 /* AccountInformation.swift */; };
@@ -129,6 +130,7 @@
 		B5613D011F5D72720077AE16 /* Clan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clan.swift; sourceTree = "<group>"; };
 		B5613D031F5D730A0077AE16 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		B5613D051F5D73570077AE16 /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
+		B5613D071F5DB12B0077AE16 /* TaleAPIConfirmRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaleAPIConfirmRegistration.swift; sourceTree = "<group>"; };
 		B576AA3F1ED48CDE00DA3488 /* DiaryMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryMessage.swift; sourceTree = "<group>"; };
 		B576AA411ED6EA3B00DA3488 /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
 		B57BD1061F03007E0028C2B8 /* AccountInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountInformation.swift; sourceTree = "<group>"; };
@@ -394,7 +396,6 @@
 				B5498F831F5858A70018B056 /* MoreScreen */,
 				B5A8526F1EDF564F00EBAB75 /* TabBarViewController.swift */,
 			);
-			name = TabBar;
 			path = TabBar;
 			sourceTree = "<group>";
 		};
@@ -407,7 +408,6 @@
 				B5613CFB1F5D724E0077AE16 /* PlacesHistory.swift */,
 				B5613D051F5D73570077AE16 /* Rating.swift */,
 			);
-			name = AccountShow;
 			path = AccountShow;
 			sourceTree = "<group>";
 		};
@@ -728,6 +728,7 @@
 			isa = PBXGroup;
 			children = (
 				B5A2CBFE1EFE793F002872D9 /* TaleAPI.swift */,
+				B5613D071F5DB12B0077AE16 /* TaleAPIConfirmRegistration.swift */,
 				B5F5E5911F14D29200B69E01 /* TaleAPIAuthorisationState.swift */,
 				B5F5E5931F14D2C300B69E01 /* TaleAPIDiary.swift */,
 				B50ADF311F36041F00F80A30 /* TaleAPIGameInformation.swift */,
@@ -977,6 +978,7 @@
 				B5B635981EE3415600686B5C /* MapViewController.swift in Sources */,
 				B57CD1951EFFE3B3009FFC58 /* AuthorisationState.swift in Sources */,
 				B57CD1A31EFFE809009FFC58 /* Energy.swift in Sources */,
+				B5613D081F5DB12B0077AE16 /* TaleAPIConfirmRegistration.swift in Sources */,
 				B540D2801F0D276200229F6C /* MapCollectionViewLayout.swift in Sources */,
 				B52A342B1F03E79900171815 /* PlayerInformationManager.swift in Sources */,
 				B57CD1A71EFFE864009FFC58 /* Actor.swift in Sources */,

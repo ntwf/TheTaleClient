@@ -9,6 +9,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+  // MARK: - Delegate
   weak var segueHandlerDelegate: SegueHandlerDelegate?
   weak var authPathDelegate: AuthPathDelegate?
   
