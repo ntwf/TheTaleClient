@@ -40,7 +40,7 @@ class CardsInfo: NSObject {
         return $0.rarity < $1.rarity
       }
     })
-    
+
     self.helpCount   = helpCount
     self.helpBarrier = helpBarrier
     self.cardCount   = cards.count

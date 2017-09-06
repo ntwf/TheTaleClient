@@ -164,7 +164,7 @@ class CardViewController: UIViewController {
   @IBAction func mergeCardButtonTapped(_ sender: UIButton) {
     isHiddenGetCardButton = true
     activityIndicator.startAnimating()
-    
+
     let uidCards = selectedCards.map({ $0.key })
                                 .joined(separator: ",")
       

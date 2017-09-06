@@ -116,55 +116,35 @@ class HeroViewController: UIViewController {
     
     if keyPath == TaleAPI.NotificationKeyPath.quests, let newQuests = change?[.newKey] as? [Quest] {
       quests = newQuests
-      updateQuestsUI()
+      updateUITableSection(IndexSet(integer: 2))
     }
     
     if keyPath == TaleAPI.NotificationKeyPath.companion {
-      updateCompanionUI()
+      updateUITableSection(IndexSet(integer: 1))
     }
     
     if keyPath == TaleAPI.NotificationKeyPath.equipment, let newEquipment = change?[.newKey] as? [Artifact] {
       equipment = newEquipment
-      updateEquipmentUI()
+      updateUITableSection(IndexSet(integer: 3))
     }
     
     if keyPath == TaleAPI.NotificationKeyPath.bag, let newBag = change?[.newKey] as? [[Artifact: Int]] {
       bag = newBag
-      updateBagUI()
+      updateUITableSection(IndexSet(integer: 5))
     }
   }
 
   // MARK: - Work with interface
   func updateHeroUI() {
-    UIView.performWithoutAnimation {
-      tableView.reloadSections(IndexSet(integer: 0), with: .none)
-      
-      checkAvalibleDropItemBagButton()
-      tableView.reloadSections(IndexSet(integer: 4), with: .none)
-    }
-  }
-  
-  func updateCompanionUI() {
-    UIView.performWithoutAnimation {
-      tableView.reloadSections(IndexSet(integer: 1), with: .none)
-    }
+    updateUITableSection(IndexSet(integer: 9))
+    
+    checkAvalibleDropItemBagButton()
+    updateUITableSection(IndexSet(integer: 4))
   }
 
-  func updateQuestsUI() {
+  func updateUITableSection(_ section: IndexSet) {
     UIView.performWithoutAnimation {
-      tableView.reloadSections(IndexSet(integer: 2), with: .none)
-    }
-  }
-  
-  func updateEquipmentUI() {
-    UIView.performWithoutAnimation {
-      tableView.reloadSections(IndexSet(integer: 3), with: .none)
-    }
-  }
-  
-  func updateBagUI() {
-    UIView.performWithoutAnimation {
-      tableView.reloadSections(IndexSet(integer: 5), with: .none)
+      tableView.reloadSections(section, with: .none)
     }
   }
   

@@ -728,8 +728,8 @@
 			isa = PBXGroup;
 			children = (
 				B5A2CBFE1EFE793F002872D9 /* TaleAPI.swift */,
-				B5613D071F5DB12B0077AE16 /* TaleAPIConfirmRegistration.swift */,
 				B5F5E5911F14D29200B69E01 /* TaleAPIAuthorisationState.swift */,
+				B5613D071F5DB12B0077AE16 /* TaleAPIConfirmRegistration.swift */,
 				B5F5E5931F14D2C300B69E01 /* TaleAPIDiary.swift */,
 				B50ADF311F36041F00F80A30 /* TaleAPIGameInformation.swift */,
 				B5F5E58D1F14D22100B69E01 /* TaleAPILogin.swift */,

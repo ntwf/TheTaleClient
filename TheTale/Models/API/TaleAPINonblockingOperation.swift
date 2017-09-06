@@ -32,7 +32,10 @@ extension TaleAPI {
   }
 
   func tryMergeCard(uidCards: String, completionHandler: @escaping (APIResult<NonblockingOperationStatus>) -> Void) {
-    guard let request = networkManager.createRequest(fromAPI: .mergeCard) else {
+    var components: [String: String] = [:]
+    components["cards"] = uidCards
+    
+    guard let request = networkManager.createRequest(fromAPI: .mergeCard, urlParameters: components) else {
       return
     }
     
@@ -43,7 +46,7 @@ extension TaleAPI {
 
   func tryUseCard(uidCard: String, completionHandler: @escaping (APIResult<NonblockingOperationStatus>) -> Void) {
     var components: [String: String] = [:]
-    components["card"]        = uidCard
+    components["card"] = uidCard
     
     guard let request = networkManager.createRequest(fromAPI: .useCard, urlParameters: components) else {
       return

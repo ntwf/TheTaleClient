@@ -56,6 +56,7 @@ final class StartViewController: UIViewController, AuthPathDelegate {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
+    segmentedControl.selectedSegmentIndex = 0
     checkAuthorisation()
   }
   
