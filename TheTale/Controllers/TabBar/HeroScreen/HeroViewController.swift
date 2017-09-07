@@ -136,7 +136,7 @@ class HeroViewController: UIViewController {
 
   // MARK: - Work with interface
   func updateHeroUI() {
-    updateUITableSection(IndexSet(integer: 9))
+    updateUITableSection(IndexSet(integer: 0))
     
     checkAvalibleDropItemBagButton()
     updateUITableSection(IndexSet(integer: 4))
