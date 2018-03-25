@@ -84,7 +84,7 @@ class CardViewController: UIViewController {
     }
   }
 
-  func catchNotification(notification: Notification) {
+    @objc func catchNotification(notification: Notification) {
     guard let userInfo = notification.userInfo,
           let message  = userInfo[TaleAPI.UserInfoKey.nonblockingOperationAlarm] as? String else {
         return
@@ -108,7 +108,7 @@ class CardViewController: UIViewController {
     tableView.reloadData()
   }
 
-  func refreshData(sender: UIRefreshControl) {
+    @objc func refreshData(sender: UIRefreshControl) {
     TaleAPI.shared.playerInformationAutorefresh = .start
     refreshControl.endRefreshing()
   }

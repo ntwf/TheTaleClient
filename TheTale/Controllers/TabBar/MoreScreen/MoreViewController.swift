@@ -53,7 +53,7 @@ class MoreViewController: UIViewController {
     self.dismiss(animated: true, completion: nil)
   }
 
-  func checkRegistration(_ sender: UITextField) {
+    @objc func checkRegistration(_ sender: UITextField) {
     guard let loginTextField    = loginTextField,
           let emailTextField    = emailTextField,
           let passwordTextField = passwordTextField,

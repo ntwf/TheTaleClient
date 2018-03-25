@@ -9,30 +9,30 @@
 import Foundation
 
 class DiaryManager: NSObject {
-  
-  var oldDiary: [DiaryMessage]      = []
-  dynamic var diary: [DiaryMessage] = []
-  
-  private var recivedMessages: [DiaryMessage] = []
-  
-  func getNewMessages(jsonObject: JSON) {
-    var messages: [DiaryMessage] = []
     
-    guard let jsonMessages = jsonObject["messages"] as? [JSON] else {
-      return
-    }
+    var oldDiary: [DiaryMessage]      = []
+    @objc dynamic var diary: [DiaryMessage] = []
     
-    for jsonMessage in jsonMessages {
-      guard let message = DiaryMessage(jsonObject: jsonMessage) else {
-        return
-      }
-      messages.append(message)
+    private var recivedMessages: [DiaryMessage] = []
+    
+    func getNewMessages(jsonObject: JSON) {
+        var messages: [DiaryMessage] = []
+        
+        guard let jsonMessages = jsonObject["messages"] as? [JSON] else {
+            return
+        }
+        
+        for jsonMessage in jsonMessages {
+            guard let message = DiaryMessage(jsonObject: jsonMessage) else {
+                return
+            }
+            messages.append(message)
+        }
+        
+        let newMessages    = Set(messages).subtracting(Set(recivedMessages))
+        let sortedMessages = newMessages.sorted(by: { $0.timestamp < $1.timestamp })
+        
+        recivedMessages = messages
+        diary           = sortedMessages
     }
-
-    let newMessages    = Set(messages).subtracting(Set(recivedMessages))
-    let sortedMessages = newMessages.sorted(by: { $0.timestamp < $1.timestamp })
-
-    recivedMessages = messages
-    diary           = sortedMessages
-  }
 }

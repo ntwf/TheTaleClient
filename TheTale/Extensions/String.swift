@@ -9,17 +9,19 @@
 import UIKit
 
 extension String {
-  var capitalizeFirstLetter: String {
-    let firstLetter = String(characters.prefix(1)).uppercased()
-    let otherString = String(characters.dropFirst())
+    var capitalizeFirstLetter: String {
+        let firstLetter = String(prefix(1)).uppercased()
+        let otherString = String(dropFirst())
+        
+        return firstLetter + otherString
+    }
     
-    return firstLetter + otherString
-  }
-  
-  func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
-    let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-    let boundingBox    = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
-    
-    return boundingBox.height
-  }
+    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox    = self.boundingRect(with: constraintRect,
+                                               options: .usesLineFragmentOrigin,
+                                               attributes: [NSAttributedStringKey.font: font], context: nil)
+        
+        return boundingBox.height
+    }
 }
