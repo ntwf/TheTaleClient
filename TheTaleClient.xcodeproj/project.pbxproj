@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05C90A9980CD1569D998279B /* Pods_TheTaleClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD564ABC0FD317F231468EA /* Pods_TheTaleClient.framework */; };
 		B50ADF0C1F34C9DA00F80A30 /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50ADF0B1F34C9DA00F80A30 /* DiaryManager.swift */; };
 		B50ADF2E1F35E17700F80A30 /* GameInformationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50ADF2D1F35E17700F80A30 /* GameInformationManager.swift */; };
 		B50ADF321F36041F00F80A30 /* TaleAPIGameInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50ADF311F36041F00F80A30 /* TaleAPIGameInformation.swift */; };
@@ -53,7 +52,6 @@
 		B5847B021EBC9CFE00062F89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5847B001EBC9CFE00062F89 /* Main.storyboard */; };
 		B5847B041EBC9CFE00062F89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5847B031EBC9CFE00062F89 /* Assets.xcassets */; };
 		B5847B071EBC9CFE00062F89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5847B051EBC9CFE00062F89 /* LaunchScreen.storyboard */; };
-		B59323DD1ED881F8003AFDE1 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B59323DC1ED881F8003AFDE1 /* .swiftlint.yml */; };
 		B59323DF1EDB7E71003AFDE1 /* JournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59323DE1EDB7E71003AFDE1 /* JournalViewController.swift */; };
 		B594801D1F0EE07A003F957C /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594801C1F0EE07A003F957C /* Position.swift */; };
 		B594801F1F0FC471003F957C /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594801E1F0FC471003F957C /* Hero.swift */; };
@@ -103,8 +101,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		41A0989EE32E2FA777E6A4A6 /* Pods-TheTaleClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheTaleClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheTaleClient/Pods-TheTaleClient.release.xcconfig"; sourceTree = "<group>"; };
-		8FD564ABC0FD317F231468EA /* Pods_TheTaleClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheTaleClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B50ADF0B1F34C9DA00F80A30 /* DiaryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
 		B50ADF2D1F35E17700F80A30 /* GameInformationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInformationManager.swift; sourceTree = "<group>"; };
 		B50ADF311F36041F00F80A30 /* TaleAPIGameInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaleAPIGameInformation.swift; sourceTree = "<group>"; };
@@ -153,7 +149,6 @@
 		B5847B031EBC9CFE00062F89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5847B061EBC9CFE00062F89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B5847B081EBC9CFE00062F89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B59323DC1ED881F8003AFDE1 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		B59323DE1EDB7E71003AFDE1 /* JournalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalViewController.swift; sourceTree = "<group>"; };
 		B594801C1F0EE07A003F957C /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		B594801E1F0FC471003F957C /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
@@ -200,7 +195,6 @@
 		B5F5E59D1F14EAE000B69E01 /* DropBagItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropBagItemTableViewCell.swift; sourceTree = "<group>"; };
 		B5F7E5371F0EB7B600B1B5B7 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		B5F7EF0D1F1D3FAD0016BF67 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
-		FC2CDA625AD88A73DF78AFFD /* Pods-TheTaleClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheTaleClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheTaleClient/Pods-TheTaleClient.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,21 +202,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05C90A9980CD1569D998279B /* Pods_TheTaleClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3087C44B5894956278E15723 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8FD564ABC0FD317F231468EA /* Pods_TheTaleClient.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		B50ADF351F374E7C00F80A30 /* PlayerInformation */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,12 +479,9 @@
 		B5847AF01EBC9CFE00062F89 = {
 			isa = PBXGroup;
 			children = (
-				3087C44B5894956278E15723 /* Frameworks */,
-				EEB3A58EF452520641342592 /* Pods */,
 				B5847AFA1EBC9CFE00062F89 /* Products */,
 				B5847AFB1EBC9CFE00062F89 /* TheTale */,
 				B54A02A21F30BB01002EADE9 /* .gitignore */,
-				B59323DC1ED881F8003AFDE1 /* .swiftlint.yml */,
 				B51237781F30C5420094C0BE /* LICENSE.md */,
 			);
 			sourceTree = "<group>";
@@ -742,15 +724,6 @@
 			path = API;
 			sourceTree = "<group>";
 		};
-		EEB3A58EF452520641342592 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FC2CDA625AD88A73DF78AFFD /* Pods-TheTaleClient.debug.xcconfig */,
-				41A0989EE32E2FA777E6A4A6 /* Pods-TheTaleClient.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -758,12 +731,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5847B0B1EBC9CFE00062F89 /* Build configuration list for PBXNativeTarget "TheTaleClient" */;
 			buildPhases = (
-				354A7FE3F7C9B3A50CC1986A /* [CP] Check Pods Manifest.lock */,
 				B5847AF51EBC9CFE00062F89 /* Sources */,
 				B5847AF61EBC9CFE00062F89 /* Frameworks */,
 				B5847AF71EBC9CFE00062F89 /* Resources */,
-				6CB07C9264E73756144CC156 /* [CP] Embed Pods Frameworks */,
-				370DDA5EB28BBB44373066D3 /* [CP] Copy Pods Resources */,
 				B59F025D1ED87EA4009517C7 /* Swift lint */,
 			);
 			buildRules = (
@@ -821,7 +791,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5A2CBD51EFC1A7F002872D9 /* Types.plist in Resources */,
-				B59323DD1ED881F8003AFDE1 /* .swiftlint.yml in Resources */,
 				B5847B071EBC9CFE00062F89 /* LaunchScreen.storyboard in Resources */,
 				B5847B041EBC9CFE00062F89 /* Assets.xcassets in Resources */,
 				B54A02A31F30BB01002EADE9 /* .gitignore in Resources */,
@@ -832,51 +801,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		354A7FE3F7C9B3A50CC1986A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		370DDA5EB28BBB44373066D3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TheTaleClient/Pods-TheTaleClient-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6CB07C9264E73756144CC156 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TheTaleClient/Pods-TheTaleClient-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B59F025D1ED87EA4009517C7 /* Swift lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1109,7 +1033,6 @@
 		};
 		B5847B0C1EBC9CFE00062F89 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC2CDA625AD88A73DF78AFFD /* Pods-TheTaleClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 35J7AXFYQT;
@@ -1125,7 +1048,6 @@
 		};
 		B5847B0D1EBC9CFE00062F89 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41A0989EE32E2FA777E6A4A6 /* Pods-TheTaleClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 35J7AXFYQT;
